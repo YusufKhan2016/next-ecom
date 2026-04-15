@@ -9,7 +9,9 @@ export default function WebsiteLayout({
     return (
         <>
             <NavBar />
-                {children}
+                <main>    
+                    {children}
+                </main>
             <BottomBar />
         </>
     )
