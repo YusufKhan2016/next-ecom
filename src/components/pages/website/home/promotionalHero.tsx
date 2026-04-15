@@ -49,7 +49,6 @@ const slides = [
     ],
   },
 ]
-
 const sideAds = [
   {
     img: "https://images.pexels.com/photos/788946/pexels-photo-788946.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop",
@@ -64,7 +63,6 @@ const sideAds = [
     sub: "Free shipping this week only",
   },
 ]
-
 const features = [
   { icon: CreditCard,   label: "36 Months EMI" },
   { icon: Truck,        label: "Fastest Home Delivery" },
@@ -82,7 +80,6 @@ export default function PromotionalHero() {
     api.on("select", () => setCurrent(api.selectedScrollSnap()))
   }, [api])
 
-  // Auto-play
   useEffect(() => {
     if (!api) return
     const interval = setInterval(() => api.scrollNext(), 4000)
