@@ -167,168 +167,6 @@ const navItems: NavItem[] = [
       },
     ],
   },
-  {
-    category: "Clothing",
-    href: '#',
-    sub_categories: [
-      {
-        label: "Men",
-        child_categories: [
-              { label: "T-Shirts", href: "/men/tshirts" },
-              { label: "Shirts", href: "/men/shirts" },
-              { label: "Jeans", href: "/men/jeans" },
-              { label: "Trousers", href: "/men/trousers" },
-              { label: "Shorts", href: "/men/shorts" },
-        ],
-      },
-      {
-        label: "Women",
-        child_categories: [
-              { label: "Blouses", href: "/women/blouses" },
-              { label: "T-Shirts", href: "/women/tshirts" },
-              { label: "Knitwear", href: "/women/knitwear" },
-              { label: "Skirts", href: "/women/skirts" },
-              { label: "Jeans", href: "/women/jeans" },
-              { label: "Trousers", href: "/women/trousers" },
-        ],
-      },
-    ],
-  },
-  {
-    category: "Clothing",
-    href: '#',
-    sub_categories: [
-      {
-        label: "Men",
-        child_categories: [
-              { label: "T-Shirts", href: "/men/tshirts" },
-              { label: "Shirts", href: "/men/shirts" },
-              { label: "Jeans", href: "/men/jeans" },
-              { label: "Trousers", href: "/men/trousers" },
-              { label: "Shorts", href: "/men/shorts" },
-        ],
-      },
-      {
-        label: "Women",
-        child_categories: [
-              { label: "Blouses", href: "/women/blouses" },
-              { label: "T-Shirts", href: "/women/tshirts" },
-              { label: "Knitwear", href: "/women/knitwear" },
-              { label: "Skirts", href: "/women/skirts" },
-              { label: "Jeans", href: "/women/jeans" },
-              { label: "Trousers", href: "/women/trousers" },
-        ],
-      },
-    ],
-  },
-  {
-    category: "Clothing",
-    href: '#',
-    sub_categories: [
-      {
-        label: "Men",
-        child_categories: [
-              { label: "T-Shirts", href: "/men/tshirts" },
-              { label: "Shirts", href: "/men/shirts" },
-              { label: "Jeans", href: "/men/jeans" },
-              { label: "Trousers", href: "/men/trousers" },
-              { label: "Shorts", href: "/men/shorts" },
-        ],
-      },
-      {
-        label: "Women",
-        child_categories: [
-              { label: "Blouses", href: "/women/blouses" },
-              { label: "T-Shirts", href: "/women/tshirts" },
-              { label: "Knitwear", href: "/women/knitwear" },
-              { label: "Skirts", href: "/women/skirts" },
-              { label: "Jeans", href: "/women/jeans" },
-              { label: "Trousers", href: "/women/trousers" },
-        ],
-      },
-    ],
-  },
-  {
-    category: "Clothing",
-    href: '#',
-    sub_categories: [
-      {
-        label: "Men",
-        child_categories: [
-              { label: "T-Shirts", href: "/men/tshirts" },
-              { label: "Shirts", href: "/men/shirts" },
-              { label: "Jeans", href: "/men/jeans" },
-              { label: "Trousers", href: "/men/trousers" },
-              { label: "Shorts", href: "/men/shorts" },
-        ],
-      },
-      {
-        label: "Women",
-        child_categories: [
-              { label: "Blouses", href: "/women/blouses" },
-              { label: "T-Shirts", href: "/women/tshirts" },
-              { label: "Knitwear", href: "/women/knitwear" },
-              { label: "Skirts", href: "/women/skirts" },
-              { label: "Jeans", href: "/women/jeans" },
-              { label: "Trousers", href: "/women/trousers" },
-        ],
-      },
-    ],
-  },
-  {
-    category: "Clothing",
-    href: '#',
-    sub_categories: [
-      {
-        label: "Men",
-        child_categories: [
-              { label: "T-Shirts", href: "/men/tshirts" },
-              { label: "Shirts", href: "/men/shirts" },
-              { label: "Jeans", href: "/men/jeans" },
-              { label: "Trousers", href: "/men/trousers" },
-              { label: "Shorts", href: "/men/shorts" },
-        ],
-      },
-      {
-        label: "Women",
-        child_categories: [
-              { label: "Blouses", href: "/women/blouses" },
-              { label: "T-Shirts", href: "/women/tshirts" },
-              { label: "Knitwear", href: "/women/knitwear" },
-              { label: "Skirts", href: "/women/skirts" },
-              { label: "Jeans", href: "/women/jeans" },
-              { label: "Trousers", href: "/women/trousers" },
-        ],
-      },
-    ],
-  },
-  {
-    category: "Clothing",
-    href: '#',
-    sub_categories: [
-      {
-        label: "Men",
-        child_categories: [
-              { label: "T-Shirts", href: "/men/tshirts" },
-              { label: "Shirts", href: "/men/shirts" },
-              { label: "Jeans", href: "/men/jeans" },
-              { label: "Trousers", href: "/men/trousers" },
-              { label: "Shorts", href: "/men/shorts" },
-        ],
-      },
-      {
-        label: "Women",
-        child_categories: [
-              { label: "Blouses", href: "/women/blouses" },
-              { label: "T-Shirts", href: "/women/tshirts" },
-              { label: "Knitwear", href: "/women/knitwear" },
-              { label: "Skirts", href: "/women/skirts" },
-              { label: "Jeans", href: "/women/jeans" },
-              { label: "Trousers", href: "/women/trousers" },
-        ],
-      },
-    ],
-  },
 ]
 
 
@@ -339,11 +177,11 @@ export default function Navbar() {
     <header className="border-b">
       <div className="container mx-auto px-4">
 
-        <NavigationMenu>
-          <NavigationMenuList>
+        <NavigationMenu className="mt-2">
+          <NavigationMenuList className="min-w-screen">
 
-            <NavigationMenuItem>
-              <Input type="text"/>
+            <NavigationMenuItem className="min-w-full">
+              <Input type="text" className={"focus-visible:ring-0 border-2 border-solid h-10"} />
             </NavigationMenuItem>
 
           </NavigationMenuList>
