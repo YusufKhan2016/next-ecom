@@ -420,7 +420,7 @@ export default function Navbar() {
               placeholder="Search for products..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full h-10 pl-4 pr-10 bg-white border-gray-300 focus-visible:ring-1 focus-visible:ring-muted-foreground shadow-sm"
+              className="w-full h-10 pl-4 pr-10 bg-white border-gray-300 focus-visible:ring-1 focus-visible:border-amber-500 shadow-sm"
             />
             <Search className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" />
           </div>
@@ -429,17 +429,17 @@ export default function Navbar() {
 
             <Link
               href="/blogs"
-              className="flex items-center gap-2 h-10 px-3 rounded-md border border-input bg-white/30 text-sm text-gray-700 hover:text-amber-600 transition-colors"
+              className="flex items-center gap-2 h-10 px-3 font-semibold rounded-md border border-input bg-white/30 text-sm text-gray-700 hover:text-amber-600 transition-colors"
             >
-              <Newspaper className="w-4 h-4" />
+              <Newspaper strokeWidth={2.3} className="w-4 h-4" />
               <span className="hidden sm:inline">Blogs</span>
             </Link>
 
             <Link
               href="/compare"
-              className="flex items-center gap-2 h-10 px-3 rounded-md border border-input bg-white/30 text-sm text-gray-700 hover:text-amber-600 transition-colors"
+              className="flex items-center gap-2 h-10 px-3 font-semibold rounded-md border border-input bg-white/30 text-sm text-gray-700 hover:text-amber-600 transition-colors"
             >
-              <GitCompare className="w-4 h-4" />
+              <GitCompare strokeWidth={2.3} className="w-4 h-4" />
               <span className="hidden sm:inline">Compare</span>
             </Link>
 
@@ -458,9 +458,9 @@ export default function Navbar() {
 
             <Link
               href="/login"
-              className="flex items-center gap-2 h-10 px-3 rounded-md border border-input bg-white/30 text-sm text-gray-700 hover:text-amber-600 transition-colors"
+              className="flex items-center font-semibold gap-2 h-10 px-3 rounded-md border border-input bg-white/30 text-sm text-gray-700 hover:text-amber-600 transition-colors"
             >
-              <LogIn className="w-4 h-4" />
+              <LogIn strokeWidth={2.3} className="w-4 h-4" />
               <span className="hidden sm:inline">Login</span>
             </Link>
 
@@ -479,7 +479,7 @@ export default function Navbar() {
                 </NavigationMenuContent>
               </NavigationMenuItem>
             ))}
-          </NavigationMenuList>
+          </NavigationMenuList> 
         </NavigationMenu>
 
       </div>
