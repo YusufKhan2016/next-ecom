@@ -107,7 +107,8 @@ export default function FeaturedCategories() {
               <Image
                 src={category.image}
                 alt={category.label}
-                fill
+                height={500}
+                width={500}
                 className="object-cover group-hover:scale-110 transition-transform"
               />
             </div>

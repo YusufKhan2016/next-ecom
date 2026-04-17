@@ -10,8 +10,6 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
   type CarouselApi,
 } from "@/components/ui/carousel"
 
@@ -23,6 +21,7 @@ const products = [
     price: 169500,
     originalPrice: 175000,
     discount: 5500,
+    category: "topSelling",
   },
   {
     id: 2,
@@ -31,6 +30,7 @@ const products = [
     price: 133500,
     originalPrice: 175000,
     discount: 41500,
+    category: "bestDeals",
   },
   {
     id: 3,
@@ -39,6 +39,7 @@ const products = [
     price: 53500,
     originalPrice: null,
     discount: 0,
+    category: "topSelling",
   },
   {
     id: 4,
@@ -47,6 +48,7 @@ const products = [
     price: 43000,
     originalPrice: null,
     discount: 0,
+    category: "budget",
   },
   {
     id: 5,
@@ -55,6 +57,7 @@ const products = [
     price: 26000, 
     originalPrice: null,
     discount: 0,
+    category: "budget",
   },
   {
     id: 6,
@@ -63,11 +66,20 @@ const products = [
     price: 59999,
     originalPrice: 65000,
     discount: 5001,
+    category: "bestDeals",
   },
 ]
 
-export default function NewTrends() {
+const categories = [
+  { id: "all", label: "All Products" },
+  { id: "bestDeals", label: "Best Deals" },
+  { id: "topSelling", label: "Top Selling" },
+  { id: "budget", label: "Budget" },
+]
+
+export default function FeaturedProducts() {
   const [api, setApi] = useState<CarouselApi>()
+  const [selectedCategory, setSelectedCategory] = useState("all")
 
   useEffect(() => {
     const data = api?.scrollProgress;
@@ -76,10 +88,10 @@ export default function NewTrends() {
 
   return (
     <section className="pt-8 container mx-auto px-30">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between mb-8">
         
         <h2 className="text-4xl font-bold">
-          New <span className="text-orange-500">Trends</span>
+          Featured <span className="text-orange-500">Products</span>
         </h2>
 
         <div className="flex gap-2">
@@ -100,11 +112,29 @@ export default function NewTrends() {
 
       </div>
 
+      <div className="mb-6 flex gap-3 flex-wrap sticky top-10">
+        {categories.map((category) => (
+          <button
+            key={category.id}
+            onClick={() => setSelectedCategory(category.id)}
+            className={`px-4 py-1 shadow-md shadow-amber-50 text-sm rounded-full font-medium transition-colors duration-300 ${
+              selectedCategory === category.id
+                ? "bg-amber-600 text-amber-50"
+                : "bg-amber-50 text-amber-600 border border-solid border-amber-500 hover:bg-amber-100"
+            }`}
+          >
+            {category.label}
+          </button>
+        ))}
+      </div>
+
       <Carousel setApi={setApi}>
         <CarouselContent >
-          {products.map((product) => (
+          {products
+            .filter((product) => selectedCategory === "all" || product.category === selectedCategory)
+            .map((product) => (
             <CarouselItem key={product.id} className="basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/4 2xl:basis-1/5 py-8">
-              <Card className="overflow-hidden h-full transition-shadow">
+              <Card className="overflow-hidden shadow-lg h-full transition-shadow">
                 <Link href={`/products/${product.id}`} className="block">
                   <div className="relative overflow-hidden bg-muted">
                     <Image

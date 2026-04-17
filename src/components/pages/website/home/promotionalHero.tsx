@@ -23,7 +23,7 @@ const slides = [
     tag: "Exclusive deal",
     title: "Premium Air Fryers\nup to 40% off",
     sub: "Cook faster, eat healthier. Free delivery on orders over ৳3,000.",
-    img: "https://images.pexels.com/photos/1342529/pexels-photo-1342529.jpeg?auto=compress&cs=tinysrgb&w=400&h=480&fit=crop",
+    img: "https://images.pexels.com/photos/1342529/pexels-photo-1342529.jpeg",
     badges: [
       { icon: ShieldCheck, label: "2-year warranty" },
       { icon: CreditCard, label: "36-month EMI" },
@@ -33,7 +33,7 @@ const slides = [
     tag: "New arrivals",
     title: "Laptops & Tablets\nstarting ৳35,000",
     sub: "Top brands. Fast processors. Student & business bundles available.",
-    img: "https://images.pexels.com/photos/356056/pexels-photo-356056.jpeg?auto=compress&cs=tinysrgb&w=400&h=480&fit=crop",
+    img: "https://images.pexels.com/photos/356056/pexels-photo-356056.jpeg",
     badges: [
       { icon: ShieldCheck, label: "Free accessories" },
       { icon: RefreshCw, label: "Easy returns" },
@@ -43,7 +43,7 @@ const slides = [
     tag: "Flash sale",
     title: "Latest Smartphones\nbest prices guaranteed",
     sub: "iPhone, Samsung, OnePlus & more. Trade-in available on select models.",
-    img: "https://images.pexels.com/photos/1183266/pexels-photo-1183266.jpeg?auto=compress&cs=tinysrgb&w=400&h=480&fit=crop",
+    img: "https://images.pexels.com/photos/1183266/pexels-photo-1183266.jpeg",
     badges: [
       { icon: Truck, label: "24-hr delivery" },
       { icon: ArrowLeftRight, label: "Trade-in accepted" },
@@ -52,13 +52,13 @@ const slides = [
 ]
 const sideAds = [
   {
-    img: "https://images.pexels.com/photos/788946/pexels-photo-788946.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop",
+    img: "https://images.pexels.com/photos/788946/pexels-photo-788946.jpeg",
     label: "Apple authorised",
     title: "iPhone repair & service",
     sub: "09678-149 149",
   },
   {
-    img: "https://images.pexels.com/photos/4226805/pexels-photo-4226805.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop",
+    img: "https://images.pexels.com/photos/4226805/pexels-photo-4226805.jpeg",
     label: "5-year motor warranty",
     title: "Mixer grinders from ৳4,200",
     sub: "Free shipping this week only",
@@ -91,19 +91,22 @@ export default function PromotionalHero() {
     <section className="py-6 container mx-auto px-30">
       <div className="grid grid-cols-[1fr_380px] gap-3 mb-3">
 
-        <Card className="overflow-hidden">
+        <Card className="overflow-hidden shadow-2xl">
           <Carousel setApi={setApi} className="rounded-xl overflow-hidden bg-muted">
             <CarouselContent>
               {slides.map((slide, idx) => (
                 <CarouselItem key={idx}>
                   <div className="flex items-center gap-6 p-4 h-85">
-                    <Image
-                      src={slide.img}
-                      alt={slide.title}
-                      width={200}
-                      height={240}
-                      className="rounded-lg object-cover h-full w-50 shrink-0"
-                    />
+                    <div className="relative w-50 h-full shrink-0">
+                      <Image
+                        src={slide.img}
+                        alt={slide.title}
+                        fill
+                        sizes="200px"
+                        className="rounded-lg object-cover"
+                      />
+                    </div>
+                    
                     <div className="flex-1">
                       <Badge variant="secondary" className="mb-3 text-amber-700 bg-amber-100 border-0">
                         {slide.tag}
@@ -136,10 +139,7 @@ export default function PromotionalHero() {
                 </CarouselItem>
               ))}
             </CarouselContent>
-
-            <CarouselPrevious className="left-1" />
-            <CarouselNext className="right-1" />
-
+            
             <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5">
               {slides.map((_, i) => (
                 <button
@@ -157,7 +157,14 @@ export default function PromotionalHero() {
         <div className="flex flex-col gap-4 overflow-hidden">
           {sideAds.map((ad, i) => (
             <Card key={i} className="relative rounded-xl overflow-hidden h-40.5">
-              <Image src={ad.img} alt={ad.title} fill className="object-cover" />
+              <Image 
+                src={ad.img} 
+                alt={ad.title}
+                height={500}
+                width={500}
+                className="object-cover"
+              />
+
               <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent" />
               <div className="absolute bottom-0 left-0 right-0 p-3">
                 <p className="text-[10px] text-white/70 mb-0.5">{ad.label}</p>
