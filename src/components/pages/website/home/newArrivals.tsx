@@ -12,70 +12,9 @@ import {
   CarouselItem,
   type CarouselApi,
 } from "@/components/ui/carousel"
+import { categories } from "@/staticsDatas/categories"
+import { products } from "@/staticsDatas/products"
 
-const products = [
-  {
-    id: 1,
-    name: "iPhone 17 Pro Max",
-    image: "https://images.pexels.com/photos/788946/pexels-photo-788946.jpeg?auto=compress&cs=tinysrgb&w=400&h=500&fit=crop",
-    price: 169500,
-    originalPrice: 175000,
-    discount: 5500,
-    category: "topSelling",
-  },
-  {
-    id: 2,
-    name: "Galaxy S26 Ultra 5G",
-    image: "https://images.pexels.com/photos/1334597/pexels-photo-1334597.jpeg?auto=compress&cs=tinysrgb&w=400&h=500&fit=crop",
-    price: 133500,
-    originalPrice: 175000,
-    discount: 41500,
-    category: "bestDeals",
-  },
-  {
-    id: 3,
-    name: "Galaxy A57 5G",
-    image: "https://images.pexels.com/photos/1183266/pexels-photo-1183266.jpeg?auto=compress&cs=tinysrgb&w=400&h=500&fit=crop",
-    price: 53500,
-    originalPrice: null,
-    discount: 0,
-    category: "topSelling",
-  },
-  {
-    id: 4,
-    name: "Galaxy A37 5G",
-    image: "https://images.pexels.com/photos/788946/pexels-photo-788946.jpeg?auto=compress&cs=tinysrgb&w=400&h=500&fit=crop",
-    price: 43000,
-    originalPrice: null,
-    discount: 0,
-    category: "budget",
-  },
-  {
-    id: 5,
-    name: "Redmi Pad 2",
-    image: "https://images.pexels.com/photos/356056/pexels-photo-356056.jpeg?auto=compress&cs=tinysrgb&w=400&h=500&fit=crop",
-    price: 26000, 
-    originalPrice: null,
-    discount: 0,
-    category: "budget",
-  },
-  {
-    id: 6,
-    name: "OnePlus 13",
-    image: "https://images.pexels.com/photos/3587620/pexels-photo-3587620.jpeg?auto=compress&cs=tinysrgb&w=400&h=500&fit=crop",
-    price: 59999,
-    originalPrice: 65000,
-    discount: 5001,
-    category: "bestDeals",
-  },
-]
-
-const categories = [
-  { id: "all", label: "All Products" },
-  { id: "bestDeals", label: "Best Deals" },
-  { id: "topSelling", label: "Top Selling" },
-  { id: "budget", label: "Budget" },
-]
 
 export default function NewArrivals() {
   const [api, setApi] = useState<CarouselApi>()

@@ -12,10 +12,12 @@ import {
   CarouselItem,
   type CarouselApi,
 } from "@/components/ui/carousel"
+
 import { categories } from "@/staticsDatas/categories"
 import { products } from "@/staticsDatas/products"
 
-export default function FeaturedProducts() {
+
+export default function TopBrands() {
   const [api, setApi] = useState<CarouselApi>()
   const [selectedCategory, setSelectedCategory] = useState("all")
 
@@ -29,7 +31,7 @@ export default function FeaturedProducts() {
       <div className="flex items-center justify-between mb-8">
         
         <h2 className="text-4xl font-bold">
-          Featured <span className="text-orange-500">Products</span>
+          Top <span className="text-orange-500">Brands</span>
         </h2>
 
         <div className="flex gap-2">

@@ -16,57 +16,7 @@ import {
 } from "@/components/ui/carousel"
 
 import acGreatDeal from "@/assets/home/ac-mid-great-deal.webp"
-
-const products = [
-  {
-    id: 1,
-    name: "iPhone 17 Pro Max",
-    image: "https://images.pexels.com/photos/788946/pexels-photo-788946.jpeg?auto=compress&cs=tinysrgb&w=400&h=500&fit=crop",
-    price: 169500,
-    originalPrice: 175000,
-    discount: 5500,
-  },
-  {
-    id: 2,
-    name: "Galaxy S26 Ultra 5G",
-    image: "https://images.pexels.com/photos/1334597/pexels-photo-1334597.jpeg?auto=compress&cs=tinysrgb&w=400&h=500&fit=crop",
-    price: 133500,
-    originalPrice: 175000,
-    discount: 41500,
-  },
-  {
-    id: 3,
-    name: "Galaxy A57 5G",
-    image: "https://images.pexels.com/photos/1183266/pexels-photo-1183266.jpeg?auto=compress&cs=tinysrgb&w=400&h=500&fit=crop",
-    price: 53500,
-    originalPrice: null,
-    discount: 0,
-  },
-  {
-    id: 4,
-    name: "Galaxy A37 5G",
-    image: "https://images.pexels.com/photos/788946/pexels-photo-788946.jpeg?auto=compress&cs=tinysrgb&w=400&h=500&fit=crop",
-    price: 43000,
-    originalPrice: null,
-    discount: 0,
-  },
-  {
-    id: 5,
-    name: "Redmi Pad 2",
-    image: "https://images.pexels.com/photos/356056/pexels-photo-356056.jpeg?auto=compress&cs=tinysrgb&w=400&h=500&fit=crop",
-    price: 26000, 
-    originalPrice: null,
-    discount: 0,
-  },
-  {
-    id: 6,
-    name: "OnePlus 13",
-    image: "https://images.pexels.com/photos/3587620/pexels-photo-3587620.jpeg?auto=compress&cs=tinysrgb&w=400&h=500&fit=crop",
-    price: 59999,
-    originalPrice: 65000,
-    discount: 5001,
-  },
-]
+import { products } from "@/staticsDatas/products"
 
 export default function GreatDeals() {
   const [api, setApi] = useState<CarouselApi>()
@@ -78,7 +28,7 @@ export default function GreatDeals() {
 
   return (
     <section className="pt-8 container mx-auto px-30">
-      
+
       <div>
         <Image
           src={acGreatDeal}
