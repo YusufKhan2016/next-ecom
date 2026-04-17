@@ -112,8 +112,9 @@ export default function FeaturedProducts() {
 
       </div>
 
-      <div className="mb-6 flex gap-3 flex-wrap sticky top-10">
+      <div className="flex gap-3 flex-wrap sticky top-10">
         {categories.map((category) => (
+
           <button
             key={category.id}
             onClick={() => setSelectedCategory(category.id)}
@@ -125,6 +126,7 @@ export default function FeaturedProducts() {
           >
             {category.label}
           </button>
+
         ))}
       </div>
 
@@ -133,44 +135,46 @@ export default function FeaturedProducts() {
           {products
             .filter((product) => selectedCategory === "all" || product.category === selectedCategory)
             .map((product) => (
-            <CarouselItem key={product.id} className="basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/4 2xl:basis-1/5 py-8">
-              <Card className="overflow-hidden shadow-lg h-full transition-shadow">
-                <Link href={`/products/${product.id}`} className="block">
-                  <div className="relative overflow-hidden bg-muted">
-                    <Image
-                      src={product.image}
-                      alt={product.name}
-                      width={300}
-                      height={380}
-                      className="w-full h-60 object-cover scale-105 transition-transform"
-                    />
-                  </div>
-                </Link>
 
-                <CardContent className="p-2 my-2 flex flex-col gap-2 h-full">
-                  <h3 className="font-medium text-sm line-clamp-2">
-                    {product.name}
-                  </h3>
+              <CarouselItem key={product.id} className="basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/4 2xl:basis-1/5 py-8">
+                <Card className="overflow-hidden shadow-lg h-full transition-shadow">
+                  <Link href={`/products/${product.id}`} className="block">
+                    <div className="relative overflow-hidden bg-muted">
+                      <Image
+                        src={product.image}
+                        alt={product.name}
+                        width={300}
+                        height={380}
+                        className="w-full h-60 object-cover scale-105 transition-transform"
+                      />
+                    </div>
+                  </Link>
 
-                  <div className="flex items-baseline gap-2">
-                    <span className="text-lg font-bold">
-                      ৳ {product.price.toLocaleString()}
-                    </span>
-                    {product.originalPrice && (
-                      <span className="text-xs text-muted-foreground line-through">
-                        ৳ {product.originalPrice.toLocaleString()}
+                  <CardContent className="p-2 my-2 flex flex-col gap-2 h-full">
+                    <h3 className="font-medium text-sm line-clamp-2">
+                      {product.name}
+                    </h3>
+
+                    <div className="flex items-baseline gap-2">
+                      <span className="text-lg font-bold">
+                        ৳ {product.price.toLocaleString()}
                       </span>
-                    )}
-                  </div>
+                      {product.originalPrice && (
+                        <span className="text-xs text-muted-foreground line-through">
+                          ৳ {product.originalPrice.toLocaleString()}
+                        </span>
+                      )}
+                    </div>
 
-                  {product.discount > 0 && (
-                    <Badge className="bg-green-100 text-green-700 hover:bg-green-100 border-0">
-                      ৳ {product.discount.toLocaleString()} OFF
-                    </Badge>
-                  )}
-                </CardContent>
-              </Card>
-            </CarouselItem>
+                    {product.discount > 0 && (
+                      <Badge className="bg-green-100 text-green-700 hover:bg-green-100 border-0">
+                        ৳ {product.discount.toLocaleString()} OFF
+                      </Badge>
+                    )}
+                  </CardContent>
+                </Card>
+              </CarouselItem>
+              
           ))}
         </CarouselContent>
       </Carousel>
