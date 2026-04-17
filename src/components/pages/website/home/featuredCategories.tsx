@@ -48,7 +48,7 @@ const categories = [
   {
     id: "smart-watch",
     label: "Smart Watch",
-    image: "https://images.pexels.com/photos/312545/pexels-photo-312545.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&fit=crop",
+    image: "https://images.pexels.com/photos/7974/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=400&h=400&fit=crop",
   },
   {
     id: "speakers",
@@ -78,12 +78,12 @@ const categories = [
   {
     id: "wireless-charger",
     label: "Wireless Charger",
-    image: "https://images.pexels.com/photos/2248480/pexels-photo-2248480.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&fit=crop",
+    image: "https://images.pexels.com/photos/3945683/pexels-photo-3945683.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&fit=crop",
   },
   {
     id: "smart-pen",
     label: "Smart Pen",
-    image: "https://images.pexels.com/photos/27402/pexels-photo-27402.jpg?auto=compress&cs=tinysrgb&w=400&h=400&fit=crop",
+    image: "https://images.pexels.com/photos/3945683/pexels-photo-3945683.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&fit=crop",
   },
 ]
 
