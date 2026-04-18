@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/carousel"
 import { categories } from "@/staticsDatas/categories"
 import { products } from "@/staticsDatas/products"
+import { Button } from "@/components/ui/button"
 
 export default function FeaturedProducts() {
   const [api, setApi] = useState<CarouselApi>()
@@ -53,7 +54,7 @@ export default function FeaturedProducts() {
       <div className="flex gap-3 flex-wrap sticky top-10">
         {categories.map((category) => (
 
-          <button
+          <Button
             key={category.id}
             onClick={() => setSelectedCategory(category.id)}
             className={`px-4 py-1 shadow-md shadow-amber-50 text-sm rounded-full font-medium transition-colors duration-300 ${
@@ -63,7 +64,7 @@ export default function FeaturedProducts() {
             }`}
           >
             {category.label}
-          </button>
+          </Button>
 
         ))}
       </div>

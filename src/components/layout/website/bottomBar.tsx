@@ -54,7 +54,7 @@ export default function BottomBar() {
             style={{
               fontSize: "clamp(40px, 8vw, 60px)",
               textShadow:
-                "0 0 18px rgba(217,119,6,0.6), 0 0 40px rgba(217,119,6,0.35), 0 0 80px rgba(217,119,6,0.18)",
+                "0 0 rgba(217,119,6,0.6), 0 0 40px rgba(217,119,6,0.35), 0 0 80px rgba(217,119,6,0.18)",
             }}
           >
             NEXT com

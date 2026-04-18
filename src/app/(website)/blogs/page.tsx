@@ -9,90 +9,8 @@ import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card"
 
-// Mock blog data with Pexels images
-const blogPosts = [
-  {
-    id: 1,
-    title: "Getting Started with Next.js 15",
-    excerpt: "Learn the basics of Next.js and how to build your first modern web application with server-side rendering.",
-    category: "Technology",
-    date: "March 15, 2024",
-    readTime: "8 min read",
-    image: "https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&w=600",
-  },
-  {
-    id: 2,
-    title: "E-commerce Design Best Practices",
-    excerpt: "Discover essential design principles for creating user-friendly e-commerce platforms that convert visitors into customers.",
-    category: "Design",
-    date: "March 12, 2024",
-    readTime: "6 min read",
-    image: "https://images.pexels.com/photos/3962286/pexels-photo-3962286.jpeg?auto=compress&cs=tinysrgb&w=600",
-  },
-  {
-    id: 3,
-    title: "Tailwind CSS Tips and Tricks",
-    excerpt: "Master CSS-in-the-markup with Tailwind. Learn advanced techniques to speed up your development workflow.",
-    category: "Development",
-    date: "March 10, 2024",
-    readTime: "7 min read",
-    image: "https://images.pexels.com/photos/3945683/pexels-photo-3945683.jpeg?auto=compress&cs=tinysrgb&w=600",
-  },
-  {
-    id: 4,
-    title: "Understanding React Hooks",
-    excerpt: "Deep dive into React Hooks and learn how to manage state and side effects in functional components.",
-    category: "Technology",
-    date: "March 8, 2024",
-    readTime: "10 min read",
-    image: "https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&w=600",
-  },
-  {
-    id: 5,
-    title: "Building Accessible Web Applications",
-    excerpt: "Create inclusive digital experiences by implementing accessibility best practices in your web projects.",
-    category: "Accessibility",
-    date: "March 5, 2024",
-    readTime: "9 min read",
-    image: "https://images.pexels.com/photos/3962286/pexels-photo-3962286.jpeg?auto=compress&cs=tinysrgb&w=600",
-  },
-  {
-    id: 6,
-    title: "Performance Optimization Strategies",
-    excerpt: "Boost your website performance with proven optimization techniques and tools.",
-    category: "Development",
-    date: "March 1, 2024",
-    readTime: "11 min read",
-    image: "https://images.pexels.com/photos/3945683/pexels-photo-3945683.jpeg?auto=compress&cs=tinysrgb&w=600",
-  },
-  {
-    id: 7,
-    title: "Web Design Trends 2024",
-    excerpt: "Explore the latest design trends that are shaping the future of web and digital experiences.",
-    category: "Design",
-    date: "February 28, 2024",
-    readTime: "5 min read",
-    image: "https://images.pexels.com/photos/3945683/pexels-photo-3945683.jpeg?auto=compress&cs=tinysrgb&w=600",
-  },
-  {
-    id: 8,
-    title: "SEO Secrets for E-commerce",
-    excerpt: "Optimize your online store for search engines and drive organic traffic to boost sales.",
-    category: "Marketing",
-    date: "February 25, 2024",
-    readTime: "8 min read",
-    image: "https://images.pexels.com/photos/3962286/pexels-photo-3962286.jpeg?auto=compress&cs=tinysrgb&w=600",
-  },
-]
-
-const categories = [
-  "All",
-  "Technology",
-  "Design",
-  "Development",
-  "Accessibility",
-  "Marketing",
-]
+import { blogPosts } from "@/staticsDatas/blogs"
+import { blogCategories } from "@/staticsDatas/categories"
 
 export default function Blogs() {
   const [searchQuery, setSearchQuery] = useState("")
@@ -113,13 +31,10 @@ export default function Blogs() {
   }, [searchQuery, selectedCategory])
 
   return (
-    <div className="bg-background mx-auto min-h-screen">
-
+    <section className="bg-background mx-auto min-h-screen">
       <section className="container px-30 mx-auto">
-        
-        {/* Hero Section */}
-        <section className="relative py-16 md:py-24 overflow-hidden">
-          {/* Decorative background elements */}
+        <section className="relative py-4">
+
           <div
             className="absolute top-0 -left-20 w-72 h-72 rounded-full pointer-events-none"
             style={{ background: "radial-gradient(circle, rgba(217,119,6,0.08) 0%, transparent 70%)" }}
@@ -142,23 +57,23 @@ export default function Blogs() {
 
             {/* Search Bar */}
             <div className="relative">
-              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-amber-500 w-5 h-5" />
+              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-amber-500 w-5 h-5 z-50" />
               <Input
                 type="text"
                 placeholder="Search articles..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-12 py-6 text-base border-amber-500/30 focus:border-amber-500 bg-background/50 backdrop-blur-sm"
+                className="pl-12 py-6 text-base focus-visible:ring-1 focus-visible:border-amber-500 shadow-sm"
               />
             </div>
           </div>
         </section>
 
         {/* Category Filter Section */}
-        <section className="sticky top-0 z-20 bg-background/90 backdrop-blur-sm border-b border-amber-500/10 py-4">
+        <section className="sticky top-0 z-20 bg-background/90 backdrop-blur-sm border-b border-amber-500/10 pb-4">
           <div className="mx-auto ">
             <div className="flex flex-wrap gap-2">
-              {categories.map((category) => (
+              {blogCategories.map((category) => (
                 <Button
                   key={category}
                   onClick={() => setSelectedCategory(category)}
@@ -206,14 +121,14 @@ export default function Blogs() {
                           </Badge>
                         </div>
 
-                        <CardTitle className="text-xl font-bold text-foreground group-hover:text-amber-500 transition-colors line-clamp-2">
+                        <CardTitle className="text-xl font-bold text-foreground transition-colors line-clamp-2">
                           {blog.title}
                         </CardTitle>
                       </CardHeader>
 
                       <CardContent className="space-y-4">
                         {/* Excerpt */}
-                        <CardDescription className="text-muted-foreground line-clamp-3">
+                        <CardDescription className="text-muted-foreground line-clamp-2">
                           {blog.excerpt}
                         </CardDescription>
 
@@ -280,6 +195,6 @@ export default function Blogs() {
           </div>
         </div>
       </section>
-    </div>
+    </section>
   )
 }
