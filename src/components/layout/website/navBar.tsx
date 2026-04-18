@@ -403,7 +403,7 @@ export default function Navbar() {
   const [searchQuery, setSearchQuery] = useState("")
 
   return (
-    <header className="sticky top-0 z-50 bg-primary-foreground border-b shadow-sm">
+    <header className="sticky top-0 z-50 bg-primary-foreground border-b shadow-sm shadow-amber-500">
       <div className="container mx-auto px-30 py-2">
 
         <div className="flex items-center gap-10">

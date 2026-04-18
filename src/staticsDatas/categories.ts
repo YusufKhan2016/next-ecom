@@ -87,3 +87,12 @@ export const extendedCategories = [
     image: "https://images.pexels.com/photos/3945683/pexels-photo-3945683.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&fit=crop",
   },
 ]
+
+export const blogCategories = [
+  "All",
+  "Technology",
+  "Design",
+  "Development",
+  "Accessibility",
+  "Marketing",
+]

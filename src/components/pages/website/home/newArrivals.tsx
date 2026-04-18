@@ -84,6 +84,7 @@ export default function NewArrivals() {
                         alt={product.name}
                         width={300}
                         height={380}
+                        loading="eager"
                         className="w-full h-60 object-cover scale-105 transition-transform"
                       />
                     </div>

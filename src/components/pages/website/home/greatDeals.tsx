@@ -35,6 +35,7 @@ export default function GreatDeals() {
           alt="Great Deals"
           width={1200}
           height={300}
+          loading="eager"
           className="rounded-lg mb-6"
         />
       </div>
@@ -75,6 +76,7 @@ export default function GreatDeals() {
                       alt={product.name}
                       width={300}
                       height={380}
+                      loading="eager"
                       className="w-full h-60 object-cover scale-105 transition-transform"
                     />
                   </div>

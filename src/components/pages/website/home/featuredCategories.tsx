@@ -29,6 +29,7 @@ export default function FeaturedCategories() {
                 alt={category.label}
                 height={500}
                 width={500}
+                loading="eager"
                 className="object-cover group-hover:scale-110 transition-transform"
               />
             </div>

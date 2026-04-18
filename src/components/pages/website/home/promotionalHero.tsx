@@ -102,6 +102,7 @@ export default function PromotionalHero() {
                         src={slide.img}
                         alt={slide.title}
                         fill
+                        loading="eager"
                         sizes="200px"
                         className="rounded-lg object-cover"
                       />
@@ -162,6 +163,7 @@ export default function PromotionalHero() {
                 alt={ad.title}
                 height={500}
                 width={500}
+                loading="eager"
                 className="object-cover"
               />
 
