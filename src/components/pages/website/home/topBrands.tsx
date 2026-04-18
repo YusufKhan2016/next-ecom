@@ -15,6 +15,7 @@ import {
 
 import { categories } from "@/staticsDatas/categories"
 import { products } from "@/staticsDatas/products"
+import { Button } from "@/components/ui/button"
 
 
 export default function TopBrands() {
@@ -53,19 +54,20 @@ export default function TopBrands() {
       </div>
 
       <div className="flex gap-3 flex-wrap sticky top-10">
-        {categories.map((category) => (
+        {categories.map((category, idx) => (
 
-          <button
-            key={category.id}
+          <Button
+            key={idx}
             onClick={() => setSelectedCategory(category.id)}
-            className={`px-4 py-1 shadow-md shadow-amber-50 text-sm rounded-full font-medium transition-colors duration-300 ${
+            variant={selectedCategory === category.id ? "default" : "outline"}
+            className={`rounded-full transition-all ${
               selectedCategory === category.id
-                ? "bg-amber-600 text-amber-50"
-                : "bg-amber-50 text-amber-600 border border-solid border-amber-500 hover:bg-amber-100"
+                ? "bg-amber-500 hover:bg-amber-600 text-white"
+                : "border-amber-500/30 text-foreground hover:border-amber-500 hover:bg-amber-500/10"
             }`}
           >
             {category.label}
-          </button>
+          </Button>
 
         ))}
       </div>
