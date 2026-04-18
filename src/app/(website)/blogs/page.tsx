@@ -92,7 +92,7 @@ export default function Blogs() {
         </section>
 
         {/* Blog Posts Grid */}
-        <section className="py-16 md:py-24">
+        <section className="py-12">
           <div className="mx-auto ">
             {filteredBlogs.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
