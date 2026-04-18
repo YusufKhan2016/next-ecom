@@ -2,6 +2,7 @@
 
 import Link from "next/link"
 import { Mail, MapPin, Phone, ArrowRight } from "lucide-react"
+import { Input } from "@/components/ui/input"
 
 export default function BottomBar() {
   return (
@@ -30,10 +31,10 @@ export default function BottomBar() {
               </p>
             </div>
             <div className="flex gap-2">
-              <input
+              <Input
                 type="email"
                 placeholder="Enter your email..."
-                className="flex-1 bg-white/5 border border-amber-600/30 rounded-lg px-4 py-2.5 text-sm text-white placeholder:text-zinc-600 outline-none focus:border-amber-600/70 transition-colors"
+                className="flex-1 h-full bg-white/5 border border-amber-600/30 rounded-lg px-4 py-2.5 text-sm text-white placeholder:text-zinc-600 outline-none focus:border-amber-600/70 transition-colors"
               />
               <button className="bg-amber-600 hover:bg-amber-700 transition-colors text-white text-sm font-medium px-4 py-2.5 rounded-lg flex items-center gap-2 shrink-0 cursor-pointer">
                 Subscribe
