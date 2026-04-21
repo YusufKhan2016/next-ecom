@@ -16,7 +16,7 @@ export default function Blogs() {
   const [searchQuery, setSearchQuery] = useState("")
   const [selectedCategory, setSelectedCategory] = useState("All")
 
-  // Filter blogs based on search and category
+  // Filter blogs based on search and categoryf
   const filteredBlogs = useMemo(() => {
     return blogPosts.filter((blog) => {
       const matchesSearch =
@@ -105,9 +105,10 @@ export default function Blogs() {
                           src={blog.image}
                           alt={blog.title}
                           fill
+                          sizes="200px"
                           className="object-cover group-hover:scale-105 transition-transform duration-300"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-background/40 to-transparent" />
+                        <div className="absolute inset-0 bg-linear-to-t from-background/40 to-transparent" />
                       </div>
 
                       <CardHeader className="pb-3">
@@ -127,12 +128,12 @@ export default function Blogs() {
                       </CardHeader>
 
                       <CardContent className="space-y-4">
-                        {/* Excerpt */}
+                        
                         <CardDescription className="text-muted-foreground line-clamp-2">
                           {blog.excerpt}
                         </CardDescription>
 
-                        {/* Meta Information */}
+                        
                         <div className="flex flex-wrap gap-4 text-xs text-muted-foreground pt-4 border-t border-amber-500/10">
                           <div className="flex items-center gap-1.5">
                             <Calendar className="w-4 h-4 text-amber-500" />
@@ -144,7 +145,6 @@ export default function Blogs() {
                           </div>
                         </div>
 
-                        {/* Read More Link */}
                         <div className="flex items-center gap-2 text-amber-500 font-medium group-hover:gap-3 transition-all pt-2">
                           <span>Read More</span>
                           <ChevronRight className="w-4 h-4" />
@@ -155,7 +155,7 @@ export default function Blogs() {
                 ))}
               </div>  
             ) : (
-              /* No Results */
+              
               <div className="text-center py-12">
                 <div className="text-5xl mb-4">📝</div>
                 <h3 className="text-xl font-semibold text-foreground mb-2">

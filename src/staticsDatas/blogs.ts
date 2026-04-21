@@ -24,7 +24,7 @@ export const blogPosts = [
     category: "Development",
     date: "March 10, 2024",
     readTime: "7 min read",
-    image: "https://images.pexels.com/photos/3517559/pexels-photo-3517559.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: "https://images.pexels.com/photos/3962286/pexels-photo-3962286.jpeg?auto=compress&cs=tinysrgb&w=600",
   },
   {
     id: 4,
@@ -51,7 +51,7 @@ export const blogPosts = [
     category: "Development",
     date: "March 1, 2024",
     readTime: "11 min read",
-    image: "https://images.pexels.com/photos/3517559/pexels-photo-3517559.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: "https://images.pexels.com/photos/3962286/pexels-photo-3962286.jpeg?auto=compress&cs=tinysrgb&w=600",
   },
   {
     id: 7,

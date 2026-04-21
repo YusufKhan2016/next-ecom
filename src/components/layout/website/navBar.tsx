@@ -22,6 +22,12 @@ import logoMain from "@/assets/logo-main.png"
 type ChildCategory = {
   label: string
   href?: string
+  sub_child_categories?: SubChildCategory[]
+}
+
+type SubChildCategory = {
+  label: string
+  href?: string
 }
 
 type SubCategory = {
@@ -44,7 +50,14 @@ const navItems: NavItem[] = [
       {
         label: "Phones",
         child_categories: [
-          { label: "iPhone", href: "/electronics/phones/iphone" },
+          {
+            label: "iPhone",
+            href: "/electronics/phones/iphone",
+            sub_child_categories: [
+              { label: "Samsung", href: "/electronics/phones/samsung" },
+              { label: "OnePlus", href: "/electronics/phones/oneplus" },
+            ]
+           },
           { label: "Samsung", href: "/electronics/phones/samsung" },
           { label: "OnePlus", href: "/electronics/phones/oneplus" },
         ],
@@ -81,11 +94,7 @@ const navItems: NavItem[] = [
     sub_categories: [
       {
         label: "Men",
-        child_categories: [
-          { label: "T-Shirts", href: "/clothing/men/tshirts" },
-          { label: "Jeans", href: "/clothing/men/jeans" },
-          { label: "Jackets", href: "/clothing/men/jackets" },
-        ],
+        child_categories: [],
       },
       {
         label: "Women",
@@ -474,7 +483,7 @@ export default function Navbar() {
                 <NavigationMenuTrigger className="mt-2 text-gray-700 hover:text-amber-600 hover:bg-white/40 transition-all">
                   {nav.category}
                 </NavigationMenuTrigger>
-                <NavigationMenuContent className="duration-75! -left-1/2">
+                <NavigationMenuContent className="duration-70! -left-1/2">
                   <NavigationFlyoutMenuContent categories={nav.sub_categories} />
                 </NavigationMenuContent>
               </NavigationMenuItem>

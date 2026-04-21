@@ -9,6 +9,12 @@ import Link from "next/link"
 
 type ChildCategory = {
   label: string
+  href?: string
+  sub_child_categories?: SubChildCategory[]
+}
+
+type SubChildCategory = {
+  label: string
   href?:string
 }
 
@@ -165,22 +171,30 @@ function NavigationMenuIndicator({
 }
 
 function NavigationFlyoutMenuContent({ categories }: { categories: SubCategory[] }) {
-
   const [activeCategory, setActiveCategory] = React.useState<SubCategory>(categories[0])
+  const [activeChild, setActiveChild] = React.useState<ChildCategory | null>(
+    categories[0]?.child_categories?.[0] || null
+  )
 
-  React.useEffect(() => {
-    setActiveCategory(categories[0])
-  }, [categories])
+  const handleCategoryChange = (cat: SubCategory) => {
+    setActiveCategory(cat)
+    setActiveChild(cat.child_categories?.[0] || null)
+  }
+
+  const hasChildren = (activeCategory?.child_categories?.length ?? 0) > 0
+  const hasSubChildren = (activeChild?.sub_child_categories?.length ?? 0) > 0
 
   return (
-    <div className="flex ">
+    <div className="flex bg-white shadow-md rounded-md overflow-hidden transition-all duration-200">
 
-      <ul className="w-[160px] overflow-y-auto max-h-[85vh] shrink-0 border-r p-2 space-y-0.5">
+      {/* Categories column */}
+      <ul className="min-w-50 overflow-y-auto max-h-[85vh] shrink-0 border-r p-2 space-y-0.5">
         {categories.map((cat) => (
           <li key={cat.label}>
-            <NavigationMenuLink asChild
-              onMouseEnter={() => setActiveCategory(cat)}
-              onFocus={() => setActiveCategory(cat)}
+            <NavigationMenuLink
+              asChild
+              onMouseEnter={() => handleCategoryChange(cat)}
+              onFocus={() => handleCategoryChange(cat)}
               className={cn(
                 "w-full flex items-center justify-between rounded-md px-3 py-2 text-sm transition-colors",
                 activeCategory.label === cat.label
@@ -188,42 +202,50 @@ function NavigationFlyoutMenuContent({ categories }: { categories: SubCategory[]
                   : "text-muted-foreground hover:bg-accent/50 hover:text-foreground"
               )}
             >
-
-              <Link
-                href={'#'}
-              >
+              <Link href={cat.href || "#"}>
                 {cat.label}
-                <ChevronRight size={13} />
+                { cat.child_categories?.length ? <ChevronRight size={13} /> : null }
               </Link>
-              
             </NavigationMenuLink>
           </li>
         ))}
       </ul>
 
-      <div className="flex-1 py-4 px-2 overflow-y-auto max-h-[85vh]">
-        {activeCategory.child_categories.map((item, idx) => (
-          <div key={idx}>
+      {hasChildren && (
+        <div className="min-w-50 py-4 px-2 border-r animate-in fade-in slide-in-from-left-2">
+          {activeCategory.child_categories.map((item, idx) => (
+            <NavigationMenuLink
+              key={idx}
+              onMouseEnter={() => setActiveChild(item)}
+              onFocus={() => setActiveChild(item)}
+              className={cn(
+                "flex items-center justify-between",
+                activeChild?.label === item.label && "bg-accent"
+              )}
+            >
+              <Link href={item.href || "#"}>
+                {item.label}
+              </Link>
+              {item.sub_child_categories?.length ? <ChevronRight size={13} /> : null}
+            </NavigationMenuLink>
+          ))}
+        </div>
+      )}
 
-            <ul>
-              <li>
-                <NavigationMenuLink asChild>
-                  <Link
-                    href={'#'}
-                  >
-                      {item.label}
-                  </Link>
-                </NavigationMenuLink>
-              </li>
-            </ul>
-
-          </div>
-        ))}
-      </div>
+      {hasSubChildren && ( 
+        <div className="min-w-50 py-4 px-2 animate-in fade-in slide-in-from-left-2">
+          {activeChild?.sub_child_categories?.map((sub, idx) => (
+            <NavigationMenuLink key={idx} asChild>
+              <Link href={sub.href || "#"}>
+                {sub.label}
+              </Link>
+            </NavigationMenuLink>
+          ))}
+        </div>
+      )}
     </div>
   )
 }
-
 export {
   NavigationMenu,
   NavigationMenuList,
