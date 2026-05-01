@@ -32,7 +32,7 @@ export default function Blogs() {
 
   return (
     <section className="bg-background mx-auto min-h-screen">
-      <section className="container px-30 mx-auto">
+      <section className="container px-4 mx-auto">
         <section className="relative py-4">
 
           <div

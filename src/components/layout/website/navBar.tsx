@@ -3,7 +3,7 @@
 import Link from "next/link"
 import Image from "next/image"
 import { Search, ShoppingCart, GitCompare, Newspaper, LogIn } from "lucide-react"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 import {
   NavigationMenu,
@@ -18,6 +18,7 @@ import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
 
 import logoMain from "@/assets/logo-main.png"
+import { cn } from "@/lib/utils"
 
 type ChildCategory = {
   label: string
@@ -57,7 +58,7 @@ const navItems: NavItem[] = [
               { label: "Samsung", href: "/electronics/phones/samsung" },
               { label: "OnePlus", href: "/electronics/phones/oneplus" },
             ]
-           },
+          },
           { label: "Samsung", href: "/electronics/phones/samsung" },
           { label: "OnePlus", href: "/electronics/phones/oneplus" },
         ],
@@ -378,7 +379,14 @@ const navItems: NavItem[] = [
     sub_categories: [
       {
         label: "Supplements", child_categories: [
-          { label: "Vitamins", href: "/health/supplements/vitamins" },
+          { 
+            label: "Vitamins", 
+            href: "/health/supplements/vitamins",
+            sub_child_categories: [
+              { label: "Samsung", href: "/electronics/phones/samsung" },
+              { label: "OnePlus", href: "/electronics/phones/oneplus" },
+            ]
+          },
           { label: "Protein", href: "/health/supplements/protein" },
           { label: "Minerals", href: "/health/supplements/minerals" },
         ]
@@ -410,10 +418,24 @@ const navItems: NavItem[] = [
 
 export default function Navbar() {
   const [searchQuery, setSearchQuery] = useState("")
+  const [mouseMovePercent, setMouseMovePercent] = useState(0);
+  const [direction, setDirection] = useState<"left" | "right">("left");
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      const x = e.clientX;
+      const width = window.innerWidth;
+      const percentage = (x / width) * 100;
+      setMouseMovePercent(percentage);
+
+    }
+
+    window.addEventListener("mousemove", handleMouseMove)
+  }, []);
 
   return (
     <header className="sticky top-0 z-50 bg-primary-foreground border-b shadow-sm shadow-amber-500">
-      <div className="container mx-auto px-30 py-2">
+      <div className="container mx-auto px-4 py-2">
 
         <div className="flex items-center gap-10">
 
@@ -458,8 +480,7 @@ export default function Navbar() {
             >
               <ShoppingCart className="w-5 h-5" />
               <Badge
-                variant="destructive"
-                className="absolute -top-2 -right-2 w-5 h-5 p-0 flex items-center justify-center text-xs rounded-full"
+                className="absolute bg-amber-600 -top-2 -right-2 w-5 h-5 p-0 flex items-center justify-center text-xs rounded-full"
               >
                 0
               </Badge>
@@ -478,14 +499,33 @@ export default function Navbar() {
 
         <NavigationMenu viewport={false}>
           <NavigationMenuList className="flex flex-wrap">
-            {navItems.map((nav, idx) => (
+            {navItems?.map((nav, idx) => (
               <NavigationMenuItem key={idx}>
-                <NavigationMenuTrigger className="mt-2 text-gray-700 hover:text-amber-600 hover:bg-white/40 transition-all">
-                  {nav.category}
+
+                <NavigationMenuTrigger
+                  onMouseEnter={() => {
+                    const dir = mouseMovePercent > 50 ? "right" : "left";
+                    setDirection(dir);
+                  }}
+                  className="mt-2 text-gray-700 hover:text-amber-600 hover:bg-white/40 transition-all"
+                >
+                  <Link href={"/category/products"}>
+                    {nav?.category}
+                  </Link>
                 </NavigationMenuTrigger>
-                <NavigationMenuContent className="duration-70! -left-1/2">
-                  <NavigationFlyoutMenuContent categories={nav.sub_categories} />
+
+                <NavigationMenuContent
+                  className={cn(
+                    "duration-70!",
+                    direction === "right" ? "right-0" : "left-0"
+                  )}
+                >
+                  <NavigationFlyoutMenuContent   
+                    direction={direction} 
+                    categories={nav?.sub_categories}
+                  />
                 </NavigationMenuContent>
+                
               </NavigationMenuItem>
             ))}
           </NavigationMenuList> 

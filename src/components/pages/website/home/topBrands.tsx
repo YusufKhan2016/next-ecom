@@ -28,7 +28,7 @@ export default function TopBrands() {
   })
 
   return (
-    <section className="pt-8 container mx-auto px-30">
+    <section className="pt-8 container mx-auto px-4">
       <div className="flex items-center justify-between mb-8">
         
         <h2 className="text-4xl font-bold">
@@ -78,7 +78,7 @@ export default function TopBrands() {
             .filter((product) => selectedCategory === "all" || product.category === selectedCategory)
             .map((product) => (
 
-              <CarouselItem key={product.id} className="basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/4 2xl:basis-1/5 py-8">
+              <CarouselItem key={product.id} className="basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/5 2xl:basis-1/5 py-8">
                 <Card className="overflow-hidden shadow-lg h-full transition-shadow">
                   <Link href={`/products/${product.id}`} className="block">
                     <div className="relative overflow-hidden bg-muted">

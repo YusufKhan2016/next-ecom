@@ -27,13 +27,13 @@ export default function GreatDeals() {
   })
 
   return (
-    <section className="pt-8 container mx-auto px-30">
+    <section className="pt-8 container mx-auto px-4">
 
       <div>
         <Image
           src={acGreatDeal}
           alt="Great Deals"
-          width={1200}
+          width={10000}
           height={300}
           loading="eager"
           className="rounded-lg mb-6"
@@ -67,7 +67,7 @@ export default function GreatDeals() {
       <Carousel setApi={setApi}>
         <CarouselContent >
           {products.map((product) => (
-            <CarouselItem key={product.id} className="basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/4 2xl:basis-1/5 py-8">
+            <CarouselItem key={product.id} className="basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/5 2xl:basis-1/5 py-8">
               <Card className="overflow-hidden h-full transition-shadow">
                 <Link href={`/products/${product.id}`} className="block">
                   <div className="relative overflow-hidden bg-muted">

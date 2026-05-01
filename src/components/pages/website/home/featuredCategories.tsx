@@ -9,7 +9,7 @@ import { extendedCategories } from "@/staticsDatas/categories"
 
 export default function FeaturedCategories() {
   return (
-    <section className="py-8 container mx-auto px-30">
+    <section className="py-8 container mx-auto px-4">
       <div className="mb-8">
         <h2 className="text-4xl font-bold">
           Featured <span className="text-orange-500">Categories</span>

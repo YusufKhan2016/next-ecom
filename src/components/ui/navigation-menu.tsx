@@ -106,7 +106,7 @@ function NavigationMenuContent({
     <NavigationMenuPrimitive.Content
       data-slot="navigation-menu-content"
       className={cn(
-        "top-0 left-0 w-full p-1 ease-[cubic-bezier(0.22,1,0.36,1)] group-data-[viewport=false]/navigation-menu:top-full group-data-[viewport=false]/navigation-menu:mt-1.5 group-data-[viewport=false]/navigation-menu:overflow-hidden group-data-[viewport=false]/navigation-menu:rounded-sm group-data-[viewport=false]/navigation-menu:bg-popover group-data-[viewport=false]/navigation-menu:text-popover-foreground group-data-[viewport=false]/navigation-menu:shadow group-data-[viewport=false]/navigation-menu:ring-1 group-data-[viewport=false]/navigation-menu:ring-foreground/10 group-data-[viewport=false]/navigation-menu:duration-300 data-[motion=from-end]:slide-in-from-right-52 data-[motion=from-start]:slide-in-from-left-52 data-[motion=to-end]:slide-out-to-right-52 data-[motion=to-start]:slide-out-to-left-52 data-[motion^=from-]:animate-in data-[motion^=from-]:fade-in data-[motion^=to-]:animate-out data-[motion^=to-]:fade-out **:data-[slot=navigation-menu-link]:focus:ring-0 **:data-[slot=navigation-menu-link]:focus:outline-none md:absolute md:w-auto group-data-[viewport=false]/navigation-menu:data-open:animate-in group-data-[viewport=false]/navigation-menu:data-open:fade-in-0 group-data-[viewport=false]/navigation-menu:data-open:zoom-in-95 group-data-[viewport=false]/navigation-menu:data-closed:animate-out group-data-[viewport=false]/navigation-menu:data-closed:fade-out-0 group-data-[viewport=false]/navigation-menu:data-closed:zoom-out-95",
+        "top-0 w-full p-1 ease-[cubic-bezier(0.22,1,0.36,1)] group-data-[viewport=false]/navigation-menu:top-full group-data-[viewport=false]/navigation-menu:mt-1.5 group-data-[viewport=false]/navigation-menu:overflow-hidden group-data-[viewport=false]/navigation-menu:rounded-sm group-data-[viewport=false]/navigation-menu:bg-popover group-data-[viewport=false]/navigation-menu:text-popover-foreground group-data-[viewport=false]/navigation-menu:shadow group-data-[viewport=false]/navigation-menu:ring-1 group-data-[viewport=false]/navigation-menu:ring-foreground/10 group-data-[viewport=false]/navigation-menu:duration-300 data-[motion=from-end]:slide-in-from-right-52 data-[motion=from-start]:slide-in-from-left-52 data-[motion=to-end]:slide-out-to-right-52 data-[motion=to-start]:slide-out-to-left-52 data-[motion^=from-]:animate-in data-[motion^=from-]:fade-in data-[motion^=to-]:animate-out data-[motion^=to-]:fade-out **:data-[slot=navigation-menu-link]:focus:ring-0 **:data-[slot=navigation-menu-link]:focus:outline-none md:absolute md:w-auto group-data-[viewport=false]/navigation-menu:data-open:animate-in group-data-[viewport=false]/navigation-menu:data-open:fade-in-0 group-data-[viewport=false]/navigation-menu:data-open:zoom-in-95 group-data-[viewport=false]/navigation-menu:data-closed:animate-out group-data-[viewport=false]/navigation-menu:data-closed:fade-out-0 group-data-[viewport=false]/navigation-menu:data-closed:zoom-out-95",
         className
       )}
       {...props}
@@ -170,26 +170,33 @@ function NavigationMenuIndicator({
   )
 }
 
-function NavigationFlyoutMenuContent({ categories }: { categories: SubCategory[] }) {
-  const [activeCategory, setActiveCategory] = React.useState<SubCategory>(categories[0])
-  const [activeChild, setActiveChild] = React.useState<ChildCategory | null>(
-    categories[0]?.child_categories?.[0] || null
-  )
+function NavigationFlyoutMenuContent({
+  categories,
+  direction
+}: { categories: SubCategory[], direction: string }) {
+  const [activeCategory, setActiveCategory] = React.useState<SubCategory | null>(null)
+  const [activeChild, setActiveChild] = React.useState<ChildCategory | null>(null)
+  
 
   const handleCategoryChange = (cat: SubCategory) => {
     setActiveCategory(cat)
-    setActiveChild(cat.child_categories?.[0] || null)
+    setActiveChild(null)
   }
 
   const hasChildren = (activeCategory?.child_categories?.length ?? 0) > 0
   const hasSubChildren = (activeChild?.sub_child_categories?.length ?? 0) > 0
 
   return (
-    <div className="flex bg-white shadow-md rounded-md overflow-hidden transition-all duration-200">
+    <div
+  className={cn(
+    "flex bg-white shadow-md rounded-md overflow-hidden transition-all duration-200",
+    direction === "right" ? "flex-row-reverse" : "flex-row"
+  )}
+>
 
       {/* Categories column */}
       <ul className="min-w-50 overflow-y-auto max-h-[85vh] shrink-0 border-r p-2 space-y-0.5">
-        {categories.map((cat) => (
+        {categories.map(( cat) => (
           <li key={cat.label}>
             <NavigationMenuLink
               asChild
@@ -197,14 +204,14 @@ function NavigationFlyoutMenuContent({ categories }: { categories: SubCategory[]
               onFocus={() => handleCategoryChange(cat)}
               className={cn(
                 "w-full flex items-center justify-between rounded-md px-3 py-2 text-sm transition-colors",
-                activeCategory.label === cat.label
+                activeCategory?.label === cat?.label
                   ? "bg-accent text-accent-foreground font-medium"
                   : "text-muted-foreground hover:bg-accent/50 hover:text-foreground"
               )}
             >
-              <Link href={cat.href || "#"}>
-                {cat.label}
-                { cat.child_categories?.length ? <ChevronRight size={13} /> : null }
+              <Link href={'/category/' + cat?.href || "#"}>
+                {cat?.label}
+                { cat?.child_categories?.length ? <ChevronRight size={13} /> : null }
               </Link>
             </NavigationMenuLink>
           </li>
@@ -213,20 +220,21 @@ function NavigationFlyoutMenuContent({ categories }: { categories: SubCategory[]
 
       {hasChildren && (
         <div className="min-w-50 py-4 px-2 border-r animate-in fade-in slide-in-from-left-2">
-          {activeCategory.child_categories.map((item, idx) => (
+          {activeCategory?.child_categories?.map((item, idx) => (
             <NavigationMenuLink
               key={idx}
               onMouseEnter={() => setActiveChild(item)}
               onFocus={() => setActiveChild(item)}
               className={cn(
                 "flex items-center justify-between",
-                activeChild?.label === item.label && "bg-accent"
-              )}
+                activeChild?.label === item?.label && "bg-accent"
+              )}  
+              asChild
             >
-              <Link href={item.href || "#"}>
-                {item.label}
+              <Link href={'/category/' + item?.href || "#"}>
+                {item?.label}
+                {item?.sub_child_categories?.length ? <ChevronRight size={13} /> : null}
               </Link>
-              {item.sub_child_categories?.length ? <ChevronRight size={13} /> : null}
             </NavigationMenuLink>
           ))}
         </div>
@@ -235,9 +243,12 @@ function NavigationFlyoutMenuContent({ categories }: { categories: SubCategory[]
       {hasSubChildren && ( 
         <div className="min-w-50 py-4 px-2 animate-in fade-in slide-in-from-left-2">
           {activeChild?.sub_child_categories?.map((sub, idx) => (
-            <NavigationMenuLink key={idx} asChild>
-              <Link href={sub.href || "#"}>
-                {sub.label}
+            <NavigationMenuLink 
+              key={idx} 
+              asChild
+            >
+              <Link href={'/category/' + sub?.href}>
+                {sub?.label}
               </Link>
             </NavigationMenuLink>
           ))}

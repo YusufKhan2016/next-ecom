@@ -88,7 +88,7 @@ export default function PromotionalHero() {
   }, [api])
 
   return (
-    <section className="py-6 container mx-auto px-30">
+    <section className="py-6 container mx-auto px-4">
       <div className="grid grid-cols-[1fr_380px] gap-3 mb-3">
 
         <Card className="overflow-hidden shadow-2xl">
