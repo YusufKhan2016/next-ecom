@@ -21,9 +21,9 @@ export default function FeaturedCategories() {
           <Link
             key={category.id}
             href={`/category/${category.slug}`}
-            className="flex flex-col items-center gap-3 p-4 rounded-lg hover:bg-muted transition-colors group"
+            className="flex flex-col items-center gap-3 p-4 rounded-xl hover:bg-muted transition-colors group"
           >
-            <div className="relative w-20 h-20 bg-muted rounded-lg overflow-hidden">
+            <div className="relative w-20 h-20 bg-muted rounded-xl overflow-hidden">
               <Image
                 src={category.image}
                 alt={category.label}

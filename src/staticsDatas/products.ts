@@ -53,4 +53,13 @@ export const products = [
     discount: 5001,
     category: "bestDeals",
   },
+  {
+    id: 7,
+    name: "OnePlus 13",
+    image: "https://images.pexels.com/photos/3587620/pexels-photo-3587620.jpeg?auto=compress&cs=tinysrgb&w=400&h=500&fit=crop",
+    price: 59999,
+    originalPrice: 65000,
+    discount: 5001,
+    category: "bestDeals",
+  },
 ] 

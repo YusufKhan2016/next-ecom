@@ -104,7 +104,7 @@ export default function PromotionalHero() {
                         fill
                         loading="eager"
                         sizes="200px"
-                        className="rounded-lg object-cover"
+                        className="rounded-xl object-cover"
                       />
                     </div>
                     

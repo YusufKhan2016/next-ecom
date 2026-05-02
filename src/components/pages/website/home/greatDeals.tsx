@@ -36,7 +36,7 @@ export default function GreatDeals() {
           width={10000}
           height={300}
           loading="eager"
-          className="rounded-lg mb-6"
+          className="rounded-xl mb-6"
         />
       </div>
 

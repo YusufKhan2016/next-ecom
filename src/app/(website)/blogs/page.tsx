@@ -95,7 +95,7 @@ export default function Blogs() {
         <section className="py-12">
           <div className="mx-auto ">
             {filteredBlogs.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {filteredBlogs.map((blog) => (
                   <Link key={blog.id} href={`/blogs/${blog.id}`}>
                     <Card className="h-full border-amber-500/10 hover:border-amber-500/30 hover:shadow-lg transition-all duration-300 cursor-pointer group overflow-hidden">

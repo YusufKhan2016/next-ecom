@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { useState } from 'react';
 import { products } from '@/staticsDatas/products';
 import { extendedCategories } from '@/staticsDatas/categories';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import {
@@ -57,7 +57,7 @@ export default function CategoryPage() {
             width={10000}
             height={300}
             loading="eager"
-            className="rounded-lg mt-8"
+            className="rounded-xl mt-8"
           />
         </div>
 
@@ -125,7 +125,7 @@ export default function CategoryPage() {
                       <Field>
                         <Input placeholder="Max" />
                       </Field>
-                     
+
                       <Button 
                         type="submit" 
                         size="icon" 
@@ -188,6 +188,56 @@ export default function CategoryPage() {
                   </CollapsibleContent>
                   
                 </Collapsible>
+
+                <Collapsible
+                  open={isOpen}
+                  onOpenChange={setIsOpen}
+                >
+                  <CollapsibleTrigger
+                    className='cursor-pointer'
+                    asChild
+                  >
+
+                    <span className='font-bold flex justify-between'>
+                      Category
+                      <ChevronRight className={ `transition-all ${isOpen? 'rotate-90': 'rotate-0'}`} />
+                    </span>
+
+                  </CollapsibleTrigger>
+
+                  <CollapsibleContent className='py-2'>
+                    
+                      {extendedCategories.slice(0, 5).map(cat => (
+
+                        <FieldGroup 
+                          key={cat.id} 
+                          className='flex flex-row gap-1 py-1'
+                        >
+
+                          <Field
+                            orientation="horizontal"
+                            id={cat.id}
+                          >
+                            <Checkbox
+                              checked={selectedCategory === cat.id}
+                              onCheckedChange={() => setSelectedCategory(cat.id)}
+                              className='rounded-xs'
+                            />
+
+                            <FieldContent>
+                              <FieldLabel>
+                                { cat?.label }
+                              </FieldLabel>
+                            </FieldContent>
+                          </Field>
+                          
+                        </FieldGroup>
+                        
+                      ))}
+                    
+                  </CollapsibleContent>
+                  
+                </Collapsible>
               </CardContent>
 
             </Card>
@@ -195,23 +245,18 @@ export default function CategoryPage() {
 
           {/* Products Grid */}
           <div className="flex-1">
-            {/* Filter Toggle Button (Mobile) */}
-            <div className="md:hidden mb-4">
-              <Button
-                variant="outline"
-                className="w-full flex items-center gap-2"
-              >
-                <Filter className="w-4 h-4" />
-                Filters
-              </Button>
-            </div>
-
+            <Card className='mb-4'>
+              <CardHeader>
+                <CardTitle className='text-xl'>Total {filteredProducts?.length} Products</CardTitle>
+              </CardHeader>
+            </Card>
+            
             {filteredProducts.length > 0 ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 {filteredProducts.map(product => (
                   <Card
                     key={product.id}
-                    className="shadow-sm overflow-hidden"
+                    className="drop-shadow-xl overflow-hidden"
                   >
                     {/* Product Image */}
                     <div className="relative bg-gray-100 h-56 overflow-hidden group">
@@ -225,13 +270,12 @@ export default function CategoryPage() {
                     </div>
 
                     {/* Product Info */}
-                    <div className="p-4">
-                      <h3 className="font-semibold text-gray-900 line-clamp-2 mb-2">
+                    <CardContent className='mt-2'>
+                      <CardTitle className="text-sm line-clamp-2 mb-4">
                         {product.name}
-                      </h3>
+                      </CardTitle>
 
-                      {/* Price */}
-                      <div className="flex items-center gap-2 mb-3">
+                      <div className="flex items-center gap-2">
                         <span className="text-lg font-bold text-gray-900">
                           ৳{product.price.toLocaleString()}
                         </span>
@@ -241,13 +285,17 @@ export default function CategoryPage() {
                           </span>
                         )}
                       </div>
+                    </CardContent>
 
-                      {/* Add to Cart Button */}
-                      <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white flex items-center justify-center gap-2">
-                        <ShoppingCart className="w-4 h-4" />
-                        Add to Cart
+                    <CardFooter className='space-x-1'>
+                      <Button className="flex-1">
+                        Buy Now
                       </Button>
-                    </div>
+
+                      <Button>
+                        <ShoppingCart />
+                      </Button>
+                    </CardFooter>
                   </Card>
                 ))}
               </div>
