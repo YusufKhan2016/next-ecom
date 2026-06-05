@@ -30,6 +30,8 @@ import {
 import acGreatDeal from "@/assets/home/ac-mid-great-deal.webp"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { Field, FieldContent, FieldDescription, FieldGroup, FieldLabel } from '@/components/ui/field';
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import Link from 'next/link';
 
 export default function CategoryPage() {
   const params = useParams();
@@ -39,6 +41,7 @@ export default function CategoryPage() {
   const categoryLabel = categoryData?.label || 'Products';
 
   const [isOpen, setIsOpen] = useState(true);
+  const [productSortBy, setProductSortBy] = useState('default');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [priceRange, setPriceRange] = useState({ min: 0, max: 500000 });
 
@@ -67,8 +70,13 @@ export default function CategoryPage() {
           <Breadcrumb>
             <BreadcrumbList>
               <BreadcrumbItem>
-                <BreadcrumbLink href="/" className='text-foreground/60 font-semibold'>
-                  Home
+                <BreadcrumbLink asChild>
+                  <Link
+                    href={'/'}
+                    className='text-foreground font-semibold'
+                  >
+                    Home
+                  </Link>
                 </BreadcrumbLink>
               </BreadcrumbItem>
               <BreadcrumbSeparator />
@@ -246,8 +254,23 @@ export default function CategoryPage() {
           {/* Products Grid */}
           <div className="flex-1">
             <Card className='mb-4'>
-              <CardHeader>
-                <CardTitle className='text-xl'>Total {filteredProducts?.length} Products</CardTitle>
+              <CardHeader className='w-full flex-row items-center justify-between'>
+                <CardTitle className='text-xl'><span className='font-normal text-lg'>Showing:</span> ({filteredProducts?.length} items) </CardTitle>
+                
+                <Select>
+                  <SelectTrigger icon={<ListFilter />}>
+                    <SelectValue placeholder="Sort Product" />
+                  </SelectTrigger>
+                  
+                  <SelectContent>
+                    <SelectGroup>
+                      <SelectItem value='default'>Default</SelectItem>
+                      <SelectItem value='low-to-high'>Low to high</SelectItem>
+                      <SelectItem value='high-to-low'>High to low</SelectItem>
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+
               </CardHeader>
             </Card>
             
