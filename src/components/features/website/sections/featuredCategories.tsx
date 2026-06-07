@@ -5,15 +5,17 @@ import Image from "next/image"
 import Link from "next/link"
 
 import { extendedCategories } from "@/staticsDatas/categories"
+import { Header } from "@/components/ui/header"
 
 
 export default function FeaturedCategories() {
   return (
     <section className="py-8 container mx-auto px-4">
       <div className="mb-8">
-        <h2 className="text-4xl font-bold">
-          Featured <span className="text-orange-500">Categories</span>
-        </h2>
+        <Header
+          firstPart="Featured"
+          secondPart="Categories"
+        />
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4">

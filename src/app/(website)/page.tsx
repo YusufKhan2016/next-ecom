@@ -1,6 +1,6 @@
-import FeaturedCategories from "@/components/pages/website/sections/featuredCategories";
-import CarouselSlider from "@/components/pages/website/sections/carouselSlider";
-import PromotionalHero from "@/components/pages/website/sections/promotionalHero";
+import FeaturedCategories from "@/components/features/website/sections/featuredCategories";
+import CarouselSlider from "@/components/features/website/sections/carouselSlider";
+import PromotionalHero from "@/components/features/website/sections/promotionalHero";
 
 import { categories } from "@/staticsDatas/categories"
 import { products } from "@/staticsDatas/products"

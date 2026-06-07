@@ -31,7 +31,7 @@ type CategoryTypes = {
 type ProductTypes = {
   id: number,
   name: string,
-  image: string,
+  image: string | StaticImageData,
   price: number,
   originalPrice?: number | null,
   discount: number,
