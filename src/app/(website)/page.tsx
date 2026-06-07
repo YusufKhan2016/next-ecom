@@ -1,21 +1,52 @@
-import FeaturedCategories from "@/components/pages/website/home/featuredCategories";
-import FeaturedProducts from "@/components/pages/website/home/featuredProducts";
-import GreatDeals from "@/components/pages/website/home/greatDeals";
-import NewArrivals from "@/components/pages/website/home/newArrivals";
-import NewTrends from "@/components/pages/website/home/newTrends";
-import PromotionalHero from "@/components/pages/website/home/promotionalHero";
-import TopBrands from "@/components/pages/website/home/topBrands";
+import FeaturedCategories from "@/components/pages/website/sections/featuredCategories";
+import CarouselSlider from "@/components/pages/website/sections/carouselSlider";
+import PromotionalHero from "@/components/pages/website/sections/promotionalHero";
+
+import { categories } from "@/staticsDatas/categories"
+import { products } from "@/staticsDatas/products"
+
+import acGreatDeal from "@/assets/home/ac-mid-great-deal.webp"
 
 export default function Home() {
   return (
     <>
       <PromotionalHero />
       <FeaturedCategories />
-      <NewTrends />
-      <FeaturedProducts />
-      <GreatDeals />
-      <NewArrivals />
-      <TopBrands />
+      
+      <CarouselSlider
+        headerFirstPart="New"
+        headerSecondPart="Trends"
+        products={products}
+      />
+
+      <CarouselSlider
+        headerFirstPart="Featured"
+        headerSecondPart="Products"
+        categories={categories}
+        products={products}
+      />
+
+      <CarouselSlider
+        headerFirstPart="Great"
+        headerSecondPart="Deals"
+        banner={acGreatDeal}
+        categories={categories}
+        products={products}
+      />
+
+      <CarouselSlider
+        headerFirstPart="New"
+        headerSecondPart="Arrivals"
+        categories={categories}
+        products={products}
+      />
+
+      <CarouselSlider
+        headerFirstPart="Top"
+        headerSecondPart="Brands"
+        categories={categories}
+        products={products}
+      />
     </>
     
   );

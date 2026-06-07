@@ -1,58 +1,101 @@
 "use client"
 
-import Image from "next/image"
+import Image, { StaticImageData } from "next/image"
 import Link from "next/link"
-import { useState, useEffect } from "react"
+import { useEffect, useState } from "react"
+
 import { ChevronLeft, ChevronRight } from "lucide-react"
+
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  type CarouselApi,
-} from "@/components/ui/carousel"
-import { categories } from "@/staticsDatas/categories"
-import { products } from "@/staticsDatas/products"
+import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from "@/components/ui/carousel"
 import { Button } from "@/components/ui/button"
+import { Header } from "@/components/ui/header"
 
-export default function FeaturedProducts() {
+import acGreatDeal from "@/assets/home/ac-mid-great-deal.webp"
+
+
+type PropTypes = {
+  headerFirstPart: string,
+  headerSecondPart: string,
+  banner?: string | StaticImageData,
+  categories?: CategoryTypes[],
+  products: ProductTypes[]
+}
+
+type CategoryTypes = {
+  id: string,
+  label: string
+}
+
+type ProductTypes = {
+  id: number,
+  name: string,
+  image: string,
+  price: number,
+  originalPrice?: number | null,
+  discount: number,
+  category?: string | null
+}
+
+export default function FeaturedProducts({ 
+
+  headerFirstPart, 
+  headerSecondPart, 
+  banner,
+  categories, 
+  products
+  
+}: PropTypes) {
+
   const [api, setApi] = useState<CarouselApi>()
   const [selectedCategory, setSelectedCategory] = useState("all")
 
-  useEffect(() => {
-    const data = api?.scrollProgress;
-    console.log(data);
-  })
-
   return (
     <section className="pt-8 container mx-auto px-4">
+
+      {banner && (
+        <div>
+          <Image
+            src={acGreatDeal}
+            alt="Great Deals"
+            width={10000}
+            height={300}
+            loading="eager"
+            className="rounded-xl mb-6"
+          />
+        </div>
+      )}
+
       <div className="flex items-center justify-between mb-8">
-        
-        <h2 className="text-4xl font-bold">
-          Featured <span className="text-orange-500">Products</span>
-        </h2>
+
+        <Header
+          firstPart={headerFirstPart}
+          secondPart={headerSecondPart}
+        />
 
         <div className="flex gap-2">
-          <button
-            onClick={() => api?.scrollPrev()}
-            className="w-10 h-10 hover:bg-amber-600 bg-amber-50 text-amber-600 hover:text-amber-50 border border-solid duration-300 border-amber-600 rounded-full flex items-center justify-center"
+          <Button
+            size={"lg"}
+            onClick={() => api?.scrollPrev() }
+            className="hover:bg-accent-foreground bg-gray-50 text-accent-foreground hover:text-white border border-solid duration-300 border-accent-foreground rounded-full flex items-center justify-center"
           >
-            <ChevronLeft />
-          </button>
+            <ChevronLeft strokeWidth={2.5} />
+          </Button>
 
-          <button
+          <Button
+            size={"lg"}
             onClick={() => api?.scrollNext()}
-            className="w-10 h-10 hover:bg-amber-600 bg-amber-50 text-amber-600 hover:text-amber-50 border border-solid duration-300 border-amber-600 rounded-full flex items-center justify-center"
+            className="hover:bg-accent-foreground bg-gray-50 text-accent-foreground hover:text-white border border-solid duration-300 border-accent-foreground rounded-full flex items-center justify-center"
           >
-            <ChevronRight/>
-          </button>
+            <ChevronRight strokeWidth={2.5} />
+          </Button>
         </div>
 
       </div>
 
       <div className="flex gap-3 flex-wrap sticky top-10">
-        {categories.map((category, idx) => (
+        {categories?.map((category, idx) => (
 
           <Button
             key={idx}
@@ -60,8 +103,8 @@ export default function FeaturedProducts() {
             variant={selectedCategory === category.id ? "default" : "outline"}
             className={`rounded-full transition-all ${
               selectedCategory === category.id
-                ? "bg-amber-500 hover:bg-amber-600 text-white"
-                : "border-amber-500/30 text-foreground hover:border-amber-500 hover:bg-amber-500/10"
+                ? "bg-accent-foreground text-white"
+                : "border-accent-foreground/30 text-foreground hover:border-accent-foreground bg-gray-50"
             }`}
           >
             {category.label}

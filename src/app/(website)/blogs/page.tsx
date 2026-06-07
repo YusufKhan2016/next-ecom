@@ -57,20 +57,20 @@ export default function Blogs() {
 
             {/* Search Bar */}
             <div className="relative">
-              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-amber-500 w-5 h-5 z-50" />
+              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-foreground w-5 h-5 z-50" />
               <Input
                 type="text"
                 placeholder="Search articles..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-12 py-6 text-base focus-visible:ring-1 focus-visible:border-amber-500 shadow-sm"
+                className="pl-12 py-6 text-base focus-visible:ring-1 focus-visible:border-foreground shadow-sm"
               />
             </div>
           </div>
         </section>
 
         {/* Category Filter Section */}
-        <section className="sticky top-0 z-20 bg-background/90 backdrop-blur-sm border-b border-amber-500/10 pb-4">
+        <section className="sticky top-0 z-20 bg-background/90 backdrop-blur-sm border-b border-foreground/10 pb-4">
           <div className="mx-auto ">
             <div className="flex flex-wrap gap-2">
               {blogCategories.map((category) => (
@@ -80,8 +80,8 @@ export default function Blogs() {
                   variant={selectedCategory === category ? "default" : "outline"}
                   className={`rounded-full transition-all ${
                     selectedCategory === category
-                      ? "bg-amber-500 hover:bg-amber-600 text-white"
-                      : "border-amber-500/30 text-foreground hover:border-amber-500 hover:bg-amber-500/10"
+                      ? "bg-foreground hover:bg-amber-600 text-white"
+                      : "border-foreground/30 text-foreground hover:border-foreground hover:bg-foreground/10"
                   }`}
                 >
                   {category}
@@ -98,7 +98,7 @@ export default function Blogs() {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {filteredBlogs.map((blog) => (
                   <Link key={blog.id} href={`/blogs/${blog.id}`}>
-                    <Card className="h-full border-amber-500/10 hover:border-amber-500/30 hover:shadow-lg transition-all duration-300 cursor-pointer group overflow-hidden">
+                    <Card className="h-full border-foreground/10 hover:border-foreground/30 hover:shadow-lg transition-all duration-300 cursor-pointer group overflow-hidden">
                       {/* Blog Image */}
                       <div className="relative w-full h-48 overflow-hidden bg-muted">
                         <Image
@@ -116,7 +116,7 @@ export default function Blogs() {
                         <div className="mb-2">
                           <Badge
                             variant="outline"
-                            className="bg-amber-500/10 text-amber-500 border-amber-500/30"
+                            className="bg-foreground/10 text-foreground border-foreground/30"
                           >
                             {blog.category}
                           </Badge>
@@ -134,18 +134,18 @@ export default function Blogs() {
                         </CardDescription>
 
                         
-                        <div className="flex flex-wrap gap-4 text-xs text-muted-foreground pt-4 border-t border-amber-500/10">
+                        <div className="flex flex-wrap gap-4 text-xs text-muted-foreground pt-4 border-t border-foreground/10">
                           <div className="flex items-center gap-1.5">
-                            <Calendar className="w-4 h-4 text-amber-500" />
+                            <Calendar className="w-4 h-4 text-foreground" />
                             <span>{blog.date}</span>
                           </div>
                           <div className="flex items-center gap-1.5">
-                            <Clock className="w-4 h-4 text-amber-500" />
+                            <Clock className="w-4 h-4 text-foreground" />
                             <span>{blog.readTime}</span>
                           </div>
                         </div>
 
-                        <div className="flex items-center gap-2 text-amber-500 font-medium group-hover:gap-3 transition-all pt-2">
+                        <div className="flex items-center gap-2 text-foreground font-medium group-hover:gap-3 transition-all pt-2">
                           <span>Read More</span>
                           <ChevronRight className="w-4 h-4" />
                         </div>
@@ -169,7 +169,7 @@ export default function Blogs() {
                     setSearchQuery("")
                     setSelectedCategory("All")
                   }}
-                  className="bg-amber-500 hover:bg-amber-600 text-white"
+                  className="bg-foreground hover:bg-amber-600 text-white"
                 >
                   Reset Filters
                 </Button>
@@ -180,7 +180,7 @@ export default function Blogs() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 md:py-20 bg-amber-500/5 border-y border-amber-500/10">
+      <section className="py-16 md:py-20 bg-foreground/5 border-y border-foreground/10">
         <div className="mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
             Stay Updated with Latest Articles
@@ -189,7 +189,7 @@ export default function Blogs() {
             Subscribe to our newsletter and never miss an article
           </p>
           <div className="flex justify-center">
-            <Button className="bg-amber-500 hover:bg-amber-600 text-white py-6 text-base">
+            <Button className="bg-foreground hover:bg-amber-600 text-white py-6 text-base">
               Subscribe Now
             </Button>
           </div>

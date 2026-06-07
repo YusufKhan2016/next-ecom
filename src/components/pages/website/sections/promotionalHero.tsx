@@ -109,7 +109,7 @@ export default function PromotionalHero() {
                     </div>
                     
                     <div className="flex-1">
-                      <Badge variant="secondary" className="mb-3 text-amber-700 bg-amber-100 border-0">
+                      <Badge variant="secondary" className="mb-3 text-accent bg-foreground border-0">
                         {slide.tag}
                       </Badge>
                       <h2 className="text-2xl font-medium leading-snug mb-2 whitespace-pre-line">
@@ -147,7 +147,7 @@ export default function PromotionalHero() {
                   key={i}
                   onClick={() => api?.scrollTo(i)}
                   className={`h-1.5 rounded-full transition-all ${
-                    current === i ? "w-10 bg-orange-500" : "w-3 bg-foreground cursor-pointer"
+                    current === i ? "w-10 bg-foreground" : "w-3 bg-background cursor-pointer"
                   }`}
                 />
               ))}
@@ -167,7 +167,7 @@ export default function PromotionalHero() {
                 className="object-cover"
               />
 
-              <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent" />
+              <div className="absolute inset-0 bg-linear-to-t from-accent-foreground/60 to-transparent" />
               <div className="absolute bottom-0 left-0 right-0 p-3">
                 <p className="text-[10px] text-white/70 mb-0.5">{ad.label}</p>
                 <p className="text-sm font-medium text-white leading-tight">{ad.title}</p>
@@ -182,7 +182,7 @@ export default function PromotionalHero() {
         {features.map((feature, i) => (
           <div key={i} className="flex items-center mx-auto gap-2.5 px-4 py-3">
             <div className="w-8 h-8 rounded-md bg-muted flex items-center justify-center shrink-0">
-              <feature.icon color="#E17100" className="w-4 h-4 text-muted-foreground" />
+              <feature.icon className="w-4 h-4 text-muted-foreground" />
             </div>
             <span className="text-xs font-medium leading-tight">{feature.label}</span>
           </div>
