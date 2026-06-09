@@ -8,7 +8,7 @@ import React from 'react'
 function RegisterPage() {
     return (
         <section>
-            <div className='container px-4'>
+            <div className='container px-4 mx-auto'>
                 <Card className='max-w-sm mt-12 mx-auto'>
                     <CardHeader className='text-center space-y-1'>
                     
