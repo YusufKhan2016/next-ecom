@@ -1,5 +1,6 @@
+import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
-import { Field, FieldDescription, FieldLabel } from '@/components/ui/field'
+import { Field, FieldDescription, FieldGroup, FieldLabel } from '@/components/ui/field'
 import { Input } from '@/components/ui/input'
 import { Separator } from '@/components/ui/separator'
 import Link from 'next/link'
@@ -25,46 +26,62 @@ function LoginPage() {
 
             <Separator orientation='horizontal' />
             
-            <CardContent className='space-y-2.5 mt-2'>
-              <Field>
+            <CardContent className='mt-2'>
+              <FieldGroup>
+                <Field>
 
-                <FieldLabel htmlFor="email">
-                  Email
-                </FieldLabel>
+                  <FieldLabel htmlFor="email">
+                    Email
+                  </FieldLabel>
 
-                <Input 
-                  id="email" 
-                  type="email" 
-                  placeholder="demo@email.com"
-                />
+                  <Input 
+                    id="email" 
+                    type="email" 
+                    placeholder="demo@email.com"
+                  />
+                  
+                </Field>
+
+                <Field>
+
+                  <FieldLabel htmlFor="password">
+                    Password
+                  </FieldLabel>
+
+                  <Input 
+                    id="password" 
+                    type="password" 
+                    placeholder="Password"
+                  />
+                  
+                </Field>
+
+                <Field>
+                  <Button type="submit" form="form-rhf-demo">
+                    Login
+                  </Button>
+                </Field>
                 
-              </Field>
-
-              <Field>
-
-                <FieldLabel htmlFor="password">
-                  Password
-                </FieldLabel>
-
-                <Input 
-                  id="password" 
-                  type="password" 
-                  placeholder="Password"
-                />
-                
-              </Field>
+              </FieldGroup>
             </CardContent>
 
-            <CardFooter className='space-x-1'>
-              <CardDescription>
-                Don&apos;t have any account?  
-              </CardDescription>
-              <Link
-                href={'/register'}
-                className='text-sm font-bold italic'
-              >
-                Register now
-              </Link>
+            <CardFooter>
+              <FieldGroup>
+                <Field orientation={'horizontal'}>
+
+                  <CardDescription>
+                    Don&apos;t have any account?  
+                  </CardDescription>
+
+                  <Link
+                    href={'/register'}
+                    className='text-sm font-bold italic'
+                  >
+                    Register now
+                  </Link>
+
+                </Field>
+              </FieldGroup>
             </CardFooter>
           </Card>
         </div>

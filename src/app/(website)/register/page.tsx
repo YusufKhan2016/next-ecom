@@ -1,5 +1,6 @@
+import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
-import { Field, FieldLabel } from '@/components/ui/field'
+import { Field, FieldGroup, FieldLabel } from '@/components/ui/field'
 import { Input } from '@/components/ui/input'
 import { Separator } from '@/components/ui/separator'
 import Link from 'next/link'
@@ -24,48 +25,58 @@ function RegisterPage() {
 
                     <Separator orientation='horizontal' />
                     
-                    <CardContent className='space-y-2.5 mt-2'>
-                        <Field>
+                    <CardContent className='mt-2'>
+                        <FieldGroup>
 
-                            <FieldLabel htmlFor="email">
-                            Email
-                            </FieldLabel>
+                            <Field>
 
-                            <Input 
-                            id="email" 
-                            type="email" 
-                            placeholder="demo@email.com"
-                            />
-                            
-                        </Field>
+                                <FieldLabel htmlFor="email">
+                                Email
+                                </FieldLabel>
 
-                        <Field>
+                                <Input 
+                                id="email" 
+                                type="email" 
+                                placeholder="demo@email.com"
+                                />
+                                
+                            </Field>
 
-                            <FieldLabel htmlFor="password">
-                            Set Password
-                            </FieldLabel>
+                            <Field>
 
-                            <Input 
-                            id="password" 
-                            type="password" 
-                            placeholder="Set your Password"
-                            />
-                            
-                        </Field>
+                                <FieldLabel htmlFor="password">
+                                Set Password
+                                </FieldLabel>
 
-                        <Field>
+                                <Input 
+                                id="password" 
+                                type="password" 
+                                placeholder="Set your Password"
+                                />
+                                
+                            </Field>
 
-                            <FieldLabel htmlFor="password">
-                            Confirm your password
-                            </FieldLabel>
+                            <Field>
 
-                            <Input 
-                            id="password" 
-                            type="password" 
-                            placeholder="Confirm your password"
-                            />
-                            
-                        </Field>
+                                <FieldLabel htmlFor="password">
+                                Confirm your password
+                                </FieldLabel>
+
+                                <Input 
+                                id="password" 
+                                type="password" 
+                                placeholder="Confirm your password"
+                                />
+                                
+                            </Field>
+
+                            <Field>
+                                <Button type="submit" form="form-rhf-demo">
+                                    Register
+                                </Button>
+                            </Field>
+
+                        </FieldGroup>
                     </CardContent>
 
                     <CardFooter className='space-x-1'>
