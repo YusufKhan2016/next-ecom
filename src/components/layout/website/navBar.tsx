@@ -422,7 +422,7 @@ export default function Navbar() {
   const [mouseMovePercent, setMouseMovePercent] = useState(0);
   const [direction, setDirection] = useState<"left" | "right">("left");
 
-  const [cartShow, setCartShow] = useState<true | false>(false);
+  const [cartShow, setCartShow] = useState<true | false>(true);
 
   useEffect(() => {
 
@@ -484,9 +484,8 @@ export default function Navbar() {
 
               <Button
                 onClick={() => setCartShow(!cartShow)}
-                className="relative flex items-center justify-center h-10 w-10 rounded-md border border-input bg-white text-gray-700 transition-colors"
+                className="relative flex items-center cursor-pointer justify-center h-10 w-10 rounded-md border border-input bg-white text-gray-700 transition-colors"
               >
-
                 <ShoppingCart strokeWidth={2.3} />
 
                 <Badge
