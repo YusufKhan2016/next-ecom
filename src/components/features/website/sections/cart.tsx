@@ -4,6 +4,7 @@ import { Separator } from '@/components/ui/separator'
 import { ArrowRightCircleIcon, Trash2, Plus, Minus, X, Trash } from 'lucide-react'
 import { Dispatch, SetStateAction, useState } from 'react'
 import Image from 'next/image'
+import { Field, FieldGroup } from '@/components/ui/field'
 
 type CartItem = {
   id: number
@@ -77,10 +78,13 @@ function Cart({ cartOpen, setCartOpen }: CartPropsType) {
 
   return (
     <>
-      <section className={`${cartOpen? 'translate-x-0': 'translate-x-full'} fixed min-w-sm right-0 top-0 z-1000 h-screen duration-300 overflow-y-auto`}>
-        <Card className='h-full rounded-none flex flex-col'>
-          <CardHeader className='sticky top-0 bg-white z-10'>
-            <div className='flex items-center justify-between'>
+      <section className={`${cartOpen? 'translate-y-0': 'translate-y-full'} fixed min-w-sm right-0 top-0 z-1000 h-screen duration-300 overflow-y-auto`}>
+        <Card className='h-full overflow-hidden flex flex-col'>
+          <CardHeader className='sticky top-0 bg-foreground text-background z-10'>
+            <Field 
+              orientation={'horizontal'}
+              className='justify-between sticky top-0 bg-foreground text-background z-10'
+            >
               
               <CardTitle>
                 Cart ({cartItems.length})
@@ -90,8 +94,8 @@ function Cart({ cartOpen, setCartOpen }: CartPropsType) {
                 className='cursor-pointer hover:scale-110 transition-transform'
                 onClick={() => setCartOpen(false)}
               />
-            
-            </div>
+              
+            </Field>
           </CardHeader>
 
           <Separator orientation={'horizontal'} />
@@ -108,9 +112,9 @@ function Cart({ cartOpen, setCartOpen }: CartPropsType) {
                   
                 <div className='space-y-2 my-2'>
                   {cartItems.map((item, idx) => (
-                    <div key={idx} className='flex justify-between items-center p-1.5 border rounded-lg hover:bg-gray-50 transition-colors'>
+                    <div key={idx} className='flex justify-between items-center p-1.5 hover:bg-gray-50 transition-colors'>
 
-                      <div className='relative w-20 h-18 flex-shrink-0'>
+                      <div className='relative w-20 h-18 shrink-0'>
                         <Image
                           src={item.image}
                           alt={item.name}
@@ -172,32 +176,38 @@ function Cart({ cartOpen, setCartOpen }: CartPropsType) {
 
           <Separator orientation={'horizontal'} />
 
-          {cartItems.length > 0 && (
+          <CardFooter className='flex flex-col gap-2'>
 
-            <div className='p-4 space-y-3 bg-gray-50'>
-              <div className='flex justify-between text-lg'>
-                <span className='font-bold'>Subtotal</span>
-                <span className='font-bold text-foreground'>৳{subtotal.toLocaleString()}</span>
+            {cartItems.length > 0 && (
+
+              <div className='px-4 w-full pt-2 space-y-3'>
+                <div className='flex justify-between text-lg'>
+                  <span className='font-bold'>Subtotal</span>
+                  <span className='font-bold text-foreground'>৳{subtotal.toLocaleString()}</span>
+                </div>
               </div>
-            </div>
 
-          )}
+            )}
 
-          <CardFooter className='flex gap-2'>
+            <Field>
+              <FieldGroup className='gap-2 pt-3'>
+
+                <Button
+                  variant='outline'
+                  onClick={() => setCartOpen(false)}
+                >
+                  Continue Shopping
+                </Button>
+
+                <Button
+                  disabled={cartItems.length === 0}
+                >
+                  Proceed to checkout
+                </Button>
+
+              </FieldGroup>
+            </Field>
             
-            <Button
-              variant='outline'
-              onClick={() => setCartOpen(false)}
-            >
-              Continue Shopping
-            </Button>
-
-            <Button
-              className='flex-1'
-              disabled={cartItems.length === 0}
-            >
-              Proceed to checkout
-            </Button>
           
           </CardFooter>
         </Card>

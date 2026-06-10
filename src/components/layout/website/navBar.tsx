@@ -422,7 +422,7 @@ export default function Navbar() {
   const [mouseMovePercent, setMouseMovePercent] = useState(0);
   const [direction, setDirection] = useState<"left" | "right">("left");
 
-  const [cartShow, setCartShow] = useState<true | false>(true);
+  const [cartShow, setCartShow] = useState<true | false>(false);
 
   useEffect(() => {
 
