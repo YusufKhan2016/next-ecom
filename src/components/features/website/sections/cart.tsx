@@ -78,7 +78,7 @@ function Cart({ cartOpen, setCartOpen }: CartPropsType) {
 
   return (
     <>
-      <section className={`${cartOpen? 'translate-y-0': 'translate-y-full'} fixed min-w-sm right-0 top-0 z-1000 h-screen duration-300 overflow-y-auto`}>
+      <section className={`${cartOpen? 'translate-x-0': 'translate-x-full'} fixed min-w-sm right-0 top-0 z-1000 h-[98vh] duration-300 overflow-y-auto`}>
         <Card className='h-full overflow-hidden flex flex-col'>
           <CardHeader className='sticky top-0 bg-foreground text-background z-10'>
             <Field 
@@ -112,7 +112,7 @@ function Cart({ cartOpen, setCartOpen }: CartPropsType) {
                   
                 <div className='space-y-2 my-2'>
                   {cartItems.map((item, idx) => (
-                    <div key={idx} className='flex justify-between items-center p-1.5 hover:bg-gray-50 transition-colors'>
+                    <div key={idx} className='flex justify-between items-center p-1.5 border border-solid border-foreground/10 shadow-sm rounded-lg transition-colors'>
 
                       <div className='relative w-20 h-18 shrink-0'>
                         <Image
@@ -131,39 +131,37 @@ function Cart({ cartOpen, setCartOpen }: CartPropsType) {
                           {item.name}
                         </h4>
 
-                        <div className='flex items-center gap-2'>
-                          <button
+                        <Field orientation={'horizontal'} className='flex items-center gap-1 border border-solid border-foreground/10 w-fit rounded-lg p-0.5 shadow-sm'>
+                          <Button
                             onClick={() => updateQuantity(item.id, -1)}
-                            className='p-1 hover:bg-gray-200 rounded transition'
                           >
                             <Minus size={16} />
-                          </button>
+                          </Button>
 
-                          <span className='w-6 text-center text-sm font-semibold'>{item.quantity}</span>
+                          <span className='px-1 text-sm font-semibold'>{item.quantity}</span>
 
-                          <button
+                          <Button
                             onClick={() => updateQuantity(item.id, 1)}
-                            className='p-1 hover:bg-gray-200 rounded transition'
                           >
                             <Plus size={16} />
-                          </button>
+                          </Button>
 
-                        </div>
+                        </Field>
 
                       </div>
 
-                      <div className='flex gap-2'>
+                      <div className='flex items-center gap-2'>
 
-                        <p className='text-md font-bold text-foreground'>
+                        <p className='text-md font-semibold text-foreground'>
                           ৳{(item.price * item.quantity).toLocaleString()}
                         </p>
 
-                        <button
+                        <Button
                           onClick={() => removeItem(item.id)}
-                          className='text-red-500 hover:text-red-700 transition p-1'
+                          className='text-destructive shadow-sm rounded-full py-6'
                         >
                           <Trash2 size={18} />
-                        </button>
+                        </Button>
 
                       </div>
 

@@ -5,7 +5,7 @@ import PromotionalHero from "@/components/features/website/sections/promotionalH
 import { categories } from "@/staticsDatas/categories"
 import { products } from "@/staticsDatas/products"
 
-import acGreatDeal from "@/assets/home/ac-mid-great-deal.webp"
+import acGreatDeal from "@/assets/home/ac-mid-great-deal.gif"
 
 export default function Home() {
   return (

@@ -12,7 +12,6 @@ import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from "@/com
 import { Button } from "@/components/ui/button"
 import { Header } from "@/components/ui/header"
 
-import acGreatDeal from "@/assets/home/ac-mid-great-deal.webp"
 
 type PropTypes = {
   headerFirstPart: string,
@@ -57,7 +56,7 @@ export default function FeaturedProducts({
         {banner && (
           <div>
             <Image
-              src={acGreatDeal}
+              src={banner}
               alt="Great Deals"
               width={10000}
               height={300}
