@@ -18,8 +18,9 @@ import { Badge } from "@/components/ui/badge"
 
 import logoMain from "@/assets/logo-main.png"
 import { cn } from "@/lib/utils"
-import Cart from "@/components/features/website/sections/cart"
+import Cart from "@/components/features/website/cart"
 import { Button } from "@/components/ui/button"
+import { useCartStore } from "@/store/website/cart"
 
 type ChildCategory = {
   label: string
@@ -421,8 +422,9 @@ export default function Navbar() {
   const [searchQuery, setSearchQuery] = useState("")
   const [mouseMovePercent, setMouseMovePercent] = useState(0);
   const [direction, setDirection] = useState<"left" | "right">("left");
-
   const [cartShow, setCartShow] = useState<true | false>(false);
+
+  const cartList = useCartStore((state) => state.cart);
 
   useEffect(() => {
 
@@ -491,7 +493,7 @@ export default function Navbar() {
                 <Badge
                   className="absolute bg-accent-foreground -top-2 -right-2 w-5 h-5 p-0 flex items-center justify-center text-xs rounded-full"
                 >
-                  0
+                  {cartList.length}
                 </Badge>
               </Button>
 

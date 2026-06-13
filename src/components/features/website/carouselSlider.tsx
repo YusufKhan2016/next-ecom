@@ -119,7 +119,7 @@ export default function FeaturedProducts({
               .map((product) => (
 
                 <CarouselItem key={product.id} className="basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/5 2xl:basis-1/5 py-8">
-                  <Card className="overflow-hidden shadow-lg h-full transition-shadow">
+                  <Card className="overflow-hidden h-full">
                     <Link href={`/products/${product.id}`} className="block">
                       <div className="relative overflow-hidden bg-muted">
                         <Image

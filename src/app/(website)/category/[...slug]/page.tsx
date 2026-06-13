@@ -1,4 +1,5 @@
 'use client'
+
 import { useParams } from 'next/navigation';
 import Image from 'next/image';
 import { useState } from 'react';
@@ -18,20 +19,17 @@ import {
 
 import { Input } from "@/components/ui/input"
 import {
-  Heart,
   ShoppingCart,
-  Eye,
-  Filter,
-  X,
   ListFilter,
   ChevronRight,
 } from 'lucide-react';
 
-import acGreatDeal from "@/assets/home/ac-mid-great-deal.webp"
+import acGreatDeal from "@/assets/home/ac-mid-great-deal.gif"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { Field, FieldContent, FieldDescription, FieldGroup, FieldLabel } from '@/components/ui/field';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import Link from 'next/link';
+import { useCartStore } from '@/store/website/cart';
 
 export default function CategoryPage() {
   const params = useParams();
@@ -40,8 +38,9 @@ export default function CategoryPage() {
   const categoryData = extendedCategories.find(cat => cat.id === categorySlug);
   const categoryLabel = categoryData?.label || 'Products';
 
+  const addToCart = useCartStore((state) => state.addToCart)
+
   const [isOpen, setIsOpen] = useState(true);
-  const [productSortBy, setProductSortBy] = useState('default');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [priceRange, setPriceRange] = useState({ min: 0, max: 500000 });
 
@@ -315,7 +314,16 @@ export default function CategoryPage() {
                         Buy Now
                       </Button>
 
-                      <Button>
+                      <Button
+                        onClick={() => {
+                          addToCart({
+                            id: product.id,
+                            name: product.name,
+                            image: product.image,
+                            price: product.price,
+                          })
+                        }}
+                      >
                         <ShoppingCart />
                       </Button>
                     </CardFooter>

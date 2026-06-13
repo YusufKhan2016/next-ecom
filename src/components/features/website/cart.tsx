@@ -5,6 +5,7 @@ import { ArrowRightCircleIcon, Trash2, Plus, Minus, X, Trash } from 'lucide-reac
 import { Dispatch, SetStateAction, useState } from 'react'
 import Image from 'next/image'
 import { Field, FieldGroup } from '@/components/ui/field'
+import { useCartStore } from '@/store/website/cart'
 
 type CartItem = {
   id: number
@@ -20,61 +21,14 @@ type CartPropsType = {
 }
 
 function Cart({ cartOpen, setCartOpen }: CartPropsType) {
+  
+  const cartList = useCartStore((state) => state.cart);
+  const incrementQuantity = useCartStore((state) => state.incrementQuantity);
+  const decrementQuantity = useCartStore((state) => state.decrementQuantity);
+  const removeCartItem = useCartStore((state) => state.removeFromCart)
+  const clearCart = useCartStore((state) => state.clearCart)
 
-  const [cartItems, setCartItems] = useState<CartItem[]>([
-    {
-      id: 1,
-      name: "iPhone 1z7 Pro Maxasfsfsfasdfsfasdfasfdsfafd",
-      image: "https://images.pexels.com/photos/788946/pexels-photo-788946.jpeg?auto=compress&cs=tinysrgb&w=400&h=500&fit=crop",
-      price: 169500,
-      quantity: 1,
-    },
-    {
-      id: 2,
-      name: "Galaxy S26 Ultra 5G",
-      image: "https://images.pexels.com/photos/1334597/pexels-photo-1334597.jpeg?auto=compress&cs=tinysrgb&w=400&h=500&fit=crop",
-      price: 133500,
-      quantity: 2,
-    },
-    {
-      id: 6,
-      name: "OnePlus 13",
-      image: "https://images.pexels.com/photos/3587620/pexels-photo-3587620.jpeg?auto=compress&cs=tinysrgb&w=400&h=500&fit=crop",
-      price: 59999,
-      quantity: 1,
-    },
-    {
-      id: 6,
-      name: "OnePlus 13",
-      image: "https://images.pexels.com/photos/3587620/pexels-photo-3587620.jpeg?auto=compress&cs=tinysrgb&w=400&h=500&fit=crop",
-      price: 59999,
-      quantity: 1,
-    },
-    {
-      id: 6,
-      name: "OnePlus 13",
-      image: "https://images.pexels.com/photos/3587620/pexels-photo-3587620.jpeg?auto=compress&cs=tinysrgb&w=400&h=500&fit=crop",
-      price: 59999,
-      quantity: 1,
-    },
-            
-  ])
-
-  const updateQuantity = (id: number, change: number) => {
-    setCartItems(prev =>
-      prev.map(item =>
-        item.id === id
-          ? { ...item, quantity: Math.max(1, item.quantity + change) }
-          : item
-      )
-    )
-  }
-
-  const removeItem = (id: number) => {
-    setCartItems(prev => prev.filter(item => item.id !== id))
-  }
-
-  const subtotal:number = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0)
+  const subtotal:number = cartList.reduce((sum, item) => sum + item.price * item.quantity, 0)
 
   return (
     <>
@@ -87,7 +41,7 @@ function Cart({ cartOpen, setCartOpen }: CartPropsType) {
             >
               
               <CardTitle>
-                Cart ({cartItems.length})
+                Cart ({cartList.length})
               </CardTitle>
 
               <X
@@ -102,7 +56,7 @@ function Cart({ cartOpen, setCartOpen }: CartPropsType) {
 
           <CardContent className='flex-1 overflow-y-auto py-4'>
             {
-              cartItems.length === 0 ? (
+              cartList.length === 0 ? (
 
                 <div className='flex items-center justify-center h-full text-gray-500'>
                   <p>Your cart is empty</p>
@@ -111,7 +65,7 @@ function Cart({ cartOpen, setCartOpen }: CartPropsType) {
               ) : (
                   
                 <div className='space-y-2 my-2'>
-                  {cartItems.map((item, idx) => (
+                  {cartList.map((item, idx) => (
                     <div key={idx} className='flex justify-between items-center p-1.5 border border-solid border-foreground/10 shadow-sm rounded-lg transition-colors'>
 
                       <div className='relative w-20 h-18 shrink-0'>
@@ -133,7 +87,7 @@ function Cart({ cartOpen, setCartOpen }: CartPropsType) {
 
                         <Field orientation={'horizontal'} className='flex items-center gap-1 border border-solid border-foreground/10 w-fit rounded-lg p-0.5 shadow-sm'>
                           <Button
-                            onClick={() => updateQuantity(item.id, -1)}
+                            onClick={() => decrementQuantity(item.id)}
                           >
                             <Minus size={16} />
                           </Button>
@@ -141,7 +95,7 @@ function Cart({ cartOpen, setCartOpen }: CartPropsType) {
                           <span className='px-1 text-sm font-semibold'>{item.quantity}</span>
 
                           <Button
-                            onClick={() => updateQuantity(item.id, 1)}
+                            onClick={() => incrementQuantity(item.id)}
                           >
                             <Plus size={16} />
                           </Button>
@@ -157,7 +111,7 @@ function Cart({ cartOpen, setCartOpen }: CartPropsType) {
                         </p>
 
                         <Button
-                          onClick={() => removeItem(item.id)}
+                          onClick={() => removeCartItem(item.id)}
                           className='text-destructive shadow-sm rounded-full py-6'
                         >
                           <Trash2 size={18} />
@@ -176,7 +130,7 @@ function Cart({ cartOpen, setCartOpen }: CartPropsType) {
 
           <CardFooter className='flex flex-col gap-2'>
 
-            {cartItems.length > 0 && (
+            {cartList.length > 0 && (
 
               <div className='px-4 w-full pt-2 space-y-3'>
                 <div className='flex justify-between text-lg'>
@@ -198,7 +152,7 @@ function Cart({ cartOpen, setCartOpen }: CartPropsType) {
                 </Button>
 
                 <Button
-                  disabled={cartItems.length === 0}
+                  disabled={cartList.length === 0}
                 >
                   Proceed to checkout
                 </Button>
