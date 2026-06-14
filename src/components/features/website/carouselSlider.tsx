@@ -13,7 +13,7 @@ import { Button } from "@/components/ui/button"
 import { Header } from "@/components/ui/header"
 
 
-type PropTypes = {
+interface PropTypes {
   headerFirstPart: string,
   headerSecondPart: string,
   banner?: string | StaticImageData,
@@ -21,12 +21,12 @@ type PropTypes = {
   products: ProductTypes[]  
 }
 
-type CategoryTypes = {
+interface CategoryTypes {
   id: string,
   label: string
 }
 
-type ProductTypes = {
+interface ProductTypes {
   id: number,
   name: string,
   image: string | StaticImageData,
@@ -120,7 +120,7 @@ export default function FeaturedProducts({
 
                 <CarouselItem key={product.id} className="basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/5 2xl:basis-1/5 py-8">
                   <Card className="overflow-hidden h-full">
-                    <Link href={`/products/${product.id}`} className="block">
+                    <Link href={`/product/${product.id}`} >
                       <div className="relative overflow-hidden bg-muted">
                         <Image
                           src={product.image}
@@ -134,9 +134,12 @@ export default function FeaturedProducts({
                     </Link>
 
                     <CardContent className="p-2 my-2 flex flex-col gap-2 h-full">
-                      <h3 className="font-medium text-sm line-clamp-2">
+                      <Link 
+                        href={`/product/${product.id}`} 
+                        className="font-medium text-sm line-clamp-2"
+                      >
                         {product.name}
-                      </h3>
+                      </Link>
 
                       <div className="flex items-baseline gap-2">
                         <span className="text-lg font-bold">

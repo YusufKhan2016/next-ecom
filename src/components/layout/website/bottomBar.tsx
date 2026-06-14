@@ -8,16 +8,6 @@ export default function BottomBar() {
   return (
     <footer className="bg-background shadow-[10px_-2px_4px_0px_rgba(0,0,0,0.1)] shadow-gray-100  text-foreground mt-16 relative overflow-hidden">
 
-      {/* Ambient glow orbs */}
-      <div
-        className="absolute top-10 -left-16 w-80 h-80 rounded-full pointer-events-none z-0"
-        style={{ background: "radial-gradient(circle, rgba(217,119,6,0.18) 0%, transparent 70%)" }}
-      />
-      <div
-        className="absolute bottom-20 -right-20 w-96 h-96 rounded-full pointer-events-none z-0"
-        style={{ background: "radial-gradient(circle, rgba(217,119,6,0.12) 0%, transparent 70%)" }}
-      />
-
       {/* ── Newsletter Band ── */}
       <div className="border-b border-accent-foreground/20 relative z-10">
         <div className="max-w-5xl mx-auto py-10">

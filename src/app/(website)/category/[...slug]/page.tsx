@@ -45,7 +45,7 @@ export default function CategoryPage() {
   const [priceRange, setPriceRange] = useState({ min: 0, max: 500000 });
 
   const filteredProducts = products.filter(product => {
-    const price = product.price;
+    const price = product.price;  
     return price >= priceRange.min && price <= priceRange.max;
   });
 
@@ -281,7 +281,10 @@ export default function CategoryPage() {
                     className="drop-shadow-xl overflow-hidden"
                   >
                     {/* Product Image */}
-                    <div className="relative bg-gray-100 h-56 overflow-hidden group">
+                    <Link 
+                      href={`/product/${product.id}`} 
+                      className="relative bg-gray-100 h-56 overflow-hidden group"
+                    >
                       <Image
                         src={product?.image}
                         alt={product?.name}
@@ -289,13 +292,13 @@ export default function CategoryPage() {
                         width={1000}
                         className="object-cover transition-transform duration-300"
                       />
-                    </div>
+                    </Link>
 
                     {/* Product Info */}
                     <CardContent className='mt-2'>
-                      <CardTitle className="text-sm line-clamp-2 mb-4">
+                      <Link href={`/product/${product.id}`} className="text-sm font-medium line-clamp-2 mb-4">
                         {product.name}
-                      </CardTitle>
+                      </Link>
 
                       <div className="flex items-center gap-2">
                         <span className="text-lg font-bold text-gray-900">

@@ -178,7 +178,7 @@ export default function PromotionalHero() {
         </div>
       </div>
 
-      <Card className="grid grid-cols-5 border rounded-xl overflow-hidden">
+      <Card className="grid grid-cols-5 border drop-shadow-xl overflow-hidden">
         {features.map((feature, i) => (
           <div key={i} className="flex items-center mx-auto gap-2.5 px-4 py-3">
             <div className="w-8 h-8 rounded-md bg-muted flex items-center justify-center shrink-0">

@@ -7,14 +7,6 @@ import Image from 'next/image'
 import { Field, FieldGroup } from '@/components/ui/field'
 import { useCartStore } from '@/store/website/cart'
 
-type CartItem = {
-  id: number
-  name: string
-  image: string
-  price: number
-  quantity: number
-}
-
 type CartPropsType = {
   cartOpen?: boolean
   setCartOpen: Dispatch<SetStateAction<boolean>>
