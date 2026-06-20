@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -21,6 +21,8 @@ import {
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 import Link from "next/link";
 import { Card } from "@/components/ui/card";
+import Image from "next/image";
+import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
 
 // ── Types ──────────────────────────────────────────────────────────────────────
 interface Spec {
@@ -80,9 +82,12 @@ const features = [
 ];
 
 const thumbnails = [
-  "https://placehold.co/80x80/f5f5f7/999?text=Front",
-  "https://placehold.co/80x80/f5f5f7/999?text=Side",
-  "https://placehold.co/80x80/f5f5f7/999?text=Case",
+  "https://images.pexels.com/photos/34624327/pexels-photo-34624327.jpeg",
+  "https://images.pexels.com/photos/34018284/pexels-photo-34018284.jpeg",
+  "https://images.pexels.com/photos/37421860/pexels-photo-37421860.jpeg",
+  "https://images.pexels.com/photos/37421860/pexels-photo-37421860.jpeg",
+  "https://images.pexels.com/photos/37421860/pexels-photo-37421860.jpeg",
+  "https://images.pexels.com/photos/37421860/pexels-photo-37421860.jpeg",
 ];
 
 const relatedProducts = [
@@ -91,91 +96,119 @@ const relatedProducts = [
     price: "৳14,500",
     originalPrice: "৳12,500",
     discount: "৳1,800 OFF",
-    img: "https://placehold.co/120x120/f5f5f7/999?text=AirPods+4",
+    img: "https://images.pexels.com/photos/34624327/pexels-photo-34624327.jpeg",
   },
   {
     name: "AirPods Pro (2nd gen) USB-C",
     price: "৳22,000",
     originalPrice: "৳24,000",
     discount: "৳2,000 OFF",
-    img: "https://placehold.co/120x120/f5f5f7/999?text=Pro+2nd",
+    img: "https://images.pexels.com/photos/36503100/pexels-photo-36503100.jpeg",
   },
 ];
 
 // ── Component ──────────────────────────────────────────────────────────────────
 export default function ProductDetailsPage() {
-  const [quantity, setQuantity] = useState(1);
-  const [activeThumb, setActiveThumb] = useState(0);
+  const carouselApiRef = useRef<any>(null);
+  const [activeContent, setActiveContent] = useState(0);
 
-  const dec = () => setQuantity((q) => Math.max(1, q - 1));
-  const inc = () => setQuantity((q) => q + 1);
+  const handleThumbnailClick = (index: number) => {
+    if (carouselApiRef.current) {
+      carouselApiRef.current.scrollTo(index);
+      setActiveContent(index);
+    }
+  };
+  
 
   return (
     <section>
       <div className="container mx-auto px-4">
 
         <Breadcrumb>
-            <BreadcrumbList>
+          <BreadcrumbList>
 
-                <BreadcrumbItem>
-                    <BreadcrumbLink asChild>
-                        <Link href={'/'}>Home</Link>
-                    </BreadcrumbLink>
-                </BreadcrumbItem>
-                  
-                <BreadcrumbSeparator />
-                
-                <BreadcrumbItem>
-                    <BreadcrumbLink href="/components">Components</BreadcrumbLink>
-                </BreadcrumbItem>
+            <BreadcrumbItem>
+              <BreadcrumbLink asChild>
+                  <Link href={'/'}>Home</Link>
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+              
+            <BreadcrumbSeparator />
+            
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/components">Components</BreadcrumbLink>
+            </BreadcrumbItem>
 
-                <BreadcrumbSeparator />
+            <BreadcrumbSeparator />
 
-                <BreadcrumbItem>
-                    <BreadcrumbPage>Air Pods Pro 3</BreadcrumbPage>
-                </BreadcrumbItem>
-          
-            </BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbPage>Air Pods Pro 3</BreadcrumbPage>
+            </BreadcrumbItem>
+        
+          </BreadcrumbList>
         </Breadcrumb>
 
         
         {/* ── Hero card ── */}
-        <Card>
-          <div className="grid md:grid-cols-2 gap-8">
-            {/* Left – image gallery */}
+        <Card className="p-4">
+          <div className="flex justify-between gap-10">
             <div className="space-y-4">
-              {/* Main image */}
-              <div className="bg-gray-50 rounded-xl flex items-center justify-center h-72 md:h-80 border border-gray-100 overflow-hidden">
-                <img
-                  src="https://placehold.co/320x260/f5f5f7/999?text=AirPods+Pro+3"
-                  alt="AirPods Pro 3"
-                  className="object-contain h-56 w-auto drop-shadow-md"
-                />
-              </div>
+              {/* Carousel */}
+              <Carousel 
+                className="size-100 border-2 border-solid border-input rounded-2xl overflow-hidden"
+                setApi={(api) => {
+                  carouselApiRef.current = api;
+                }}
+                opts={{
+                  align: "center",
+                  loop: true,
+                }}
+              >
+                <CarouselContent>
+                  {thumbnails.map((src, i) => (
+                    <CarouselItem key={i} className="size-100 overflow-hidden relative">
+                      <Image
+                        src={src}
+                        fill={true}
+                        sizes={"100"}
+                        loading="eager"
+                        alt={`AirPods Pro 3 - ${i + 1}`}
+                        className="object-cover"
+                      />
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+              </Carousel>
+
               {/* Thumbnails */}
-              <div className="flex gap-3">
-                {thumbnails.map((src, i) => (
-                  <button
-                    key={i}
-                    onClick={() => setActiveThumb(i)}
-                    className={`rounded-lg border-2 overflow-hidden transition-all ${
-                      activeThumb === i
-                        ? "border-blue-500 shadow-sm"
-                        : "border-gray-200 hover:border-gray-300"
-                    }`}
-                  >
-                    <img
-                      src={src}
-                      alt={`Thumb ${i + 1}`}
-                      className="w-16 h-16 object-cover"
-                    />
-                  </button>
-                ))}
-              </div>
+              <Carousel className="w-full max-w-100">
+                <CarouselContent className="w-27">
+                  {thumbnails.map((src, i) => (
+                    <CarouselItem key={i} >
+                      <button
+                        key={i}
+                        className={`rounded-2xl border-2 border-solid ${activeContent === i ? 'border-black' : 'border-input'} overflow-hidden size-24 relative cursor-pointer`}
+                        onClick={() => handleThumbnailClick(i)}
+                      >
+                        <Image
+                          src={src}
+                          alt={`Thumb ${i + 1}`}
+                          loading="eager"
+                          fill={true}
+                          sizes={"24"}
+                          className="object-cover"
+                          
+                          
+                        />
+                      </button>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+              </Carousel>
             </div>
 
             {/* Right – product info */}
-            <div className="space-y-4">
+            <div className="flex-1 space-y-4">
               {/* Brand */}
               <p className="text-sm font-semibold text-gray-400 tracking-widest uppercase">
                 Apple
@@ -241,18 +274,16 @@ export default function ProductDetailsPage() {
                     variant="outline"
                     size="icon"
                     className="h-9 w-9 rounded-lg"
-                    onClick={dec}
                   >
                     <Minus className="w-4 h-4" />
                   </Button>
                   <span className="w-10 text-center font-semibold text-lg">
-                    {quantity}
+                    2
                   </span>
                   <Button
                     variant="outline"
                     size="icon"
                     className="h-9 w-9 rounded-lg"
-                    onClick={inc}
                   >
                     <Plus className="w-4 h-4" />
                   </Button>

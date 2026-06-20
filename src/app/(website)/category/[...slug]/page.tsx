@@ -57,6 +57,7 @@ export default function CategoryPage() {
             src={acGreatDeal}
             alt="Great Deals"
             width={10000}
+            unoptimized
             height={300}
             loading="eager"
             className="rounded-xl mt-8"
