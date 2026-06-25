@@ -20,9 +20,10 @@ import {
 } from "lucide-react";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 import Link from "next/link";
-import { Card } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Image from "next/image";
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
+import Counter from "@/components/features/website/counter";
 
 // ── Types ──────────────────────────────────────────────────────────────────────
 interface Spec {
@@ -111,6 +112,21 @@ const relatedProducts = [
 export default function ProductDetailsPage() {
   const carouselApiRef = useRef<any>(null);
   const [activeContent, setActiveContent] = useState(0);
+  const count = 1;
+
+  // =====================================================================
+  const [position, setPosition] = useState({ x: 50, y: 50 });
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+
+    setPosition({ x, y });
+  };
+
+  // =======================================================================
 
   const handleThumbnailClick = (index: number) => {
     if (carouselApiRef.current) {
@@ -124,7 +140,7 @@ export default function ProductDetailsPage() {
     <section>
       <div className="container mx-auto px-4">
 
-        <Breadcrumb>
+        <Breadcrumb className="my-3">
           <BreadcrumbList>
 
             <BreadcrumbItem>
@@ -153,7 +169,7 @@ export default function ProductDetailsPage() {
         <Card className="p-4">
           <div className="flex justify-between gap-10">
             <div className="space-y-4">
-              {/* Carousel */}
+
               <Carousel 
                 className="size-100 border-2 border-solid border-input rounded-2xl overflow-hidden"
                 setApi={(api) => {
@@ -166,21 +182,30 @@ export default function ProductDetailsPage() {
               >
                 <CarouselContent>
                   {thumbnails.map((src, i) => (
-                    <CarouselItem key={i} className="size-100 overflow-hidden relative">
+                    <CarouselItem 
+                      key={i} 
+                      className="size-100 overflow-hidden relative"
+                      onMouseMove={handleMouseMove}
+                      onMouseLeave={() => setPosition({ x: 50, y: 50 })}
+                    >
                       <Image
+
                         src={src}
                         fill={true}
                         sizes={"100"}
                         loading="eager"
                         alt={`AirPods Pro 3 - ${i + 1}`}
-                        className="object-cover"
+                        className="object-cover hover:scale-110 duration-100"
+                        style={{
+                          objectFit: 'cover',
+                          objectPosition: `${position.x}% ${position.y}%`,
+                        }}
                       />
                     </CarouselItem>
                   ))}
                 </CarouselContent>
               </Carousel>
 
-              {/* Thumbnails */}
               <Carousel className="w-full max-w-100">
                 <CarouselContent className="w-27">
                   {thumbnails.map((src, i) => (
@@ -196,9 +221,7 @@ export default function ProductDetailsPage() {
                           loading="eager"
                           fill={true}
                           sizes={"24"}
-                          className="object-cover"
-                          
-                          
+                          className="object-cover" 
                         />
                       </button>
                     </CarouselItem>
@@ -207,100 +230,150 @@ export default function ProductDetailsPage() {
               </Carousel>
             </div>
 
-            {/* Right – product info */}
             <div className="flex-1 space-y-4">
-              {/* Brand */}
-              <p className="text-sm font-semibold text-gray-400 tracking-widest uppercase">
+
+              <p className="text-sm font-semibold text-foreground/70 tracking-widest uppercase">
                 Apple
               </p>
 
               {/* Title */}
-              <h1 className="text-3xl font-bold text-gray-900 leading-tight">
+              <h1 className="text-3xl font-bold leading-tight">
                 AirPods Pro 3
               </h1>
 
-              {/* Rating row */}
-              <div className="flex items-center gap-2">
-                <div className="flex">
-                  {[1, 2, 3, 4, 5].map((s) => (
-                    <Star
-                      key={s}
-                      className="w-4 h-4 fill-amber-400 text-amber-400"
-                    />
-                  ))}
-                </div>
-                <span className="text-sm text-gray-500">(128 reviews)</span>
-              </div>
-
               {/* Price block */}
-              <div className="flex items-baseline gap-3">
-                <span className="text-3xl font-bold text-gray-900">
-                  ৳26,500
-                </span>
-                <span className="text-lg text-gray-400 line-through">
-                  ৳34,000
-                </span>
-                <Badge className="bg-red-50 text-red-600 border-red-200 font-semibold">
-                  ৳7,500 OFF
-                </Badge>
-              </div>
-              <p className="text-xs text-gray-500 -mt-1">Cash Price</p>
+              <div className="flex items-end">
+                <h3 className="text-2xl font-bold">
+                  ৳1,26,500
+                </h3> 
 
-              <Separator />
+                <div className="flex text-end gap-2 ml-2">
+                  <span className="text-lg text-foreground/50 font-normal">(Cash Price)</span> 
+                  <Separator 
+                    orientation={"vertical"} 
+                    className="mx-4 my-auto h-4 bg-foreground/40"
+                  />
+                  <h3 className="text-lg font-medium text-foreground/40 line-through">
+                    ৳34,000
+                  </h3>
+                </div>
+              </div>
 
               {/* Meta badges */}
               <div className="flex flex-wrap gap-2">
+                
                 <Badge
-                  variant="outline"
-                  className="text-green-700 border-green-300 bg-green-50"
+                  className="text-green-700 border-green-300 bg-green-50 py-3 text-sm"
                 >
                   <Check className="w-3 h-3 mr-1" /> In Stock
                 </Badge>
-                <Badge variant="outline" className="text-gray-600">
+
+                <Badge className="py-3 text-sm">
                   Code: AGL30499
                 </Badge>
-                <Badge variant="outline" className="text-blue-600 border-blue-200 bg-blue-50">
-                  1 Year Official Warranty
-                </Badge>
+              
               </div>
 
-              {/* Quantity */}
-              <div className="space-y-1.5">
-                <label className="text-sm font-medium text-gray-700">
-                  Select Quantity
+              <div className="flex space-x-4 w-full">
+                <Card className="w-1/2">
+                  <CardHeader>
+                    <CardTitle className="text-lg">
+                      Color:
+                    </CardTitle>
+                  </CardHeader>
+
+                  <CardContent className="flex flex-wrap gap-2">
+                    <Badge variant={'outline'} className="text-sm px-2 py-4" >
+                      <span className="size-5 bg-orange-400 rounded-full"></span>
+                      Cosmic Orange
+                    </Badge>
+
+                    <Badge variant={'outline'} className="text-sm px-2 py-4" >
+                      <span className="size-5 bg-blue-400 rounded-full"></span>
+                      Deep Blue
+                    </Badge>
+
+                    <Badge variant={'outline'} className="text-sm px-2 py-4" >
+                      <span className="size-5 bg-gray-400 rounded-full"></span>
+                      Silver
+                    </Badge>
+                  </CardContent>
+                </Card>
+
+                <Card className="w-1/2">
+                  <CardHeader>
+                    <CardTitle className="text-lg">
+                      Color:
+                    </CardTitle>
+                  </CardHeader>
+
+                  <CardContent className="flex flex-wrap gap-2">
+                    <Badge variant={'outline'} className="text-sm px-2 py-4" >
+                      E-Sim JP
+                    </Badge>
+
+                    <Badge variant={'outline'} className="text-sm px-2 py-4" >
+                      E-Sim USA
+                    </Badge>
+
+                    <Badge variant={'outline'} className="text-sm px-2 py-4" >
+                      SIM+eSim AUS
+                    </Badge>
+                  </CardContent>
+                </Card>
+              </div>
+
+              <div>
+                <Card className="w-1/2">
+                  <CardHeader>
+                    <CardTitle className="text-lg">
+                      Storage:
+                    </CardTitle>
+                  </CardHeader>
+
+                  <CardContent className="flex flex-wrap gap-2">
+                    <Badge variant={'outline'} className="text-sm px-2 py-4" >
+                      1TB
+                    </Badge>
+
+                    <Badge variant={'outline'} className="text-sm px-2 py-4" >
+                      2TB
+                    </Badge>
+
+                    <Badge variant={'outline'} className="text-sm px-2 py-4" >
+                      256GB
+                    </Badge>
+
+                    <Badge variant={'outline'} className="text-sm px-2 py-4" >
+                      512GB
+                    </Badge>
+                  </CardContent>
+                </Card>
+              </div>
+
+              <div>
+                <label className="text-lg mb-2 block font-semibold">
+                  Select Quantity:
                 </label>
-                <div className="flex items-center gap-3">
-                  <Button
-                    variant="outline"
-                    size="icon"
-                    className="h-9 w-9 rounded-lg"
-                  >
-                    <Minus className="w-4 h-4" />
-                  </Button>
-                  <span className="w-10 text-center font-semibold text-lg">
-                    2
-                  </span>
-                  <Button
-                    variant="outline"
-                    size="icon"
-                    className="h-9 w-9 rounded-lg"
-                  >
-                    <Plus className="w-4 h-4" />
-                  </Button>
-                </div>
+
+                <Counter
+                  id={1}
+                  quantity={count}
+                />
               </div>
 
-              {/* CTA buttons */}
               <div className="grid grid-cols-2 gap-3">
-                <Button className="bg-orange-500 hover:bg-orange-600 text-white font-semibold h-11 rounded-xl">
-                  <Zap className="w-4 h-4 mr-2" />
+                <Button
+                  className="h-11 cursor-pointer"
+                >
+                  <Zap />
                   Shop Now
                 </Button>
                 <Button
                   variant="outline"
-                  className="border-orange-400 text-orange-600 hover:bg-orange-50 font-semibold h-11 rounded-xl"
+                  className="h-11 cursor-pointer"
                 >
-                  <ShoppingCart className="w-4 h-4 mr-2" />
+                  <ShoppingCart />
                   Add to Cart
                 </Button>
               </div>
@@ -309,16 +382,16 @@ export default function ProductDetailsPage() {
               <div className="grid grid-cols-2 gap-3">
                 <Button
                   variant="outline"
-                  className="text-green-700 border-green-300 hover:bg-green-50 h-10 rounded-xl text-sm"
+                  className="h-11 border border-solid border-green-700 text-green-700 hover:bg-green-50"
                 >
-                  <MessageCircle className="w-4 h-4 mr-2" />
+                  <MessageCircle />
                   WhatsApp
                 </Button>
                 <Button
-                  variant="ghost"
-                  className="text-blue-600 hover:bg-blue-50 h-10 rounded-xl text-sm"
+                  variant={"secondary"}
+                  className="h-11 rounded-xl text-sm"
                 >
-                  <GitCompare className="w-4 h-4 mr-2" />
+                  <GitCompare />
                   Add to Compare
                 </Button>
               </div>
@@ -364,7 +437,7 @@ export default function ProductDetailsPage() {
 
             {/* Specification */}
             <TabsContent value="specification" className="p-6 md:p-8">
-              <h2 className="text-xl font-bold mb-5 text-gray-900">
+              <h2 className="text-xl font-bold mb-5">
                 Specification
               </h2>
               <div className="rounded-xl border border-gray-100 overflow-hidden">
@@ -386,7 +459,7 @@ export default function ProductDetailsPage() {
             <TabsContent value="description" className="p-6 md:p-8 space-y-8">
               {/* Live Translation banner */}
               <div className="rounded-2xl bg-gradient-to-br from-gray-900 to-gray-800 text-white flex flex-col items-center justify-center py-12 px-6 text-center gap-4">
-                <p className="text-sm uppercase tracking-widest text-gray-400">
+                <p className="text-sm uppercase tracking-widest text-foreground/70">
                   Live Translation
                 </p>
                 <p className="text-xl md:text-2xl font-semibold">
@@ -400,7 +473,7 @@ export default function ProductDetailsPage() {
 
               {/* About text */}
               <div className="space-y-3 text-gray-700 leading-relaxed text-sm md:text-base">
-                <h2 className="text-2xl font-bold text-gray-900">
+                <h2 className="text-2xl font-bold">
                   AirPods Pro 3
                 </h2>
                 <p>
@@ -427,7 +500,7 @@ export default function ProductDetailsPage() {
 
               {/* Features list */}
               <div>
-                <h2 className="text-2xl font-bold text-gray-900 mb-4">
+                <h2 className="text-2xl font-bold mb-4">
                   AirPods Pro 3 Features
                 </h2>
                 <ul className="space-y-2.5">
@@ -444,7 +517,7 @@ export default function ProductDetailsPage() {
 
               {/* Similar product price links */}
               <div className="rounded-xl border border-gray-100 p-5 space-y-2">
-                <h3 className="font-semibold text-gray-900 mb-3">
+                <h3 className="font-semibold mb-3">
                   Check Similar Product Price
                 </h3>
                 {[
@@ -464,7 +537,7 @@ export default function ProductDetailsPage() {
 
             {/* Warranty */}
             <TabsContent value="warranty" className="p-6 md:p-8">
-              <h2 className="text-xl font-bold mb-3 text-gray-900">Warranty</h2>
+              <h2 className="text-xl font-bold mb-3">Warranty</h2>
               <p className="text-sm text-gray-600">
                 Explore our{" "}
                 <a href="#" className="text-blue-600 hover:underline">
@@ -493,7 +566,7 @@ export default function ProductDetailsPage() {
         {/* ── Related Products ── */}
         <div>
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-xl font-bold text-gray-900">Related Products</h2>
+            <h2 className="text-xl font-bold">Related Products</h2>
             <a href="#" className="text-blue-600 hover:underline text-sm flex items-center gap-1">
               View all <ChevronRight className="w-4 h-4" />
             </a>
@@ -514,8 +587,8 @@ export default function ProductDetailsPage() {
                 <p className="text-sm font-semibold text-gray-800 line-clamp-2 mb-1">
                   {p.name}
                 </p>
-                <p className="text-base font-bold text-gray-900">{p.price}</p>
-                <p className="text-xs text-gray-400 line-through">
+                <p className="text-base font-bold">{p.price}</p>
+                <p className="text-xs text-foreground/70 line-through">
                   {p.originalPrice}
                 </p>
                 <Badge className="mt-1 bg-red-50 text-red-600 border-red-200 text-xs">

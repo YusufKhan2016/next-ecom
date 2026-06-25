@@ -49,6 +49,7 @@ export const useCartStore = create<CartStore>((set) => ({
             }
         })
     },
+
     incrementQuantity: (id) => {
         set((state) => ({
             cart: state.cart.map((item) => 
@@ -61,6 +62,7 @@ export const useCartStore = create<CartStore>((set) => ({
                 )
         }))
     },
+
     decrementQuantity: (id) => {
         set((state) => ({
             cart: state.cart.map((item) => 
@@ -73,11 +75,13 @@ export const useCartStore = create<CartStore>((set) => ({
                 )
         }))
     },
+
     removeFromCart: (id) => {
         set((state) => ({
             cart: state.cart.filter((item) => item.id !== id)
         }))
     },
+    
     clearCart: () => {
         set(() => ({
             cart: []

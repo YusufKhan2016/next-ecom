@@ -6,6 +6,7 @@ import { Dispatch, SetStateAction, useState } from 'react'
 import Image from 'next/image'
 import { Field, FieldGroup } from '@/components/ui/field'
 import { useCartStore } from '@/store/website/cart'
+import Counter from './counter'
 
 type CartPropsType = {
   cartOpen?: boolean
@@ -77,22 +78,10 @@ function Cart({ cartOpen, setCartOpen }: CartPropsType) {
                           {item.name}
                         </h4>
 
-                        <Field orientation={'horizontal'} className='flex items-center gap-1 border border-solid border-foreground/10 w-fit rounded-lg p-0.5 shadow-sm'>
-                          <Button
-                            onClick={() => decrementQuantity(item.id)}
-                          >
-                            <Minus size={16} />
-                          </Button>
-
-                          <span className='px-1 text-sm font-semibold'>{item.quantity}</span>
-
-                          <Button
-                            onClick={() => incrementQuantity(item.id)}
-                          >
-                            <Plus size={16} />
-                          </Button>
-
-                        </Field>
+                        <Counter 
+                          id={item?.id}
+                          quantity={item?.quantity}
+                        />
 
                       </div>
 

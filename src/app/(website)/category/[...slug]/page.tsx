@@ -284,14 +284,15 @@ export default function CategoryPage() {
                     {/* Product Image */}
                     <Link 
                       href={`/product/${product.id}`} 
-                      className="relative bg-gray-100 h-56 overflow-hidden group"
+                      className="relative bg-gray-100 block h-65 overflow-hidden group"
                     >
                       <Image
                         src={product?.image}
                         alt={product?.name}
-                        height={1000}
-                        width={1000}
-                        className="object-cover transition-transform duration-300"
+                        sizes='100px'
+                        fill
+                        loading={'eager'}
+                        className="object-cover"
                       />
                     </Link>
 
@@ -314,7 +315,7 @@ export default function CategoryPage() {
                     </CardContent>
 
                     <CardFooter className='space-x-1'>
-                      <Button className="flex-1">
+                      <Button variant={'outline'} className="flex-1 cursor-pointer">
                         Buy Now
                       </Button>
 
@@ -327,6 +328,7 @@ export default function CategoryPage() {
                             price: product.price,
                           })
                         }}
+                        className='cursor-pointer'
                       >
                         <ShoppingCart />
                       </Button>
