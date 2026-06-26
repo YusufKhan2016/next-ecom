@@ -30,6 +30,7 @@ import { Field, FieldContent, FieldDescription, FieldGroup, FieldLabel } from '@
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import Link from 'next/link';
 import { useCartStore } from '@/store/website/cart';
+import ProductCard from '@/components/features/website/productCard';
 
 export default function CategoryPage() {
   const params = useParams();
@@ -111,16 +112,15 @@ export default function CategoryPage() {
                   open={isOpen}
                   onOpenChange={setIsOpen}
                 >
+
                   <CollapsibleTrigger
                     className='cursor-pointer'
                     asChild
                   >
-
                     <span className='font-bold flex justify-between'>
                       Price Range
                       <ChevronRight className={ `transition-all ${isOpen? 'rotate-90': 'rotate-0'}`} />
                     </span>
-
                   </CollapsibleTrigger>
 
                   <CollapsibleContent className='py-2'>
@@ -164,35 +164,31 @@ export default function CategoryPage() {
                   </CollapsibleTrigger>
 
                   <CollapsibleContent className='py-2'>
-                    
-                      {extendedCategories.slice(0, 5).map(cat => (
+                    {extendedCategories.slice(0, 5).map(cat => (
+                      <FieldGroup 
+                        key={cat.id} 
+                        className='flex flex-row gap-1 py-1'
+                      >
 
-                        <FieldGroup 
-                          key={cat.id} 
-                          className='flex flex-row gap-1 py-1'
+                        <Field
+                          orientation={"horizontal"}
+                          id={cat.id}
                         >
+                          <Checkbox
+                            checked={selectedCategory === cat.id}
+                            onCheckedChange={() => setSelectedCategory(cat.id)}
+                            className='rounded-xs'
+                          />
 
-                          <Field
-                            orientation="horizontal"
-                            id={cat.id}
-                          >
-                            <Checkbox
-                              checked={selectedCategory === cat.id}
-                              onCheckedChange={() => setSelectedCategory(cat.id)}
-                              className='rounded-xs'
-                            />
-
-                            <FieldContent>
-                              <FieldLabel>
-                                { cat?.label }
-                              </FieldLabel>
-                            </FieldContent>
-                          </Field>
-                          
-                        </FieldGroup>
+                          <FieldContent>
+                            <FieldLabel>
+                              { cat?.label }
+                            </FieldLabel>
+                          </FieldContent>
+                        </Field>
                         
-                      ))}
-                    
+                      </FieldGroup>                        
+                    ))}
                   </CollapsibleContent>
                   
                 </Collapsible>
@@ -276,65 +272,14 @@ export default function CategoryPage() {
             
             {filteredProducts.length > 0 ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                {filteredProducts.map(product => (
-                  <Card
-                    key={product.id}
-                    className="drop-shadow-xl overflow-hidden"
-                  >
-                    {/* Product Image */}
-                    <Link 
-                      href={`/product/${product.id}`} 
-                      className="relative bg-gray-100 block h-65 overflow-hidden group"
-                    >
-                      <Image
-                        src={product?.image}
-                        alt={product?.name}
-                        sizes='100px'
-                        fill
-                        loading={'eager'}
-                        className="object-cover"
-                      />
-                    </Link>
-
-                    {/* Product Info */}
-                    <CardContent className='mt-2'>
-                      <Link href={`/product/${product.id}`} className="text-sm font-medium line-clamp-2 mb-4">
-                        {product.name}
-                      </Link>
-
-                      <div className="flex items-center gap-2">
-                        <span className="text-lg font-bold text-gray-900">
-                          ৳{product.price.toLocaleString()}
-                        </span>
-                        {product.originalPrice && (
-                          <span className="text-sm text-gray-500 line-through">
-                            ৳{product.originalPrice.toLocaleString()}
-                          </span>
-                        )}
-                      </div>
-                    </CardContent>
-
-                    <CardFooter className='space-x-1'>
-                      <Button variant={'outline'} className="flex-1 cursor-pointer">
-                        Buy Now
-                      </Button>
-
-                      <Button
-                        onClick={() => {
-                          addToCart({
-                            id: product.id,
-                            name: product.name,
-                            image: product.image,
-                            price: product.price,
-                          })
-                        }}
-                        className='cursor-pointer'
-                      >
-                        <ShoppingCart />
-                      </Button>
-                    </CardFooter>
-                  </Card>
+                
+                {filteredProducts.map((product, idx) => (
+                  <ProductCard
+                    key={idx}
+                    product={product}
+                  />
                 ))}
+                
               </div>
             ) : (
               <div className="flex items-center justify-center h-96">

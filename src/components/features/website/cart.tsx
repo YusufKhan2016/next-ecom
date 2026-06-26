@@ -112,14 +112,12 @@ function Cart({ cartOpen, setCartOpen }: CartPropsType) {
           <CardFooter className='flex flex-col gap-2'>
 
             {cartList.length > 0 && (
-
               <div className='px-4 w-full pt-2 space-y-3'>
                 <div className='flex justify-between text-lg'>
                   <span className='font-bold'>Subtotal</span>
                   <span className='font-bold text-foreground'>৳{subtotal.toLocaleString()}</span>
                 </div>
               </div>
-
             )}
 
             <Field>
@@ -141,7 +139,6 @@ function Cart({ cartOpen, setCartOpen }: CartPropsType) {
               </FieldGroup>
             </Field>
             
-          
           </CardFooter>
         </Card>
       </section>

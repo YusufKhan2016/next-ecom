@@ -3,14 +3,13 @@
 import Image, { StaticImageData } from "next/image"
 import Link from "next/link"
 import { useEffect, useState } from "react"
-
 import { ChevronLeft, ChevronRight } from "lucide-react"
-
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from "@/components/ui/carousel"
 import { Button } from "@/components/ui/button"
 import { Header } from "@/components/ui/header"
+import ProductCard from "./productCard"
 
 
 interface PropTypes {
@@ -118,47 +117,13 @@ export default function FeaturedProducts({
               .filter((product) => selectedCategory === "all" || product.category === selectedCategory)
               .map((product) => (
 
-                <CarouselItem key={product.id} className="basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/5 2xl:basis-1/5 py-8">
-                  <Card className="overflow-hidden h-full">
-                    <Link href={`/product/${product.id}`} >
-                      <div className="relative overflow-hidden bg-muted">
-                        <Image
-                          src={product.image}
-                          alt={product.name}
-                          width={300}
-                          height={380}
-                          loading="eager"
-                          className="w-full h-60 object-cover scale-105 transition-transform"
-                        />
-                      </div>
-                    </Link>
-
-                    <CardContent className="p-2 my-2 flex flex-col gap-2 h-full">
-                      <Link 
-                        href={`/product/${product.id}`} 
-                        className="font-medium text-sm line-clamp-2"
-                      >
-                        {product.name}
-                      </Link>
-
-                      <div className="flex items-baseline gap-2">
-                        <span className="text-lg font-bold">
-                          ৳ {product.price.toLocaleString()}
-                        </span>
-                        {product.originalPrice && (
-                          <span className="text-xs text-muted-foreground line-through">
-                            ৳ {product.originalPrice.toLocaleString()}
-                          </span>
-                        )}
-                      </div>
-
-                      {product.discount > 0 && (
-                        <Badge className="bg-green-100 text-green-700 hover:bg-green-100 border-0">
-                          ৳ {product.discount.toLocaleString()} OFF
-                        </Badge>
-                      )}
-                    </CardContent>
-                  </Card>
+                <CarouselItem 
+                  key={product.id} 
+                  className="basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/5 2xl:basis-1/5 py-8"
+                >
+                  <ProductCard
+                    product={product}
+                  />
                 </CarouselItem>
                 
             ))}

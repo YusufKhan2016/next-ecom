@@ -24,6 +24,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Image from "next/image";
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
 import Counter from "@/components/features/website/counter";
+import acGreatDeal from "@/assets/home/ac-mid-great-deal.gif";
+import CarouselSlider from "@/components/features/website/carouselSlider";
+import { products } from "@/staticsDatas/products";
+
 
 // ── Types ──────────────────────────────────────────────────────────────────────
 interface Spec {
@@ -115,6 +119,8 @@ export default function ProductDetailsPage() {
   const count = 1;
 
   // =====================================================================
+  
+  const [zoom, setZoom] = useState(false);
   const [position, setPosition] = useState({ x: 50, y: 50 });
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -164,8 +170,6 @@ export default function ProductDetailsPage() {
           </BreadcrumbList>
         </Breadcrumb>
 
-        
-        {/* ── Hero card ── */}
         <Card className="p-4">
           <div className="flex justify-between gap-10">
             <div className="space-y-4">
@@ -182,25 +186,30 @@ export default function ProductDetailsPage() {
               >
                 <CarouselContent>
                   {thumbnails.map((src, i) => (
-                    <CarouselItem 
-                      key={i} 
-                      className="size-100 overflow-hidden relative"
+                    <CarouselItem
+                      key={i}
+                      className="relative size-100 overflow-hidden cursor-zoom-in"
+                      onMouseEnter={() => setZoom(true)}
+                      onMouseLeave={() => {
+                        setZoom(false);
+                        setPosition({ x: 50, y: 50 });
+                      }}
                       onMouseMove={handleMouseMove}
-                      onMouseLeave={() => setPosition({ x: 50, y: 50 })}
                     >
+                      
                       <Image
-
                         src={src}
-                        fill={true}
-                        sizes={"100"}
-                        loading="eager"
+                        fill
                         alt={`AirPods Pro 3 - ${i + 1}`}
-                        className="object-cover hover:scale-110 duration-100"
+                        sizes="100px"
+                        loading="eager"
+                        className="object-cover pointer-events-none duration-100"
                         style={{
-                          objectFit: 'cover',
-                          objectPosition: `${position.x}% ${position.y}%`,
+                          transform: zoom ? "scale(1.5)" : "scale(1)",
+                          transformOrigin: `${position.x}% ${position.y}%`,
                         }}
                       />
+
                     </CarouselItem>
                   ))}
                 </CarouselContent>
@@ -274,8 +283,8 @@ export default function ProductDetailsPage() {
               
               </div>
 
-              <div className="flex space-x-4 w-full">
-                <Card className="w-1/2">
+              <div className="grid grid-cols-2 gap-3">
+                <Card>
                   <CardHeader>
                     <CardTitle className="text-lg">
                       Color:
@@ -300,7 +309,7 @@ export default function ProductDetailsPage() {
                   </CardContent>
                 </Card>
 
-                <Card className="w-1/2">
+                <Card>
                   <CardHeader>
                     <CardTitle className="text-lg">
                       Color:
@@ -321,10 +330,8 @@ export default function ProductDetailsPage() {
                     </Badge>
                   </CardContent>
                 </Card>
-              </div>
-
-              <div>
-                <Card className="w-1/2">
+                
+                <Card>
                   <CardHeader>
                     <CardTitle className="text-lg">
                       Storage:
@@ -359,6 +366,7 @@ export default function ProductDetailsPage() {
                 <Counter
                   id={1}
                   quantity={count}
+                  size="lg"
                 />
               </div>
 
@@ -397,9 +405,11 @@ export default function ProductDetailsPage() {
               </div>
 
               {/* Delivery & EMI info */}
-              <div className="rounded-xl border border-gray-100 bg-gray-50 p-3 space-y-2 text-sm text-gray-600">
+              <Card className="p-4 text-sm! space-y-1 bg-accent!">
+
                 <div className="flex items-center gap-2">
-                  <Zap className="w-4 h-4 text-blue-500 shrink-0" />
+                  <Zap size={20} />
+
                   <span>
                     EMI Available —{" "}
                     <span className="text-blue-600 cursor-pointer hover:underline">
@@ -407,46 +417,49 @@ export default function ProductDetailsPage() {
                     </span>
                   </span>
                 </div>
+
                 <div className="flex items-center gap-2">
-                  <Truck className="w-4 h-4 text-blue-500 shrink-0" />
+                  <Truck size={20} />
                   <span>Delivery Timescale: 3–5 Days</span>
                 </div>
+
                 <div className="flex items-center gap-2">
-                  <Shield className="w-4 h-4 text-blue-500 shrink-0" />
+                  <Shield size={20} />
                   <span>1 Year Official Warranty Support</span>
                 </div>
-              </div>
+
+              </Card>
             </div>
           </div>
         </Card>
 
         {/* ── Tabs: Specification / Description / Warranty ── */}
-        <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
-          <Tabs defaultValue="specification">
-            <TabsList className="w-full rounded-none border-b bg-white px-6 pt-4 pb-0 gap-6 justify-start h-auto">
+        <Card className="my-5 overflow-hidden">
+          <Tabs
+            defaultValue="specification"
+            className="bg-accent p-3"
+          >
+            <TabsList>
               {["specification", "description", "warranty"].map((tab) => (
                 <TabsTrigger
                   key={tab}
                   value={tab}
-                  className="rounded-none border-b-2 border-transparent data-[state=active]:border-blue-600 data-[state=active]:text-blue-600 data-[state=active]:shadow-none pb-3 capitalize font-medium text-sm text-gray-500 hover:text-gray-800 transition-colors"
+                  className="text-md p-3"
                 >
                   {tab.charAt(0).toUpperCase() + tab.slice(1)}
                 </TabsTrigger>
               ))}
             </TabsList>
 
-            {/* Specification */}
-            <TabsContent value="specification" className="p-6 md:p-8">
-              <h2 className="text-xl font-bold mb-5">
+            <TabsContent value="specification" className="p-4">
+              <h2 className="text-2xl font-bold mb-5">
                 Specification
               </h2>
               <div className="rounded-xl border border-gray-100 overflow-hidden">
                 {specs.map((s, i) => (
                   <div
                     key={i}
-                    className={`grid grid-cols-[160px_1fr] md:grid-cols-[220px_1fr] gap-4 px-5 py-3.5 text-sm ${
-                      i % 2 === 0 ? "bg-gray-50" : "bg-white"
-                    }`}
+                    className={`grid grid-cols-[160px_1fr] md:grid-cols-[220px_1fr] gap-4 px-5 py-3.5 text-sm bg-white border border-solid border-accent`}
                   >
                     <span className="text-gray-500 font-medium">{s.label}</span>
                     <span className="text-gray-800">{s.value}</span>
@@ -455,87 +468,58 @@ export default function ProductDetailsPage() {
               </div>
             </TabsContent>
 
-            {/* Description */}
-            <TabsContent value="description" className="p-6 md:p-8 space-y-8">
-              {/* Live Translation banner */}
-              <div className="rounded-2xl bg-gradient-to-br from-gray-900 to-gray-800 text-white flex flex-col items-center justify-center py-12 px-6 text-center gap-4">
-                <p className="text-sm uppercase tracking-widest text-foreground/70">
-                  Live Translation
-                </p>
-                <p className="text-xl md:text-2xl font-semibold">
-                  Live Translation helps you communicate across languages.
-                </p>
-                <div className="flex gap-8 text-3xl font-bold mt-2">
-                  <span className="text-purple-400">Hola</span>
-                  <span className="text-green-400">Hello</span>
+            <TabsContent value="description" className="p-4">
+              <h2 className="text-2xl font-bold mb-5">
+                Description
+              </h2>
+
+              <div className="bg-white p-4 rounded-lg">
+                <div className="space-y-3 text-gray-700 leading-relaxed text-sm md:text-base rounded-lg">
+                  <h2 className="text-2xl font-bold">
+                    AirPods Pro 3
+                  </h2>
+                  <p>
+                    Meet the all new AirPods Pro 3, totally changing the way you
+                    listen and move. They fit perfectly and stay put with
+                    exceptional fit and stability, which makes wearing them all
+                    day feel super easy. And yeah, they are built for the wild and
+                    durable against adventure with IP57, so rain, sweat, or spills
+                    are no big deal. Adaptive EQ adjusts every track perfectly to
+                    your ears, and the live translation feature is amazing for
+                    chatting across languages, honestly.
+                  </p>
+                  <p>
+                    On and wait, they even work as a hearing aid, making everyday
+                    sounds clearer. The heart rate sensor for workouts10 can also
+                    check high blood pressure, keeping your health in check, which
+                    is really handy. With the skin detect sensor, the AirPods Pro
+                    3 ensures seamless playback, pausing and resuming music
+                    perfectly automatically. And of course, better Active Noise
+                    Cancellation and greater battery life keep your music going
+                    strong, no matter what.
+                  </p>
                 </div>
-              </div>
 
-              {/* About text */}
-              <div className="space-y-3 text-gray-700 leading-relaxed text-sm md:text-base">
-                <h2 className="text-2xl font-bold">
-                  AirPods Pro 3
-                </h2>
-                <p>
-                  Meet the all new AirPods Pro 3, totally changing the way you
-                  listen and move. They fit perfectly and stay put with
-                  exceptional fit and stability, which makes wearing them all
-                  day feel super easy. And yeah, they are built for the wild and
-                  durable against adventure with IP57, so rain, sweat, or spills
-                  are no big deal. Adaptive EQ adjusts every track perfectly to
-                  your ears, and the live translation feature is amazing for
-                  chatting across languages, honestly.
-                </p>
-                <p>
-                  On and wait, they even work as a hearing aid, making everyday
-                  sounds clearer. The heart rate sensor for workouts10 can also
-                  check high blood pressure, keeping your health in check, which
-                  is really handy. With the skin detect sensor, the AirPods Pro
-                  3 ensures seamless playback, pausing and resuming music
-                  perfectly automatically. And of course, better Active Noise
-                  Cancellation and greater battery life keep your music going
-                  strong, no matter what.
-                </p>
-              </div>
+                {/* Features list */}
+                <div>
+                  <h2 className="text-2xl font-bold mb-4">
+                    AirPods Pro 3 Features
+                  </h2>
+                  <ul className="space-y-2.5">
+                    {features.map((f, i) => (
+                      <li key={i} className="flex items-start gap-3 text-sm text-gray-700">
+                        <span className="mt-0.5 w-5 h-5 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center shrink-0">
+                          <Check className="w-3 h-3" />
+                        </span>
+                        {f}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
 
-              {/* Features list */}
-              <div>
-                <h2 className="text-2xl font-bold mb-4">
-                  AirPods Pro 3 Features
-                </h2>
-                <ul className="space-y-2.5">
-                  {features.map((f, i) => (
-                    <li key={i} className="flex items-start gap-3 text-sm text-gray-700">
-                      <span className="mt-0.5 w-5 h-5 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center shrink-0">
-                        <Check className="w-3 h-3" />
-                      </span>
-                      {f}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Similar product price links */}
-              <div className="rounded-xl border border-gray-100 p-5 space-y-2">
-                <h3 className="font-semibold mb-3">
-                  Check Similar Product Price
-                </h3>
-                {[
-                  "AirPods Pro (2nd generation) USB-C",
-                  "Apple AirPods 4",
-                ].map((p) => (
-                  <a
-                    key={p}
-                    href="#"
-                    className="flex items-center gap-2 text-blue-600 hover:underline text-sm"
-                  >
-                    <ChevronRight className="w-3.5 h-3.5" /> {p}
-                  </a>
-                ))}
               </div>
             </TabsContent>
 
-            {/* Warranty */}
             <TabsContent value="warranty" className="p-6 md:p-8">
               <h2 className="text-xl font-bold mb-3">Warranty</h2>
               <p className="text-sm text-gray-600">
@@ -546,67 +530,18 @@ export default function ProductDetailsPage() {
                 page for detailed information about our warranty coverage.
               </p>
             </TabsContent>
+            
           </Tabs>
-        </div>
-
-        {/* ── Promo Banner ── */}
-        <div className="rounded-2xl overflow-hidden bg-gradient-to-r from-blue-900 via-blue-800 to-blue-700 text-white flex flex-col md:flex-row items-center justify-between px-8 py-6 gap-4 shadow-md">
-          <div className="space-y-1">
-            <p className="text-xs font-semibold uppercase tracking-widest text-blue-300">
-              Great Deals
-            </p>
-            <p className="text-4xl font-black">28%</p>
-            <p className="text-sm text-blue-200">Discount on Air Conditioner</p>
-          </div>
-          <Button className="bg-white text-blue-800 hover:bg-blue-50 font-bold px-6 py-2.5 rounded-xl shrink-0">
-            Order Now
-          </Button>
-        </div>
-
-        {/* ── Related Products ── */}
-        <div>
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-xl font-bold">Related Products</h2>
-            <a href="#" className="text-blue-600 hover:underline text-sm flex items-center gap-1">
-              View all <ChevronRight className="w-4 h-4" />
-            </a>
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {relatedProducts.map((p, i) => (
-              <div
-                key={i}
-                className="bg-white rounded-2xl border border-gray-100 shadow-sm p-4 hover:shadow-md transition-shadow group"
-              >
-                <div className="bg-gray-50 rounded-xl flex items-center justify-center h-32 mb-3 overflow-hidden">
-                  <img
-                    src={p.img}
-                    alt={p.name}
-                    className="object-contain h-24 group-hover:scale-105 transition-transform"
-                  />
-                </div>
-                <p className="text-sm font-semibold text-gray-800 line-clamp-2 mb-1">
-                  {p.name}
-                </p>
-                <p className="text-base font-bold">{p.price}</p>
-                <p className="text-xs text-foreground/70 line-through">
-                  {p.originalPrice}
-                </p>
-                <Badge className="mt-1 bg-red-50 text-red-600 border-red-200 text-xs">
-                  {p.discount}
-                </Badge>
-                <Button
-                  size="sm"
-                  className="mt-3 w-full rounded-lg bg-orange-500 hover:bg-orange-600 text-white text-xs h-8"
-                >
-                  Shop Now
-                </Button>
-              </div>
-            ))}
-          </div>
-        </div>
+        </Card>
         
-
-      </div> 
+      </div>
+      
+      <CarouselSlider
+        headerFirstPart="Related"
+        headerSecondPart="Products"
+        banner={acGreatDeal}
+        products={products}
+      />
     </section>
   );
 }

@@ -1,9 +1,10 @@
+import { StaticImageData } from "next/image";
 import { create } from "zustand";
 
 interface CartItem {
     id: number;
     name: string;
-    image: string;
+    image: string | StaticImageData;
     price: number;
     quantity: number;
 }
