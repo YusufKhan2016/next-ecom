@@ -10,7 +10,7 @@ export default function BottomBar() {
 
       {/* ── Newsletter Band ── */}
       <div className="border-b border-accent-foreground/20 relative z-10">
-        <div className="max-w-5xl mx-auto py-10">
+        <div className="container px-4 mx-auto py-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
             <div>
               <h3 className="text-2xl font-bold text-foreground mb-1.5">
@@ -37,7 +37,7 @@ export default function BottomBar() {
 
       {/* ── Brand Centerpiece ── */}
       <div className="relative z-10 text-left pt-14 pb-10">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           {/* Glowing brand name */}
           <Link href="/" className="inline-block">
             <i
@@ -122,7 +122,7 @@ export default function BottomBar() {
       </div>
 
       {/* ── Four-column Link Grid ── */}
-      <div className="relative z-10 max-w-5xl mx-auto pb-14 grid grid-cols-2 md:grid-cols-4 gap-10">
+      <div className="relative z-10 container px-4 mx-auto pb-14 grid grid-cols-2 md:grid-cols-4 gap-10">
 
         {/* Shop */}
         <div>

@@ -273,8 +273,7 @@ function CompareSlot({
             } else {
               setOpen(true);
             }
-          }}
-          onFocus={() => setOpen(true)}
+          }}  
           placeholder="Search..."
           className="pl-9 h-10"
         />

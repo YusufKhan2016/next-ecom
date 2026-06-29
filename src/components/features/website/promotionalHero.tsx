@@ -155,7 +155,26 @@ export default function PromotionalHero() {
           </Carousel>
         </Card>
 
-        <div className="flex flex-col gap-4 overflow-hidden">
+        <div className="grid grid-cols-2 gap-2 overflow-hidden">
+          {sideAds.map((ad, i) => (
+            <Card key={i} className="relative rounded-xl overflow-hidden h-40.5">
+              <Image 
+                src={ad.img} 
+                alt={ad.title}
+                height={500}
+                width={500}
+                loading="eager"
+                className="object-cover"
+              />
+
+              <div className="absolute inset-0 bg-linear-to-t from-accent-foreground/60 to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 p-3">
+                <p className="text-[10px] text-white/70 mb-0.5">{ad.label}</p>
+                <p className="text-sm font-medium text-white leading-tight">{ad.title}</p>
+                <p className="text-xs text-white/80 mt-0.5">{ad.sub}</p>
+              </div>
+            </Card>
+          ))}
           {sideAds.map((ad, i) => (
             <Card key={i} className="relative rounded-xl overflow-hidden h-40.5">
               <Image 
