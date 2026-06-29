@@ -28,12 +28,12 @@ export default function ProductCard({ product } : { product: ProductTypes }) {
         {/* Product Image */}
         <Link
           href={`/product/${product?.id}`} 
-          className="relative bg-gray-100 block h-65 overflow-hidden group"
+          className="relative bg-gray-100 block aspect-5/6 overflow-hidden group"
         >
           <Image
             src={product?.image}
             alt={product?.name}
-            sizes='100px'
+            sizes='300px'
             fill
             loading={'eager'}
             className="object-cover"

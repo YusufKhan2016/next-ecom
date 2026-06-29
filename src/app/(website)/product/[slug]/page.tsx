@@ -171,7 +171,7 @@ export default function ProductDetailsPage() {
         </Breadcrumb>
 
         <Card className="p-4">
-          <div className="flex justify-between gap-10">
+          <div className="flex justify-between gap-5">
             <div className="space-y-4">
 
               <Carousel 
@@ -184,6 +184,7 @@ export default function ProductDetailsPage() {
                   loop: true,
                 }}
               >
+                
                 <CarouselContent>
                   {thumbnails.map((src, i) => (
                     <CarouselItem
@@ -201,7 +202,7 @@ export default function ProductDetailsPage() {
                         src={src}
                         fill
                         alt={`AirPods Pro 3 - ${i + 1}`}
-                        sizes="100px"
+                        sizes={"300px"}
                         loading="eager"
                         className="object-cover pointer-events-none duration-100"
                         style={{
@@ -216,12 +217,12 @@ export default function ProductDetailsPage() {
               </Carousel>
 
               <Carousel className="w-full max-w-100">
-                <CarouselContent className="w-27">
+                <CarouselContent>
                   {thumbnails.map((src, i) => (
-                    <CarouselItem key={i} >
+                    <CarouselItem key={i}  className="basis-auto">
                       <button
                         key={i}
-                        className={`rounded-2xl border-2 border-solid ${activeContent === i ? 'border-black' : 'border-input'} overflow-hidden size-24 relative cursor-pointer`}
+                        className={`rounded-2xl border-2 duration-300 border-solid ${activeContent === i ? 'border-black' : 'border-input'} overflow-hidden size-24 relative cursor-pointer`}
                         onClick={() => handleThumbnailClick(i)}
                       >
                         <Image
@@ -229,7 +230,7 @@ export default function ProductDetailsPage() {
                           alt={`Thumb ${i + 1}`}
                           loading="eager"
                           fill={true}
-                          sizes={"24"}
+                          sizes={"300px"}
                           className="object-cover" 
                         />
                       </button>
