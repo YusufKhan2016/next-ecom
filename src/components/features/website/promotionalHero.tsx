@@ -83,16 +83,23 @@ export default function PromotionalHero() {
 
   useEffect(() => {
     if (!api) return
-    const interval = setInterval(() => api.scrollNext(), 4000)
+    const interval = setInterval(() => api.scrollNext(), 10000)
     return () => clearInterval(interval)
   }, [api])
 
   return (
     <section className="py-6 container mx-auto px-4">
-      <div className="grid grid-cols-[1fr_380px] gap-3 mb-3">
+      <div className="grid grid-cols-[1fr_500px] gap-3 mb-3">
 
         <Card className="overflow-hidden shadow-2xl">
-          <Carousel setApi={setApi} className="rounded-xl overflow-hidden bg-muted">
+          <Carousel 
+            setApi={setApi} 
+            opts={{
+              align: 'start',
+              loop: true
+            }}
+            className="rounded-xl overflow-hidden bg-muted"
+          >
             <CarouselContent>
               {slides.map((slide, idx) => (
                 <CarouselItem key={idx}>

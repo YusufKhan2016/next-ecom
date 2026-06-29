@@ -196,7 +196,7 @@ export default function BottomBar() {
       </div>
 
       {/* ── Bottom Bar ── */}
-      <div className="relative z-10 border-t border-white/[0.06]">
+      <div className="relative z-10 border-t border-white/6">
         <div className="max-w-5xl mx-auto py-8 flex flex-col md:flex-row items-center justify-between gap-6 px-4 sm:px-6 lg:px-8">
           <p className="text-xs text-zinc-700 order-2 md:order-1">
             © 2024{" "}
