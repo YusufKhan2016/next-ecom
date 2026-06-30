@@ -7,21 +7,13 @@ import { ChevronDownIcon, ChevronRight } from "lucide-react"
 
 import Link from "next/link"
 
-type ChildCategory = {
-  label: string
-  href?: string
-  sub_child_categories?: SubChildCategory[]
-}
+export interface Category {
+  id: number
+  name: string
+  slug: string
+  parentId: number | null
 
-type SubChildCategory = {
-  label: string
-  href?:string
-}
-
-type SubCategory = {
-  label: string
-  href?: string           
-  child_categories: ChildCategory[]
+  children?: Category[]
 }
 
 function NavigationMenu({
@@ -173,89 +165,115 @@ function NavigationMenuIndicator({
 function NavigationFlyoutMenuContent({
   categories,
   direction
-}: { categories: SubCategory[], direction: string }) {
-  const [activeCategory, setActiveCategory] = React.useState<SubCategory | null>(null)
-  const [activeChild, setActiveChild] = React.useState<ChildCategory | null>(null)
-  
-
-  const handleCategoryChange = (cat: SubCategory) => {
-    setActiveCategory(cat)
-    setActiveChild(null)
-  }
-
-  const hasChildren = (activeCategory?.child_categories?.length ?? 0) > 0
-  const hasSubChildren = (activeChild?.sub_child_categories?.length ?? 0) > 0
-
-  return (
+}:{
+  categories: Category[]
+  direction:"left"|"right"
+}){
+  return(
     <div
       className={cn(
-        "flex bg-white shadow-md rounded-md overflow-hidden transition-all duration-200",
-        direction === "right" ? "flex-row-reverse" : "flex-row"
+          "rounded-md bg-background shadow-md",
+          direction==="right"
+          ?"flex-row-reverse"
+          :"flex-row"
       )}
     >
 
-      {/* Categories column */}
-      <ul className="min-w-50 overflow-y-auto max-h-[85vh] shrink-0 border-r p-2 space-y-0.5">
-        {categories.map(( cat) => (
-          <li key={cat.label}>
-            <NavigationMenuLink
-              asChild
-              onMouseEnter={() => handleCategoryChange(cat)}
-              onFocus={() => handleCategoryChange(cat)}
-              className={cn(
-                "w-full flex items-center justify-between rounded-md px-3 py-2 text-sm transition-colors",
-                activeCategory?.label === cat?.label
-                  ? "bg-accent text-accent-foreground font-medium"
-                  : "text-muted-foreground hover:bg-accent/50 hover:text-foreground"
-              )}
-            >
-              <Link href={'/category/' + cat?.href || "#"}>
-                {cat?.label}
-                { cat?.child_categories?.length ? <ChevronRight size={13} /> : null }
-              </Link>
-            </NavigationMenuLink>
-          </li>
-        ))}
-      </ul>
+      <CategoryColumn
+          categories={categories}
+          direction={direction}
+      />
 
-      {hasChildren && (
-        <div className="min-w-50 py-4 px-2 border-r animate-in fade-in slide-in-from-left-2">
-          {activeCategory?.child_categories?.map((item, idx) => (
-            <NavigationMenuLink
-              key={idx}
-              onMouseEnter={() => setActiveChild(item)}
-              onFocus={() => setActiveChild(item)}
-              className={cn(
-                "flex items-center justify-between",
-                activeChild?.label === item?.label && "bg-accent"
-              )}  
-              asChild
-            >
-              <Link href={'/category/' + item?.href || "#"}>
-                {item?.label}
-                {item?.sub_child_categories?.length ? <ChevronRight size={13} /> : null}
-              </Link>
-            </NavigationMenuLink>
-          ))}
-        </div>
-      )}
-
-      {hasSubChildren && ( 
-        <div className="min-w-50 py-4 px-2 animate-in fade-in slide-in-from-left-2">
-          {activeChild?.sub_child_categories?.map((sub, idx) => (
-            <NavigationMenuLink 
-              key={idx} 
-              asChild
-            >
-              <Link href={'/category/' + sub?.href}>
-                {sub?.label}
-              </Link>
-            </NavigationMenuLink>
-          ))}
-        </div>
-      )}
     </div>
   )
+}
+
+interface CategoryColumnProps {
+  categories: Category[]
+  direction: "left" | "right"
+  visited?: Set<number>
+}
+
+function CategoryColumn({
+  categories,
+  direction,
+  visited = new Set()
+}: CategoryColumnProps) {
+  
+  const [activeCategory, setActiveCategory] = React.useState<Category | null>(null);
+
+  const nextVisited = React.useMemo(() => {
+    const copy = new Set(visited);
+    
+    if (activeCategory) copy.add(activeCategory.id);
+    return copy;
+  }, [visited, activeCategory]);
+
+  return (
+
+    <div
+      className={cn("flex", direction === "right" ? "flex-row-reverse" : "flex-row")}
+    >
+
+      <div className={cn(
+        "min-w-50 border-r bg-background p-2",
+        "transition-all duration-300",
+        "animate-in fade-in slide-in-from-right-4"
+      )}>
+
+        {
+          categories.map(category => (
+
+            <NavigationMenuLink
+              key={category.id}
+              asChild
+              onMouseEnter={() => setActiveCategory(category)}
+              onFocus={() => setActiveCategory(category)}
+              className={cn(
+                "flex items-center justify-between rounded-md",
+                activeCategory?.id === category.id &&
+                "bg-accent"
+              )}
+            >
+
+              <Link  href={`/category/${category.slug}`}>
+                {category.name}
+
+                {
+                  category.children?.length
+                    ? <ChevronRight size={14}/>
+                    : null
+                }
+              </Link>
+
+            </NavigationMenuLink>
+          ))
+        }
+
+      </div>
+
+      {
+        activeCategory &&
+        activeCategory.children &&
+        activeCategory.children.length > 0 &&
+        !visited.has(activeCategory.id) &&
+
+        (
+
+          <CategoryColumn
+            categories={activeCategory.children}
+            direction={direction}
+            visited={nextVisited}
+          />
+
+        )
+
+      }
+
+    </div>
+
+  );
+
 }
 export {
   NavigationMenu,
@@ -267,5 +285,6 @@ export {
   NavigationMenuIndicator,
   NavigationMenuViewport,
   navigationMenuTriggerStyle,
+  CategoryColumn,
   NavigationFlyoutMenuContent
 }
