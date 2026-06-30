@@ -527,7 +527,7 @@ export default function Navbar() {
 
                   <NavigationMenuContent
                     className={cn(
-                      "duration-70!",
+                      "duration-10!",
                       direction === "right" ? "right-0" : "left-0"
                     )}
                   >

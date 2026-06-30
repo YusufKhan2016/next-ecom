@@ -41,7 +41,7 @@ export default function AccountSidebar(
                   <Link
                     key={idx}
                     href={data.link}
-                    className={`flex gap-2 px-4 py-2 rounded-lg duration-100 ${data.isActive? 'bg-foreground text-background': 'bg-background text-foreground'}`}
+                    className={`flex items-center gap-2 px-4 py-2 rounded-lg duration-100 ${data.isActive? 'bg-foreground text-background': 'bg-background text-foreground'}`}
                   >
                     <Icon size={20} />
                     {data.label}

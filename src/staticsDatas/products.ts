@@ -11,7 +11,7 @@ export const products = [
   {
     id: 2,
     name: "Galaxy S26 Ultra 5G",
-    image: "https://images.pexels.com/photos/1334597/pexels-photo-1334597.jpeg?auto=compress&cs=tinysrgb&w=400&h=500&fit=crop",
+    image: "https://images.pexels.com/photos/37421860/pexels-photo-37421860.jpeg",
     price: 133500,
     originalPrice: 175000,
     discount: 41500,

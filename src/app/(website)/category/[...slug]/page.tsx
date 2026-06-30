@@ -1,11 +1,14 @@
 'use client'
 
+import { useState } from 'react';
 import { useParams } from 'next/navigation';
 import Image from 'next/image';
-import { useState } from 'react';
+import Link from 'next/link';
+
 import { products } from '@/staticsDatas/products';
 import { extendedCategories } from '@/staticsDatas/categories';
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import {
@@ -16,21 +19,15 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
-
 import { Input } from "@/components/ui/input"
-import {
-  ShoppingCart,
-  ListFilter,
-  ChevronRight,
-} from 'lucide-react';
-
-import acGreatDeal from "@/assets/home/ac-mid-great-deal.gif"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
-import { Field, FieldContent, FieldDescription, FieldGroup, FieldLabel } from '@/components/ui/field';
+import { Field, FieldContent, FieldGroup, FieldLabel } from '@/components/ui/field';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import Link from 'next/link';
-import { useCartStore } from '@/store/website/cart';
 import ProductCard from '@/components/features/website/productCard';
+
+import { useCartStore } from '@/store/website/cart';
+import { ListFilter, ChevronRight } from 'lucide-react';
+import acGreatDeal from "@/assets/home/ac-mid-great-deal.gif"
 
 export default function CategoryPage() {
   const params = useParams();
@@ -93,11 +90,11 @@ export default function CategoryPage() {
           </div>
         </div>
 
-        <div className="flex gap-6">
+        <div className="flex gap-4">
 
           {/* Sidebar Filter */}
           <div
-            className="block w-full md:w-60 shrink-0"
+            className="block w-full md:w-65 shrink-0"
           >
             <Card>
               <CardHeader >

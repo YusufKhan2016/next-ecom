@@ -188,11 +188,11 @@ function NavigationFlyoutMenuContent({
 
   return (
     <div
-  className={cn(
-    "flex bg-white shadow-md rounded-md overflow-hidden transition-all duration-200",
-    direction === "right" ? "flex-row-reverse" : "flex-row"
-  )}
->
+      className={cn(
+        "flex bg-white shadow-md rounded-md overflow-hidden transition-all duration-200",
+        direction === "right" ? "flex-row-reverse" : "flex-row"
+      )}
+    >
 
       {/* Categories column */}
       <ul className="min-w-50 overflow-y-auto max-h-[85vh] shrink-0 border-r p-2 space-y-0.5">

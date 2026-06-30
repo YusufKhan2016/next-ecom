@@ -28,7 +28,7 @@ export default function ProductCard({ product } : { product: ProductTypes }) {
         {/* Product Image */}
         <Link
           href={`/product/${product?.id}`} 
-          className="relative bg-gray-100 block aspect-5/6 overflow-hidden group"
+          className="relative bg-gray-100 block aspect-10/10 overflow-hidden group"
         >
           <Image
             src={product?.image}
