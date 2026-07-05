@@ -103,7 +103,7 @@ export default function PromotionalHero() {
             <CarouselContent>
               {slides.map((slide, idx) => (
                 <CarouselItem key={idx}>
-                  <div className="flex items-center gap-6 p-4 h-85">
+                  <div className="flex items-center gap-6 p-4 h-85 cursor-pointer">
                     <div className="relative w-50 h-full shrink-0">
                       <Image
                         src={slide.img}

@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import Image from "next/image"
-import { Search, ShoppingCart, GitCompare, Newspaper, LogIn } from "lucide-react"
+import { Search, ShoppingCart, GitCompare, Newspaper, LogIn, User } from "lucide-react"
 import { useEffect, useState } from "react"
 
 import {
@@ -22,6 +22,7 @@ import Cart from "@/components/features/website/cart"
 import { Button } from "@/components/ui/button"
 import { useCartStore } from "@/store/website/cart"
 import navItems from "@/staticsDatas/navCategories"
+import { useUserStore } from "@/store/website/user"
 
 
 export default function Navbar() {
@@ -31,6 +32,8 @@ export default function Navbar() {
   const [cartShow, setCartShow] = useState<true | false>(false);
 
   const cartList = useCartStore((state) => state.cart);
+  const isUserActive = useUserStore((state) => state.isUserActive);
+  const setUser = useUserStore((state) => state.setUser);
 
   useEffect(() => {
 
@@ -39,7 +42,6 @@ export default function Navbar() {
       const width = window.innerWidth;
       const percentage = (x / width) * 100;
       setMouseMovePercent(percentage);
-
     }
 
     window.addEventListener("mousemove", handleMouseMove)
@@ -48,7 +50,10 @@ export default function Navbar() {
   return (
     <>
       
-      <Cart cartOpen={cartShow} setCartOpen={setCartShow} />
+      <Cart 
+        cartOpen={cartShow} 
+        setCartOpen={setCartShow} 
+      />
 
       <header className="sticky top-0 z-50 border-b drop-shadow-sm bg-background backdrop-blur-2xl drop-shadow-gray-500">
         <div className="container mx-auto px-4 py-2">
@@ -103,13 +108,27 @@ export default function Navbar() {
                 </Badge>
               </Button>
 
-              <Link
-                href="/login"
-                className="flex items-center font-semibold gap-2 h-10 px-3 rounded-md border border-input bg-white text-sm text-gray-700 transition-colors"
-              >
-                <LogIn strokeWidth={2.3} className="w-4 h-4" />
-                <span className="hidden sm:inline">Login</span>
-              </Link>
+              {
+                isUserActive 
+                  ? (
+                    <Link
+                      href="/account"
+                      className="flex items-center font-semibold gap-2 h-10 px-3 rounded-md border border-input bg-foreground text-sm text-background transition-colors"
+                    >
+                      <User strokeWidth={2.5} className="w-4 h-4" />
+                      <span className="hidden sm:inline">User</span>
+                    </Link>
+                  ) : (
+                    <Link
+                      href="#"
+                      onClick={setUser}
+                      className="flex items-center font-semibold gap-2 h-10 px-3 rounded-md border border-input bg-white text-sm text-gray-700 transition-colors"
+                    >
+                      <LogIn strokeWidth={2.3} className="w-4 h-4" />
+                      <span className="hidden sm:inline">Login</span>
+                    </Link>
+                )
+              }
 
             </div>
           </div>

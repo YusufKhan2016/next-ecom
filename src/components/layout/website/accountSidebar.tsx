@@ -1,6 +1,7 @@
 "use client"
 
 import { Card, CardContent } from '@/components/ui/card'
+import { useUserStore } from '@/store/website/user'
 import { Box, LogOut, LucideProps, MapPinned, User } from 'lucide-react'
 import Link from 'next/link'
 import React, { ForwardRefExoticComponent } from 'react'
@@ -18,8 +19,10 @@ export default function AccountSidebar(
   {
     sidebarLinks: sidebarLinksType[],
     pathName: string
-  }) {
-
+  }
+  ) {
+  
+  const setUser = useUserStore((state) => state.setUser)
 
   return (
     <>
@@ -49,10 +52,14 @@ export default function AccountSidebar(
                 )
               })
             }
-            <div className='flex gap-2 py-2 px-4'>
+            <Link
+              href={"/"}
+              onClick={setUser}
+              className='flex gap-2 py-2 px-4 cursor-pointer'
+            >
               <LogOut size={20} />
               Log out
-            </div>
+            </Link>
 
           </div>
         </CardContent>
