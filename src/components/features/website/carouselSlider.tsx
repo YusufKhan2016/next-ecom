@@ -59,6 +59,7 @@ export default function FeaturedProducts({
               alt="Great Deals"
               width={10000}
               height={300}
+              unoptimized
               loading="eager"
               className="rounded-xl mb-6"
             />
