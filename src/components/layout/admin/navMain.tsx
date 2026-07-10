@@ -34,26 +34,28 @@ export function NavMain({
 }) {
   return (
     <SidebarGroup>
-      <SidebarGroupLabel>Platform</SidebarGroupLabel>
       <SidebarMenu>
         {items.map((item) => (
           <Collapsible key={item.title} asChild defaultOpen={item.isActive}>
-            <SidebarMenuItem>
-              <SidebarMenuButton asChild tooltip={item.title}>
-                <a href={item.url}>
-                  {item.icon}
-                  <span>{item.title}</span>
-                </a>
-              </SidebarMenuButton>
+            <SidebarMenuItem>  
               {item.items?.length ? (
                 <>
+                  
                   <CollapsibleTrigger asChild>
-                    <SidebarMenuAction className="data-[state=open]:rotate-90">
-                      <ChevronRightIcon
-                      />
-                      <span className="sr-only">Toggle</span>
-                    </SidebarMenuAction>
+                    <div className="group">
+                      <SidebarMenuButton tooltip={item.title}>
+                        
+                          {item.icon}
+                          <span>{item.title}</span>
+                        
+                      </SidebarMenuButton>
+
+                      <SidebarMenuAction className="group-data-[state=open]:rotate-90">
+                        <ChevronRightIcon />
+                      </SidebarMenuAction>
+                    </div>
                   </CollapsibleTrigger>
+
                   <CollapsibleContent>
                     <SidebarMenuSub>
                       {item.items?.map((subItem) => (
@@ -67,6 +69,7 @@ export function NavMain({
                       ))}
                     </SidebarMenuSub>
                   </CollapsibleContent>
+                  
                 </>
               ) : null}
             </SidebarMenuItem>
