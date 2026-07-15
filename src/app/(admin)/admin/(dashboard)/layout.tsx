@@ -36,7 +36,6 @@ export default function AdminLayout({
             <AdminSidebar />
 
             <SidebarInset>
-              
               <header className="sticky rounded-t-xl top-0 z-10 bg-background/90 backdrop-blur-2xl flex py-1.5 border-b shrink-0 drop-shadow-2xl items-center gap-2">
                 <div className="flex items-center justify-between w-full px-4">
                   <div className="flex items-center gap-2">
