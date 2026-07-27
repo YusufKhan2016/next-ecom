@@ -2,7 +2,7 @@ import "@/assets/globals.css";
 import { Geist } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { ThemeProvider } from "@/components/features/theme/themeProvider"
+import { ThemeProvider } from "@/providers/themeProvider"
 
 const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 

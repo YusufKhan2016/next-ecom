@@ -1,5 +1,5 @@
 import { AdminSidebar } from "@/components/layout/admin/adminSidebar"
-import { ThemeProvider } from "@/components/features/theme/themeProvider"
+import { ThemeProvider } from "@/providers/themeProvider"
 import {
   Breadcrumb,
   BreadcrumbItem,
