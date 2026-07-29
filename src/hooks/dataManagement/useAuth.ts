@@ -7,7 +7,7 @@ function useLogin() {
     return useMutation({
         mutationFn: AuthService.login,
 
-        onSuccess: function() {
+        onSuccess: function () {
             queryClient.invalidateQueries({
                 queryKey: ["rolesList"]
             })
