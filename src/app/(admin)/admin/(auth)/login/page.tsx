@@ -1,16 +1,13 @@
 "use client"
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
 import { useForm } from 'react-hook-form';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { useLogin } from "@/hooks/admin/use-auth";
 import { useState } from "react";
-import { Spinner } from "@/components/ui/spinner";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { useAuthStore } from '@/store';
+import { useLogin } from '@/hooks/admin';
+import { Button, Card, CardContent, CardDescription, CardHeader, CardTitle, Field, FieldGroup, FieldLabel, Input } from "@/components/ui"
 
 const loginSchema = z.object({
   email: z.string().min(1, "Email is required").email("Please enter a valid email"),
@@ -25,6 +22,7 @@ export default function LoginPage() {
   const loginMutation = useLogin();
   const router = useRouter();
 
+  const login = useAuthStore((state) => state.login);
   const { 
     register, 
     handleSubmit, 
@@ -35,7 +33,7 @@ export default function LoginPage() {
     resolver: zodResolver(loginSchema),
   });
 
-  const values = watch();
+  // const values = watch();
   
   function submit(data: loginForm) {
     setLoading(true);
@@ -43,10 +41,14 @@ export default function LoginPage() {
 
     loginMutation.mutate(data, {
       onSuccess: function (response) {
-        toast.success("Successfully logged in.", {
-          id: toastId,
+        login({
+          token: response.data?.data?.token,
+          user: response.data?.data?.user,
+          role: response.data?.data?.role,
+          permissions: response.data?.data?.permissions,
         });
 
+        toast.success("Successfully logged in.", { id: toastId });
         reset();
         setLoading(false);
         router.push('/admin')
