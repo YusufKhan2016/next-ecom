@@ -1,7 +1,7 @@
 "use client"
 
 import { Card, CardContent } from '@/components/ui/card'
-import { useUserStore } from '@/store/website/user'
+import { useUserStore } from '@/store/website/user.store'
 import { Box, LogOut, LucideProps, MapPinned, User } from 'lucide-react'
 import Link from 'next/link'
 import React, { ForwardRefExoticComponent } from 'react'

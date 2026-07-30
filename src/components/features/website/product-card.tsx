@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardFooter } from '@/components/ui/card'
-import { useCartStore } from '@/store/website/cart'
+import { useCartStore } from '@/store/website/cart.store'
 import { ShoppingCart } from 'lucide-react'
 import Image, { StaticImageData } from 'next/image'
 import Link from 'next/link'

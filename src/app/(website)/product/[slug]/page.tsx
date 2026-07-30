@@ -25,7 +25,7 @@ import Image from "next/image";
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
 import Counter from "@/components/features/website/counter";
 import acGreatDeal from "@/assets/home/ac-mid-great-deal.gif";
-import CarouselSlider from "@/components/features/website/carouselSlider";
+import CarouselSlider from "@/components/features/website/carousel-slider";
 import { products } from "@/staticsDatas/products";
 
 

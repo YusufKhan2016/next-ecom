@@ -1,5 +1,5 @@
 "use client"
-import AccountSidebar from '@/components/layout/website/accountSidebar'
+import AccountSidebar from '@/components/layout/website/account-sidebar'
 import { Card, CardContent, CardTitle } from '@/components/ui/card'
 import { Box, LucideProps, MapPinned, User } from 'lucide-react'
 import { usePathname } from 'next/navigation'

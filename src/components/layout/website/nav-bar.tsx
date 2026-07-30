@@ -20,9 +20,9 @@ import logoMain from "@/assets/logo-main.png"
 import { cn } from "@/lib/utils"
 import Cart from "@/components/features/website/cart"
 import { Button } from "@/components/ui/button"
-import { useCartStore } from "@/store/website/cart"
+import { useCartStore } from "@/store/website/cart.store"
 import navItems from "@/staticsDatas/navCategories"
-import { useUserStore } from "@/store/website/user"
+import { useUserStore } from "@/store/website/user.store"
 
 
 export default function Navbar() {

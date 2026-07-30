@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Field } from "@/components/ui/field";
-import { useCartStore } from "@/store/website/cart";
+import { useCartStore } from "@/store/website/cart.store";
 import { Minus, Plus } from "lucide-react";
 
 interface CounterProps {

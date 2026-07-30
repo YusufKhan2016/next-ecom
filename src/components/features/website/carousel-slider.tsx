@@ -9,7 +9,7 @@ import { Badge } from "@/components/ui/badge"
 import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from "@/components/ui/carousel"
 import { Button } from "@/components/ui/button"
 import { Header } from "@/components/ui/header"
-import ProductCard from "./productCard"
+import ProductCard from "./product-card"
 
 
 interface PropTypes {

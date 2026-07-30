@@ -1,5 +1,5 @@
-import BottomBar from "@/components/layout/website/bottomBar"
-import NavBar from "@/components/layout/website/navBar"
+import BottomBar from "@/components/layout/website/bottom-bar"
+import NavBar from "@/components/layout/website/nav-bar"
 
 export const metadata = {
     title: 'Next Ecommerce',

@@ -5,7 +5,7 @@ import { ArrowRightCircleIcon, Trash2, Plus, Minus, X, Trash } from 'lucide-reac
 import { Dispatch, SetStateAction, useState } from 'react'
 import Image from 'next/image'
 import { Field, FieldGroup } from '@/components/ui/field'
-import { useCartStore } from '@/store/website/cart'
+import { useCartStore } from '@/store/website/cart.store'
 import Counter from './counter'
 
 type CartPropsType = {

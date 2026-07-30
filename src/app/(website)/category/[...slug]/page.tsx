@@ -23,9 +23,9 @@ import { Input } from "@/components/ui/input"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { Field, FieldContent, FieldGroup, FieldLabel } from '@/components/ui/field';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import ProductCard from '@/components/features/website/productCard';
+import ProductCard from '@/components/features/website/product-card';
 
-import { useCartStore } from '@/store/website/cart';
+import { useCartStore } from '@/store/website/cart.store';
 import { ListFilter, ChevronRight } from 'lucide-react';
 import acGreatDeal from "@/assets/home/ac-mid-great-deal.gif"
 
