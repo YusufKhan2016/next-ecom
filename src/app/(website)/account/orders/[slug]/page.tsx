@@ -1,21 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
-import {
-  BadgeCheck,
-  PackageCheck,
-  Truck,
-  Box,
-  ChevronLeft,
-} from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle, Separator,Button } from "@/components/ui";
+import { BadgeCheck, PackageCheck, Truck, Box, ChevronLeft } from "lucide-react";
 import Link from "next/link";
 
 const steps = [

@@ -1,5 +1,5 @@
 import { CardTitle } from '@/components/ui/card'
-import { Field, FieldGroup, FieldLabel } from '@/components/ui/field'
+import { Field, FieldGroup, FieldLabel } from '@/components/ui'
 import React from 'react'
 
 export default function AccountPage() {

@@ -1,8 +1,10 @@
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
-import { Field, FieldDescription, FieldGroup, FieldLabel } from '@/components/ui/field'
-import { Input } from '@/components/ui/input'
-import { Separator } from '@/components/ui/separator'
+import {
+  Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle,
+  Field, FieldDescription, FieldGroup, FieldLabel,
+Input,
+Separator
+ } from '@/components/ui'
 import Link from 'next/link'
 import React from 'react'
 

@@ -1,8 +1,8 @@
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
-import { Field, FieldGroup, FieldLabel } from '@/components/ui/field'
-import { Input } from '@/components/ui/input'
-import { Separator } from '@/components/ui/separator'
+import {
+    Separator, Input, Button,
+    Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle,
+    Field, FieldGroup, FieldLabel
+} from '@/components/ui';
 import Link from 'next/link'
 import React from 'react'
 

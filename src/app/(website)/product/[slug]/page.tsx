@@ -1,32 +1,18 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { 
+  Tabs, TabsContent, TabsList, TabsTrigger, Badge, Button,
+  Separator, Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator, Card, CardContent, CardHeader, CardTitle, Carousel, CarouselContent, CarouselItem
+} from "@/components/ui";
 import {
-  ShoppingCart,
-  Zap,
-  Truck,
-  Shield,
-  MessageCircle,
-  ChevronRight,
-  Star,
-  Plus,
-  Minus,
-  GitCompare,
-  Check,
+  ShoppingCart, Zap, Truck, Shield, MessageCircle, ChevronRight, Star, Plus, Minus, GitCompare,Check,
 } from "lucide-react";
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 import Link from "next/link";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Image from "next/image";
-import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
-import Counter from "@/components/features/website/counter";
 import acGreatDeal from "@/assets/home/ac-mid-great-deal.gif";
-import CarouselSlider from "@/components/features/website/carousel-slider";
 import { products } from "@/staticsDatas/products";
+import { Counter, CarouselSlider } from "@/components/features/website"
 
 
 // ── Types ──────────────────────────────────────────────────────────────────────

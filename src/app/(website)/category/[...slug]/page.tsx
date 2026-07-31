@@ -4,30 +4,18 @@ import { useState } from 'react';
 import { useParams } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
-
-import { products } from '@/staticsDatas/products';
-import { extendedCategories } from '@/staticsDatas/categories';
-
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Checkbox } from '@/components/ui/checkbox';
+import { products, extendedCategories } from '@/staticsDatas'
 import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from '@/components/ui/breadcrumb';
-import { Input } from "@/components/ui/input"
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
-import { Field, FieldContent, FieldGroup, FieldLabel } from '@/components/ui/field';
-import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import ProductCard from '@/components/features/website/product-card';
-
-import { useCartStore } from '@/store/website/cart.store';
+  Card, CardContent, CardHeader, CardTitle,Button,
+  Checkbox,Breadcrumb,BreadcrumbItem,BreadcrumbLink,BreadcrumbList,BreadcrumbPage,BreadcrumbSeparator,
+  Input, Collapsible, CollapsibleContent, CollapsibleTrigger,
+  Field, FieldContent, FieldGroup, FieldLabel,
+  Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue
+} from '@/components/ui'
 import { ListFilter, ChevronRight } from 'lucide-react';
 import acGreatDeal from "@/assets/home/ac-mid-great-deal.gif"
+import { useCartStore } from '@/store';
+import ProductCard from '@/components/features/website/product-card';
 
 export default function CategoryPage() {
   const params = useParams();

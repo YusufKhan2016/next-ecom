@@ -4,7 +4,7 @@ import Link from "next/link"
 import { Mail, MapPin, Phone, ArrowRight } from "lucide-react"
 import { Input } from "@/components/ui/input"
 
-export default function BottomBar() {
+export function BottomBar() {
   return (
     <footer className="bg-background shadow-[10px_-2px_4px_0px_rgba(0,0,0,0.1)] shadow-gray-100  text-foreground mt-16 relative overflow-hidden">
 

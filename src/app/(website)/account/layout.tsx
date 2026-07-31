@@ -1,6 +1,6 @@
 "use client"
 import AccountSidebar from '@/components/layout/website/account-sidebar'
-import { Card, CardContent, CardTitle } from '@/components/ui/card'
+import { Card, CardContent, CardTitle } from '@/components/ui'
 import { Box, LucideProps, MapPinned, User } from 'lucide-react'
 import { usePathname } from 'next/navigation'
 import React, { ForwardRefExoticComponent } from 'react'
@@ -31,7 +31,7 @@ export default function AccountLayout({
     <>
       <section>
         <div className='flex container gap-4 px-4 py-12 mx-auto'>
-          <AccountSidebar 
+          <AccountSidebar
             sidebarLinks={sidebarLinks} 
             pathName={pathName}
           />

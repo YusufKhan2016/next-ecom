@@ -1,5 +1,5 @@
 import FeaturedCategories from "@/components/features/website/featured-categories";
-import CarouselSlider from "@/components/features/website/carousel-slider";
+import { CarouselSlider } from "@/components/features/website";
 import PromotionalHero from "@/components/features/website/promotional-hero";
 
 import { categories } from "@/staticsDatas/categories"

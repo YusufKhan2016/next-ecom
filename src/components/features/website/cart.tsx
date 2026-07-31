@@ -2,11 +2,11 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/componen
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import { ArrowRightCircleIcon, Trash2, Plus, Minus, X, Trash } from 'lucide-react'
-import { Dispatch, SetStateAction, useState } from 'react'
+import { Dispatch, SetStateAction } from 'react'
 import Image from 'next/image'
 import { Field, FieldGroup } from '@/components/ui/field'
 import { useCartStore } from '@/store/website/cart.store'
-import Counter from './counter'
+import { Counter} from '@/components/features/website';
 
 type CartPropsType = {
   cartOpen?: boolean

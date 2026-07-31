@@ -25,7 +25,7 @@ import navItems from "@/staticsDatas/navCategories"
 import { useUserStore } from "@/store/website/user.store"
 
 
-export default function Navbar() {
+export function Navbar() {
   const [searchQuery, setSearchQuery] = useState("")
   const [mouseMovePercent, setMouseMovePercent] = useState(0);
   const [direction, setDirection] = useState<"left" | "right">("left");

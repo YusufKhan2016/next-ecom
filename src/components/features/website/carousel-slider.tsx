@@ -35,7 +35,7 @@ interface ProductTypes {
   category?: string | null
 }
 
-export default function FeaturedProducts({ 
+export function CarouselSlider({ 
 
   headerFirstPart, 
   headerSecondPart, 

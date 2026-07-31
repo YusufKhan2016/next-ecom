@@ -38,7 +38,7 @@ const sizeVariants = {
   },
 };
 
-export default function Counter({
+export function Counter({
   id,
   quantity,
   size = "md",

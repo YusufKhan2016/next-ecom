@@ -1,5 +1,4 @@
-import BottomBar from "@/components/layout/website/bottom-bar"
-import NavBar from "@/components/layout/website/nav-bar"
+import { Navbar, BottomBar } from "@/components/layout/website"
 
 export const metadata = {
     title: 'Next Ecommerce',
@@ -13,7 +12,7 @@ export default function WebsiteLayout({
 }) {
     return (
         <>
-            <NavBar />
+            <Navbar />
                 <main>    
                     {children}
                 </main>

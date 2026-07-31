@@ -2,10 +2,8 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Search, X } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Card } from "@/components/ui/card";
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
+import { Button, Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator, Input,
+Card } from "@/components/ui";
 import Link from "next/link";
 
 // ---------------------------------------------------------------------------

@@ -1,4 +1,7 @@
-import { AdminSidebar } from "@/components/layout/admin/admin-sidebar"
+import {
+  AdminSidebar,
+  NavUser
+} from "@/components/layout/admin"
 import { ThemeProvider } from "@/providers/theme-provider"
 import {
   Breadcrumb,
@@ -7,16 +10,13 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb"
-import { Separator } from "@/components/ui/separator"
-import {
   SidebarInset,
   SidebarProvider,
   SidebarSeparator,
   SidebarTrigger,
-} from "@/components/ui/sidebar"
-import { ThemeSwitcher } from "@/components/features/theme/theme-switcher"
-import { NavUser } from "@/components/layout/admin/nav-user"
+  Separator
+} from "@/components/ui"
+import { ThemeSwitcher } from "@/components/features/theme"
 
 export default function AdminLayout({
   children

@@ -1,6 +1,4 @@
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader } from '@/components/ui/card'
+import { Card, CardContent, CardDescription, CardHeader, Button, Badge} from '@/components/ui'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
