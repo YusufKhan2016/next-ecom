@@ -16,36 +16,43 @@ import {
   SidebarMenuSubButton,
   SidebarMenuSubItem,
 } from "@/components/ui/sidebar"
-import { ChevronRightIcon } from "lucide-react"
+import { ChevronRightIcon, LayoutDashboard, LucideIcon } from "lucide-react"
+import Link from "next/link"
 
 export function NavMain({
   items,
 }: {
   items: {
+    id: number
     title: string
-    url: string
-    icon: React.ReactNode
+    route: string
+    icon: LucideIcon
     isActive?: boolean
-    items?: {
+    children?: {
       title: string
-      url: string
+      route: string
     }[]
   }[]
 }) {
   return (
     <SidebarGroup>
       <SidebarMenu>
-        {items.map((item) => (
-          <Collapsible key={item.title} asChild defaultOpen={item.isActive}>
+        {items.map((item) => {
+          console.log(item)
+          const Icon = item?.icon
+
+          console.log(typeof Icon)
+        return (
+          <Collapsible key={item.title} asChild defaultOpen={item.id}>
             <SidebarMenuItem>  
-              {item.items?.length ? (
+              {item?.children?.length > 0 ? (
                 <>
                   
                   <CollapsibleTrigger asChild>
                     <div className="group">
                       <SidebarMenuButton tooltip={item.title}>
                         
-                          {item.icon}
+                          <LayoutDashboard className="size-4" />
                           <span>{item.title}</span>
                         
                       </SidebarMenuButton>
@@ -58,12 +65,12 @@ export function NavMain({
 
                   <CollapsibleContent>
                     <SidebarMenuSub>
-                      {item.items?.map((subItem) => (
+                      {item.children?.map((subItem) => (
                         <SidebarMenuSubItem key={subItem.title}>
                           <SidebarMenuSubButton asChild>
-                            <a href={subItem.url}>
+                            <Link href={subItem.route}>
                               <span>{subItem.title}</span>
-                            </a>
+                            </Link>
                           </SidebarMenuSubButton>
                         </SidebarMenuSubItem>
                       ))}
@@ -71,10 +78,19 @@ export function NavMain({
                   </CollapsibleContent>
                   
                 </>
-              ) : null}
+              ) : (
+                  <>
+                    <SidebarMenuButton asChild>
+                      <Link href={item.route}>
+                        <LayoutDashboard className="size-4" />
+                        <span>{item.title}</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </>
+              )}
             </SidebarMenuItem>
           </Collapsible>
-        ))}
+        )})}
       </SidebarMenu>
     </SidebarGroup>
   )

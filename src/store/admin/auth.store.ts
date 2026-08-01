@@ -14,12 +14,14 @@ type AuthState = {
     user: User | null;
     role: string | null;
     permissions: string[];
+    menus: string[];
 
     login: (data: {
         token: string;
         user: User;
         role: string;
         permissions: string[];
+        menus: string[];
     }) => void;
 
     logout: () => void;
@@ -30,12 +32,14 @@ export const useAuthStore = create<AuthState>((set) => ({
     user: null,
     role: null,
     permissions: [],
+    menus: [],
 
-    login: ({ token, user, role, permissions }) => {
+    login: ({ token, user, role, permissions, menus }) => {
         localStorage.setItem('token', token);
         localStorage.setItem('user', JSON.stringify(user));
         localStorage.setItem('role', role);
         localStorage.setItem('permissions', JSON.stringify(permissions));
+        localStorage.setItem('menus', JSON.stringify(menus))
         
         document.cookie = `token=${token}; path=/; max-age=${60 * 60 * 24 * 7}; SameSite=Strict`;
         
@@ -43,7 +47,8 @@ export const useAuthStore = create<AuthState>((set) => ({
             token,
             user,
             role,
-            permissions
+            permissions,
+            menus
         })
     },
 
@@ -52,7 +57,8 @@ export const useAuthStore = create<AuthState>((set) => ({
             token: null,
             user: null,
             role: null,
-            permissions: []
+            permissions: [],
+            menus: []
         })
     }
     

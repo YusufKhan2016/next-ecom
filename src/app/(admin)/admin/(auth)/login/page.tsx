@@ -8,6 +8,8 @@ import { useRouter } from "next/navigation";
 import { useAuthStore } from '@/store';
 import { useLogin } from '@/hooks/admin';
 import { Button, Card, CardContent, CardDescription, CardHeader, CardTitle, Field, FieldGroup, FieldLabel, Input } from "@/components/ui"
+import { ThemeProvider } from '@/providers/theme-provider';
+import { ThemeSwitcher } from '@/components/features/theme';
 
 const loginSchema = z.object({
   email: z.string().min(1, "Email is required").email("Please enter a valid email"),
@@ -41,11 +43,14 @@ export default function LoginPage() {
 
     loginMutation.mutate(data, {
       onSuccess: function (response) {
+        const loggedData = response.data?.data;
+        
         login({
-          token: response.data?.data?.token,
-          user: response.data?.data?.user,
-          role: response.data?.data?.role,
-          permissions: response.data?.data?.permissions,
+          token: loggedData?.token,
+          user: loggedData?.user,
+          role: loggedData?.role,
+          permissions: loggedData?.permissions,
+          menus: loggedData?.menus
         });
 
         toast.success("Successfully logged in.", { id: toastId });
@@ -67,68 +72,79 @@ export default function LoginPage() {
   return (
     <>
       <section>
-        <form onSubmit={handleSubmit(submit)} className="h-screen flex items-center">
-          <Card className="container mx-auto max-w-sm shadow-2xl">
-            <CardHeader className="text-center bg-accent">
-                <CardTitle className="italic font-bold!">Next Ecom</CardTitle>
-                <h1 className="font-medium">Admin Login</h1>
-                <CardDescription>Please use your admin credential to login</CardDescription>
-            </CardHeader>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <div className='absolute right-0 p-4'>
+            <ThemeSwitcher />
+          </div>
+          
+          <form onSubmit={handleSubmit(submit)} className="h-screen flex items-center">
+            <Card className="container mx-auto max-w-sm shadow-2xl">
+              <CardHeader className="text-center bg-accent">
+                  <CardTitle className="italic font-bold!">Next Ecom</CardTitle>
+                  <h1 className="font-medium">Admin Login</h1>
+                  <CardDescription>Please use your admin credential to login</CardDescription>
+              </CardHeader>
 
-            <CardContent className="space-y-2 pt-4">
+              <CardContent className="space-y-2 pt-4">
 
-              <FieldGroup>
-                <Field>
-                  <FieldLabel htmlFor="email">Email</FieldLabel>
-                  <Input 
-                    {...register("email")}
-                    autoComplete="email"
-                    type="email"
-                    id="email" 
-                    placeholder="admin@nextecom.com"
-                  />
+                <FieldGroup>
+                  <Field>
+                    <FieldLabel htmlFor="email">Email</FieldLabel>
+                    <Input 
+                      {...register("email")}
+                      autoComplete="email"
+                      type="email"
+                      id="email" 
+                      placeholder="admin@nextecom.com"
+                    />
 
-                  {errors.email && (
-                    <p className="text-sm text-destructive">
-                      {errors.email.message}
-                    </p>
-                  )}
-                </Field>
-              </FieldGroup>
+                    {errors.email && (
+                      <p className="text-sm text-destructive">
+                        {errors.email.message}
+                      </p>
+                    )}
+                  </Field>
+                </FieldGroup>
 
-              <FieldGroup>
-                <Field>
-                  <FieldLabel htmlFor="password">Password</FieldLabel>
-                  <Input 
-                    {...register("password")}
-                    autoComplete="current-password"
-                    type="password"
-                    id="password" 
-                    placeholder="password" 
-                  />
+                <FieldGroup>
+                  <Field>
+                    <FieldLabel htmlFor="password">Password</FieldLabel>
+                    <Input 
+                      {...register("password")}
+                      autoComplete="current-password"
+                      type="password"
+                      id="password" 
+                      placeholder="password" 
+                    />
 
-                  {errors.password && (
-                    <p className="text-sm text-destructive">
-                      {errors.password.message}
-                    </p>
-                  )}
-                </Field>
-              </FieldGroup>
+                    {errors.password && (
+                      <p className="text-sm text-destructive">
+                        {errors.password.message}
+                      </p>
+                    )}
+                  </Field>
+                </FieldGroup>
 
-              <FieldGroup>
-                <Field>
-                  <Button 
-                    type="submit" 
-                    disabled={loading}
-                  >
-                    Login
-                  </Button>
-                </Field>
-              </FieldGroup>
+                <FieldGroup>
+                  <Field>
+                    <Button 
+                      type="submit" 
+                      disabled={loading}
+                    >
+                      Login
+                    </Button>
+                  </Field>
+                </FieldGroup>
 
-            </CardContent>
-          </Card>
-        </form>
+              </CardContent>
+            </Card>
+          </form>
+        </ThemeProvider>
       </section>
     </>
   )   
