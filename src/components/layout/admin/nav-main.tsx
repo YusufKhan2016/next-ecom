@@ -13,24 +13,13 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui"
+import { navbarDataType } from "@/types"
 import { ChevronRightIcon, LayoutDashboard, LucideIcon } from "lucide-react"
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
+import * as LucideIcons from "lucide-react";
 
-type navbarDataType = {
-  id: number
-  title: string
-  route: string
-  icon: LucideIcon
-  children?: {
-    id: number
-    title: string
-    route: string
-    icon: LucideIcon
-    parent_id: number
-  }[]
-}[]
 
 export function NavMain({ items }: { items: navbarDataType }) {
   
@@ -46,7 +35,7 @@ export function NavMain({ items }: { items: navbarDataType }) {
     <SidebarGroup>
       <SidebarMenu>
         {items?.map((item) => {
-          const Icon = item?.icon
+          const Icon = LucideIcons[item.icon as keyof typeof LucideIcons] as LucideIcon;
           
         return (
           <Collapsible key={item?.title} asChild>
@@ -58,7 +47,7 @@ export function NavMain({ items }: { items: navbarDataType }) {
                     <div className="group">
                       <SidebarMenuButton isActive={item?.id === id} tooltip={item?.title}>
                         
-                          <LayoutDashboard className="size-4" />
+                          {Icon && <Icon className="size-4" />}
                           <span>{item?.title}</span>
                         
                       </SidebarMenuButton>
@@ -71,7 +60,9 @@ export function NavMain({ items }: { items: navbarDataType }) {
 
                   <CollapsibleContent>
                     <SidebarMenuSub>
-                      {item?.children?.map((subItem) => (
+                      {item?.children?.map((subItem) => {
+                        const Icon = LucideIcons[subItem.icon as keyof typeof LucideIcons] as LucideIcon;
+                        return (
                         <SidebarMenuSubItem key={subItem?.title}>
                           <SidebarMenuSubButton 
                             isActive={subItem?.route === route} 
@@ -79,11 +70,12 @@ export function NavMain({ items }: { items: navbarDataType }) {
                             asChild
                           >
                             <Link href={subItem?.route}>
+                              {Icon && <Icon className="size-4" />}
                               <span>{subItem?.title}</span>
                             </Link>
                           </SidebarMenuSubButton>
                         </SidebarMenuSubItem>
-                      ))}
+                      )})}
                     </SidebarMenuSub>
                   </CollapsibleContent>
                   
@@ -92,7 +84,7 @@ export function NavMain({ items }: { items: navbarDataType }) {
                   <>
                     <SidebarMenuButton isActive={item?.route === route} onClick={() => setId(null)} asChild>
                       <Link href={item.route}>
-                        <LayoutDashboard className="size-4" />
+                        {Icon && <Icon className="size-4" />}
                         <span>{item.title}</span>
                       </Link>
                     </SidebarMenuButton>

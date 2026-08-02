@@ -2,6 +2,7 @@
 
 import * as React from "react"
 
+
 import { NavMain, NavUser } from "@/components/layout/admin"
 import {
   Sidebar,
@@ -13,19 +14,22 @@ import {
   SidebarMenuItem,
   Button
 } from "@/components/ui"
-import { TerminalIcon, Globe, ExternalLink } from "lucide-react";
+import { TerminalIcon, Globe, ExternalLink, LucideIcon } from "lucide-react";
+import { navbarDataType } from "@/types";
+
+
 
 export function AdminSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
-  const datas = localStorage?.getItem('menus');
+  const [sideBarDatas, setSideBarDatas] = React.useState<navbarDataType>([]);
 
-  let sideBarDatas;
+  React.useEffect(() => {
+    const data = localStorage.getItem("menus");
 
-  if (datas) {
-    sideBarDatas = JSON.parse(datas);
-  } else {
-    sideBarDatas = null;
-  }
+    if (data) {
+      setSideBarDatas(JSON.parse(data));
+    }
+  }, []);
   
   return (
     <Sidebar variant="inset"  {...props}>
