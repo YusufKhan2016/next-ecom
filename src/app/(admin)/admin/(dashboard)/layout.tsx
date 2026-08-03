@@ -17,6 +17,7 @@ import {
   Separator
 } from "@/components/ui"
 import { ThemeSwitcher } from "@/components/features/theme"
+import RouteGuard from "@/components/guards/route-guard"
 
 export default function AdminLayout({
   children
@@ -76,7 +77,9 @@ export default function AdminLayout({
             </header>
 
             <main className="p-4">
-              {children}
+              <RouteGuard >
+                {children}
+              </RouteGuard>
             </main>
           </SidebarInset>
         </SidebarProvider>

@@ -56,7 +56,7 @@ export default function LoginPage() {
         toast.success("Successfully logged in.", { id: toastId });
         reset();
         setLoading(false);
-        router.push('/admin')
+        router.push('/admin/dashboard')
       },
 
       onError: function (error:any) {

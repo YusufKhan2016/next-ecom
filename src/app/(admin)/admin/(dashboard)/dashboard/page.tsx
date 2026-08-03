@@ -1,4 +1,4 @@
-export default function AdminHome() {
+export default function DashboardPage() {
     return (
         <>
             Dashboard
