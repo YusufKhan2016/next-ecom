@@ -44,7 +44,7 @@ export function NavMain({ items }: { items: navbarDataType }) {
                 <>
                   
                   <CollapsibleTrigger asChild>
-                    <div className="group">
+                    <div className="group my-1">
                       <SidebarMenuButton isActive={item?.id === id} tooltip={item?.title}>
                         
                           {Icon && <Icon className="size-4" />}
@@ -52,7 +52,7 @@ export function NavMain({ items }: { items: navbarDataType }) {
                         
                       </SidebarMenuButton>
 
-                      <SidebarMenuAction className="group-data-[state=open]:rotate-90">
+                      <SidebarMenuAction className="group-data-[state=open]:rotate-90 my-1">
                         <ChevronRightIcon />
                       </SidebarMenuAction>
                     </div>

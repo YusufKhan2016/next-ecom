@@ -9,7 +9,7 @@ import { useAuthStore } from '@/store';
 import { useLogin } from '@/hooks/admin';
 import { Button, Card, CardContent, CardDescription, CardHeader, CardTitle, Field, FieldGroup, FieldLabel, Input } from "@/components/ui"
 import { ThemeProvider } from '@/providers/theme-provider';
-import { ThemeSwitcher } from '@/components/features/theme';
+import { ThemeSwitcher } from '@/components/theme';
 
 const loginSchema = z.object({
   email: z.string().min(1, "Email is required").email("Please enter a valid email"),

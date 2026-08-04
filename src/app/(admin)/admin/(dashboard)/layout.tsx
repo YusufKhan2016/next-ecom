@@ -16,7 +16,7 @@ import {
   SidebarTrigger,
   Separator
 } from "@/components/ui"
-import { ThemeSwitcher } from "@/components/features/theme"
+import { ThemeSwitcher } from "@/components/theme"
 import RouteGuard from "@/components/guards/route-guard"
 
 export default function AdminLayout({
