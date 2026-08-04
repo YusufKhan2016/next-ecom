@@ -10,7 +10,7 @@ export const AuthService = {
         return apiClient.get("/auth/get-user");
     },
 
-    Logout() {
+    logout() {
         return apiClient.get("/auth/logout");
     },
 

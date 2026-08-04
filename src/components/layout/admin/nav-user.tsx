@@ -1,26 +1,14 @@
 "use client"
 
+import React from "react";
 import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "@/components/ui/avatar"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import {
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-  useSidebar,
-} from "@/components/ui/sidebar"
+  Avatar,AvatarFallback,
+  AvatarImage,DropdownMenu,DropdownMenuContent,DropdownMenuGroup,
+  DropdownMenuItem,DropdownMenuLabel,DropdownMenuSeparator,DropdownMenuTrigger,
+  SidebarMenu,SidebarMenuButton,SidebarMenuItem,useSidebar,
+} from "@/components/ui";
 import { ChevronsUpDownIcon, SparklesIcon, BadgeCheckIcon, CreditCardIcon, BellIcon, LogOutIcon } from "lucide-react"
+import LogoutAlertDialog from "@/components/features/admin/alertDialogPopup/logout-alert-dialog";
 
 export function NavUser({
   user,
@@ -31,12 +19,16 @@ export function NavUser({
     avatar: string
   }
 }) {
+  const [open, setOpen] = React.useState(false);
   const { isMobile } = useSidebar()
 
   return (
     <SidebarMenu>
       <SidebarMenuItem>
-        <DropdownMenu>
+        <DropdownMenu
+            open={open}
+            onOpenChange={setOpen}
+        >
           <DropdownMenuTrigger asChild>
             <SidebarMenuButton
               size="lg"
@@ -85,10 +77,11 @@ export function NavUser({
               </DropdownMenuItem> */}
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem variant="destructive">
-              <LogOutIcon
-              />
-              Log out
+            <DropdownMenuItem
+                variant="destructive"
+                onSelect={(e) => e.preventDefault()}
+            >
+              <LogoutAlertDialog onOpen={() => setOpen(false)}/>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

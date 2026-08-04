@@ -53,6 +53,14 @@ export const useAuthStore = create<AuthState>((set) => ({
     },
 
     logout: () => {
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        localStorage.removeItem("role");
+        localStorage.removeItem("permissions");
+        localStorage.removeItem("menus");
+
+        document.cookie = "token=; Path=/; Max-Age=0; SameSite=Strict";
+
         set({
             token: null,
             user: null,

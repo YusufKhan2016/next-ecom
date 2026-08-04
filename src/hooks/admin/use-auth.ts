@@ -15,4 +15,10 @@ function useLogin() {
     })
 }
 
-export { useLogin };
+function useLogout() {
+    return useMutation({
+        mutationFn: AuthService.logout,
+    })
+}
+
+export { useLogin, useLogout };

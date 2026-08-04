@@ -26,7 +26,7 @@ export default function AdminLayout({
 }) {
   return (  
     <>
-      
+
       <ThemeProvider
         attribute="class"
         defaultTheme="system"
