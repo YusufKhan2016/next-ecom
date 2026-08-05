@@ -1,15 +1,16 @@
 import * as LucideIcons from "lucide-react";
+import {Url} from "node:url";
 
-export type navbarDataType = {
+export type NavbarDataType = {
   id: number
   title: string
-  route: string
-  icon: keyof typeof LucideIcons;
+  route: Url
+  icon?: keyof typeof LucideIcons;
   children?: {
     id: number
     title: string
-    route: string
-    icon: keyof typeof LucideIcons;
+    route: Url
+    icon?: keyof typeof LucideIcons;
     parent_id: number
   }[]
-}[] 
+}[]

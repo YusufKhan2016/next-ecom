@@ -13,13 +13,13 @@ import {
   Button
 } from "@/components/ui"
 import { TerminalIcon, Globe, ExternalLink, LucideIcon } from "lucide-react";
-import { navbarDataType } from "@/types";
+import { NavbarDataType } from "@/types";
 
 
 
 export function AdminSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
-  const [sideBarDatas, setSideBarDatas] = React.useState<navbarDataType>([]);
+  const [sideBarDatas, setSideBarDatas] = React.useState<NavbarDataType>([]);
 
   React.useEffect(() => {
     const data = localStorage.getItem("menus");

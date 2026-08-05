@@ -2,23 +2,23 @@
 
 import React from "react";
 import {
-  Avatar,AvatarFallback,
-  AvatarImage,DropdownMenu,DropdownMenuContent,DropdownMenuGroup,
+  Avatar,AvatarFallback,AvatarImage,DropdownMenu,DropdownMenuContent,DropdownMenuGroup,
   DropdownMenuItem,DropdownMenuLabel,DropdownMenuSeparator,DropdownMenuTrigger,
   SidebarMenu,SidebarMenuButton,SidebarMenuItem,useSidebar,
 } from "@/components/ui";
 import { ChevronsUpDownIcon, SparklesIcon, BadgeCheckIcon, CreditCardIcon, BellIcon, LogOutIcon } from "lucide-react"
 import LogoutAlertDialog from "@/components/features/admin/alertDialogPopup/logout-alert-dialog";
 
-export function NavUser({
-  user,
-}: {
+type UserPropsType = {
   user: {
     name: string
     email: string
     avatar: string
   }
-}) {
+}
+
+export function NavUser({ user }: UserPropsType)
+{
   const [open, setOpen] = React.useState(false);
   const { isMobile } = useSidebar()
 

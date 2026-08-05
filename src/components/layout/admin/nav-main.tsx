@@ -13,7 +13,7 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui"
-import { navbarDataType } from "@/types"
+import { NavbarDataType } from "@/types"
 import { ChevronRightIcon, LayoutDashboard, LucideIcon } from "lucide-react"
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
@@ -21,13 +21,9 @@ import { useEffect, useState } from "react"
 import * as LucideIcons from "lucide-react";
 
 
-export function NavMain({ items }: { items: navbarDataType }) {
+export function NavMain({ items }: { items: NavbarDataType }) {
   
   const [id, setId] = useState<number | null>(null);
-
-  useEffect(() => {
-    console.log(id)
-  }, [id])
 
   const route = usePathname();
 
@@ -65,7 +61,7 @@ export function NavMain({ items }: { items: navbarDataType }) {
                         return (
                         <SidebarMenuSubItem key={subItem?.title}>
                           <SidebarMenuSubButton 
-                            isActive={subItem?.route === route} 
+                            isActive={`${subItem?.route}` === route}
                             onClick={()=> setId(subItem?.parent_id)}
                             asChild
                           >
@@ -82,7 +78,7 @@ export function NavMain({ items }: { items: navbarDataType }) {
                 </>
               ) : (
                   <>
-                    <SidebarMenuButton isActive={item?.route === route} onClick={() => setId(null)} asChild>
+                    <SidebarMenuButton isActive={`${item?.route}` === route} onClick={() => setId(null)} asChild>
                       <Link href={item.route}>
                         {Icon && <Icon className="size-4" />}
                         <span>{item.title}</span>

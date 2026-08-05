@@ -1,6 +1,6 @@
 "use client";
 
-import { navbarDataType } from "@/types";
+import { NavbarDataType } from "@/types";
 import { usePathname } from "next/navigation";
 import React from "react";
 
@@ -27,7 +27,7 @@ export default function RouteGuard({
 }: {
   children: React.ReactNode;
   }) {
-  const [menus, setMenus] = React.useState<navbarDataType>([]);
+  const [menus, setMenus] = React.useState<NavbarDataType>([]);
   const [permissions, setPermissions] = React.useState<string[]>([]);
   const pathname = usePathname();
 

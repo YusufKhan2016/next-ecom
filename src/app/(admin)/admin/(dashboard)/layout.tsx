@@ -18,6 +18,7 @@ import {
 } from "@/components/ui"
 import { ThemeSwitcher } from "@/components/theme"
 import RouteGuard from "@/components/guards/route-guard"
+import AdminBreadcrumb from "@/components/layout/admin/admin-breadcrumb";
 
 export default function AdminLayout({
   children
@@ -46,20 +47,8 @@ export default function AdminLayout({
                     orientation="vertical"
                     className="mr-2"
                   />
-                  
-                  <Breadcrumb>
-                    <BreadcrumbList>
-                      <BreadcrumbItem className="hidden md:block">
-                        <BreadcrumbLink href="#">
-                          Build Your Application
-                        </BreadcrumbLink>
-                      </BreadcrumbItem>
-                      <BreadcrumbSeparator className="hidden md:block" />
-                      <BreadcrumbItem>
-                        <BreadcrumbPage>Data Fetching</BreadcrumbPage>
-                      </BreadcrumbItem>
-                    </BreadcrumbList>
-                  </Breadcrumb>
+
+                  <AdminBreadcrumb />
                 </div>
 
                 <div className="flex items-center gap-3">
