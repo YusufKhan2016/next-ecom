@@ -6,7 +6,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from '@/store';
-import { useLogin } from '@/hooks/admin';
+import {useAuth, useLogin} from '@/hooks/admin';
 import { Button, Card, CardContent, CardDescription, CardHeader, CardTitle, Field, FieldGroup, FieldLabel, Input } from "@/components/ui"
 import { ThemeProvider } from '@/providers/theme-provider';
 import { ThemeSwitcher } from '@/components/theme';
@@ -25,7 +25,8 @@ export default function LoginPage() {
   const router = useRouter();
 
   const login = useAuthStore((state) => state.login);
-  const { 
+
+  const {
     register, 
     handleSubmit, 
     formState: { errors, isSubmitting }, 

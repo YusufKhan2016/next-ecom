@@ -29,19 +29,25 @@ export default function RouteGuard({
   }) {
   const [menus, setMenus] = React.useState<NavbarDataType>([]);
   const [permissions, setPermissions] = React.useState<string[]>([]);
+  const [loading, setLoading] = React.useState(true);
+
   const pathname = usePathname();
 
   React.useEffect(() => {
     const data = localStorage.getItem("menus");
-    const permissionDatas = localStorage?.getItem("permissions") || "[]"
-    
-    if (permissionDatas) {
-      setPermissions(JSON.parse(permissionDatas))
-    }
+    const permissionDatas = localStorage.getItem("permissions") || "[]";
+
     if (data) {
       setMenus(JSON.parse(data));
     }
+
+    setPermissions(JSON.parse(permissionDatas));
+    setLoading(false);
   }, []);
+
+  if (loading) {
+    return null;
+  }
 
   const currentMenu = findMenuByRoute(menus, pathname);
 
