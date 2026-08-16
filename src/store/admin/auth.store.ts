@@ -34,15 +34,15 @@ export const useAuthStore = create<AuthState>((set) => ({
     permissions: [],
     menus: [],
 
-    login: ({ token, user, role, permissions, menus }) => {
+    login: ({token,  user, role, permissions, menus }) => {
         localStorage.setItem('token', token);
         localStorage.setItem('user', JSON.stringify(user));
         localStorage.setItem('role', role);
         localStorage.setItem('permissions', JSON.stringify(permissions));
         localStorage.setItem('menus', JSON.stringify(menus))
         
-        document.cookie = `token=${token}; path=/; max-age=${60 * 60 * 24 * 7}; SameSite=Strict`;
-        
+        // document.cookie = `token=${token}; path=/; max-age=${60 * 60 * 24 * 7}; SameSite=Strict`;
+
         set({
             token,
             user,
@@ -59,7 +59,7 @@ export const useAuthStore = create<AuthState>((set) => ({
         localStorage.removeItem("permissions");
         localStorage.removeItem("menus");
 
-        document.cookie = "token=; Path=/; Max-Age=0; SameSite=Strict";
+        // document.cookie = "token=; Path=/; Max-Age=0; SameSite=Strict";
 
         set({
             token: null,

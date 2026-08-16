@@ -2,7 +2,6 @@ import "@/assets/globals.css";
 import { Geist } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import QueryProvider from "@/providers/query-provider";
 import { Toaster } from "sonner";
 
 const geist = Geist({subsets:['latin'],variable:'--font-sans'});
@@ -20,12 +19,9 @@ export default function RootLayout({
       className={cn("h-full antialiased", "font-sans", geist.variable)}
     >
       <body className="min-h-full flex flex-col overflow-x-hidden">
-        
-        <QueryProvider>
-          <TooltipProvider>
-            {children}
-          </TooltipProvider> 
-        </QueryProvider>
+        <TooltipProvider>
+          {children}
+        </TooltipProvider>
         <Toaster />
       </body>
     </html>

@@ -16,7 +16,7 @@ import {
   SidebarTrigger,
   Separator
 } from "@/components/ui"
-import { ThemeSwitcher } from "@/components/theme"
+import { ThemeSwitcher } from "@/components/ui"
 import RouteGuard from "@/components/guards/route-guard"
 import AdminBreadcrumb from "@/components/layout/admin/admin-breadcrumb";
 
@@ -27,7 +27,6 @@ export default function AdminLayout({
 }) {
   return (  
     <>
-
       <ThemeProvider
         attribute="class"
         defaultTheme="system"

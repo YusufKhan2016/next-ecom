@@ -97,7 +97,7 @@ const navItems: Category[] = [
         children: [
           { id: 1051, name: "DSLR Cameras",       slug: "dslr-cameras",       parentId: 105, children: [] },
           { id: 1052, name: "Mirrorless Cameras", slug: "mirrorless-cameras", parentId: 105, children: [] },
-          { id: 1053, name: "Action Cameras",     slug: "action-cameras",     parentId: 105, children: [] },
+          { id: 1053, name: "Action Cameras",     slug: "actions-cameras",     parentId: 105, children: [] },
           { id: 1054, name: "Drone Cameras",      slug: "drone-cameras",      parentId: 105, children: [] },
           { id: 1055, name: "Instant Cameras",    slug: "instant-cameras",    parentId: 105, children: [] },
           { id: 1056, name: "Security Cameras",   slug: "security-cameras",   parentId: 105, children: [] },
@@ -530,7 +530,7 @@ const navItems: Category[] = [
       {
         id: 601,
         name: "Action Figures & Dolls",
-        slug: "action-figures-dolls",
+        slug: "actions-figures-dolls",
         parentId: 6,
         children: [
           { id: 6011, name: "Superhero Figures",   slug: "superhero-figures",  parentId: 601, children: [] },

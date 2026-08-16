@@ -23,3 +23,4 @@ export * from './spinner';
 export * from './tabs';
 export * from './tooltip';
 export * from './alert-dialog';
+export * from './theme-switcher'
