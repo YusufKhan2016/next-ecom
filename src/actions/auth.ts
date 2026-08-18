@@ -44,7 +44,7 @@ export async function logoutAction() {
         cookieStore.delete("token");
 
         return response;
-    } catch (error) {
+    } catch (error:any) {
         throw new Error(error?.response?.data?.message || "Something went wrong.");
     }
 }
@@ -54,7 +54,7 @@ export async function getUserAction() {
         const response = await AuthService.getUser();
 
         return response;
-    } catch (error) {
+    } catch (error:any) {
         throw new Error(error?.response?.data?.message || "Something went wrong.");
     }
 }

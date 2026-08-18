@@ -1,6 +1,6 @@
 "use client";
 
-import {useActionState} from "react";
+import {useActionState, useEffect} from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -32,16 +32,12 @@ type LoginFormValues = z.infer<typeof loginSchema>;
 export default function LoginForm() {
     const login = useAuthStore((store) => store.login)
     const router = useRouter()
-    const [state, submitAction, isPending] = useActionState(loginAction, {
-        email: '',
-        password:''
-    });
 
     const {
         register,
         handleSubmit,
         setValue,
-        formState: { errors },
+        formState: { errors, isSubmitting },
     } = useForm<LoginFormValues>({
         resolver: zodResolver(loginSchema),
     });
@@ -64,7 +60,7 @@ export default function LoginForm() {
                 router.push('/admin/dashboard')
 
             }).catch((error) => {
-                toast.success(error, { id: toastId });
+                toast.error(error, { id: toastId });
             })
     };
     return (
@@ -121,8 +117,12 @@ export default function LoginForm() {
 
                     <FieldGroup>
                         <Field>
-                            <Button type="submit" className="w-full" disabled={isPending}>
-                                {isPending ? "Logging in..." : "Login"}
+                            <Button
+                                type="submit"
+                                className="w-full"
+                                disabled={isSubmitting}
+                            >
+                                Login
                             </Button>
                         </Field>
                     </FieldGroup>
