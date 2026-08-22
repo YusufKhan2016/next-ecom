@@ -13,19 +13,19 @@ import { NavbarDataType } from "@/types";
 import {findBreadCrumbs} from "@/lib/breadcrumb";
 import Link from "next/link";
 
-function AdminBreadcrumb()
+function AdminBreadcrumb({ menus, pathname }: { menus: NavbarDataType, pathname: string })
 {
-    const [menus, setMenus] = React.useState<NavbarDataType>([]);
-
-    React.useEffect(() => {
-        const data = localStorage.getItem("menus");
-        if(data) {
-            setMenus(JSON.parse(data))
-        }
-    }, []);
-
-    const pathname: string = usePathname();
-
+    // const [menus, setMenus] = React.useState<NavbarDataType>([]);
+    //
+    // React.useEffect(() => {
+    //     const data = localStorage.getItem("menus");
+    //     if(data) {
+    //         setMenus(JSON.parse(data))
+    //     }
+    // }, []);
+    //
+    // const pathname: string = usePathname();
+    //
     const breadcrumbs: NavbarDataType = findBreadCrumbs(menus, pathname) ?? [];
 
     return (

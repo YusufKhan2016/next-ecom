@@ -1,3 +1,5 @@
+"use client"
+
 import {
   AdminSidebar,
   NavUser
@@ -19,12 +21,33 @@ import {
 import { ThemeSwitcher } from "@/components/ui"
 import RouteGuard from "@/components/guards/route-guard"
 import AdminBreadcrumb from "@/components/layout/admin/admin-breadcrumb";
+import React from "react";
+import {NavbarDataType} from "@/types";
+import {usePathname} from "next/navigation";
 
 export default function AdminLayout({
   children
 }: {
   children: React.ReactNode
 }) {
+
+  const [menus, setMenus] = React.useState<NavbarDataType>([]);
+  const [user, setUser] = React.useState<any>([]);
+
+  React.useEffect(() => {
+    const menusData = localStorage.getItem("menus");
+    if(menusData) {
+      setMenus(JSON.parse(menusData))
+    }
+
+    const userData = localStorage.getItem("user")
+    if(userData) {
+      setUser(JSON.parse(userData))
+    }
+  }, []);
+
+  const pathname: string = usePathname();
+
   return (  
     <>
       <ThemeProvider
@@ -34,7 +57,7 @@ export default function AdminLayout({
         disableTransitionOnChange
       >
         <SidebarProvider>
-          <AdminSidebar />
+          <AdminSidebar sideBarDatas={menus} />
 
           <SidebarInset>
             <header className="sticky rounded-t-xl top-0 z-10 bg-background/90 backdrop-blur-2xl flex py-1.5 border-b shrink-0 drop-shadow-2xl items-center gap-2">
@@ -47,7 +70,10 @@ export default function AdminLayout({
                     className="mr-2"
                   />
 
-                  <AdminBreadcrumb />
+                  <AdminBreadcrumb
+                    menus={menus}
+                    pathname={pathname}
+                  />
                 </div>
 
                 <div className="flex items-center gap-3">
@@ -55,11 +81,7 @@ export default function AdminLayout({
                   <Separator
                     orientation="vertical"
                   />
-                  <NavUser user={{
-                    name: "shadcn",
-                    email: "m@example.com",
-                    avatar: "/avatars/shadcn.jpg",
-                  }} />
+                  <NavUser user={user} />
                 </div>
               </div>
             </header>

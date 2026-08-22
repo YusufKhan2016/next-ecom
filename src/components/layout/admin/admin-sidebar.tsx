@@ -17,20 +17,20 @@ import { NavbarDataType } from "@/types";
 
 
 
-export function AdminSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export function AdminSidebar({ sideBarDatas }: { sideBarDatas:NavbarDataType }) {
 
-  const [sideBarDatas, setSideBarDatas] = React.useState<NavbarDataType>([]);
-
-  React.useEffect(() => {
-    const data = localStorage.getItem("menus");
-
-    if (data) {
-      setSideBarDatas(JSON.parse(data));
-    }
-  }, []);
+  // const [sideBarDatas, setSideBarDatas] = React.useState<NavbarDataType>([]);
+  //
+  // React.useEffect(() => {
+  //   const data = localStorage.getItem("menus");
+  //
+  //   if (data) {
+  //     setSideBarDatas(JSON.parse(data));
+  //   }
+  // }, []);
   
   return (
-    <Sidebar variant="inset"  {...props}>
+    <Sidebar variant="inset">
       <SidebarHeader >
         <SidebarMenu>
           <SidebarMenuItem>

@@ -8,6 +8,7 @@ import {
 } from "@/components/ui";
 import { ChevronsUpDownIcon, SparklesIcon, BadgeCheckIcon, CreditCardIcon, BellIcon, LogOutIcon } from "lucide-react"
 import LogoutAlertDialog from "@/components/features/admin/alertDialogPopup/logout-alert-dialog";
+import {useRouter} from "next/navigation";
 
 type UserPropsType = {
   user: {
@@ -21,6 +22,13 @@ export function NavUser({ user }: UserPropsType)
 {
   const [open, setOpen] = React.useState(false);
   const { isMobile } = useSidebar()
+
+  const router = useRouter();
+
+  function goTo()
+  {
+    router.push('/admin/settings/account');
+  }
 
   return (
     <SidebarMenu>
@@ -65,7 +73,9 @@ export function NavUser({ user }: UserPropsType)
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem>
+              <DropdownMenuItem
+                onClick={goTo}
+              >
                 <BadgeCheckIcon
                 />
                 Account Settings

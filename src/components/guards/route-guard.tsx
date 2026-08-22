@@ -3,6 +3,7 @@
 import { NavbarDataType } from "@/types";
 import { usePathname } from "next/navigation";
 import React from "react";
+import NotFound from "@/app/(admin)/admin/(dashboard)/not-found";
 
 function findMenuByRoute(menus: any[], pathname: string): any {
   for (const menu of menus) {
@@ -52,14 +53,14 @@ export default function RouteGuard({
   const currentMenu = findMenuByRoute(menus, pathname);
 
   if (!currentMenu) {
-    return <>you are forbidden</>
+    return NotFound();
   }
 
   if (
     currentMenu.permission &&
     !permissions.includes(currentMenu.permission)
   ) {
-    return <>you are forbidden</>
+    return NotFound()
   }
 
   return <>{children}</>;
