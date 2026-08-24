@@ -15,7 +15,7 @@ import {
 import { ListFilter, ChevronRight } from 'lucide-react';
 import acGreatDeal from "@/assets/home/ac-mid-great-deal.gif"
 import { useCartStore } from '@/store';
-import ProductCard from '@/components/features/website/product-card';
+import ProductCard from '@/components/modules/website/product-card';
 
 export default function CategoryPage() {
   const params = useParams();

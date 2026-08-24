@@ -5,20 +5,14 @@ import {
   Avatar,AvatarFallback,AvatarImage,DropdownMenu,DropdownMenuContent,DropdownMenuGroup,
   DropdownMenuItem,DropdownMenuLabel,DropdownMenuSeparator,DropdownMenuTrigger,
   SidebarMenu,SidebarMenuButton,SidebarMenuItem,useSidebar,
+  LogoutAlertDialog,
 } from "@/components/ui";
 import { ChevronsUpDownIcon, SparklesIcon, BadgeCheckIcon, CreditCardIcon, BellIcon, LogOutIcon } from "lucide-react"
-import LogoutAlertDialog from "@/components/features/admin/alertDialogPopup/logout-alert-dialog";
 import {useRouter} from "next/navigation";
+import {UserDataType} from "@/types";
 
-type UserPropsType = {
-  user: {
-    name: string
-    email: string
-    avatar: string
-  }
-}
 
-export function NavUser({ user }: UserPropsType)
+export function NavUser({ user }: { user: UserDataType})
 {
   const [open, setOpen] = React.useState(false);
   const { isMobile } = useSidebar()
@@ -43,12 +37,12 @@ export function NavUser({ user }: UserPropsType)
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
               <Avatar className="h-8 w-8 rounded-lg">
-                <AvatarImage src={user.avatar} alt={user.name} />
+                {/*<AvatarImage src={user.avatar} alt={user.name} />*/}
                 <AvatarFallback className="rounded-lg">CN</AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-medium">{user.name}</span>
-                <span className="truncate text-xs">{user.email}</span>
+                <span className="truncate font-medium">{user?.name}</span>
+                <span className="truncate text-xs">{user?.email}</span>
               </div>
             </SidebarMenuButton>
           </DropdownMenuTrigger>
@@ -62,12 +56,12 @@ export function NavUser({ user }: UserPropsType)
             <DropdownMenuLabel className="p-0 font-normal">
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                 <Avatar className="h-8 w-8 rounded-lg">
-                  <AvatarImage src={user.avatar} alt={user.name} />
+                  {/*<AvatarImage src={user.avatar} alt={user.name} />*/}
                   <AvatarFallback className="rounded-lg">CN</AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-medium">{user.name}</span>
-                  <span className="truncate text-xs">{user.email}</span>
+                  <span className="truncate font-medium">{user?.name}</span>
+                  <span className="truncate text-xs">{user?.email}</span>
                 </div>
               </div>
             </DropdownMenuLabel>

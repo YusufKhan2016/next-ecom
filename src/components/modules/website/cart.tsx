@@ -6,7 +6,7 @@ import { Dispatch, SetStateAction } from 'react'
 import Image from 'next/image'
 import { Field, FieldGroup } from '@/components/ui/field'
 import { useCartStore } from '@/store/website/cart.store'
-import { Counter} from '@/components/features/website';
+import { Counter} from '@/components/modules/website';
 
 type CartPropsType = {
   cartOpen?: boolean

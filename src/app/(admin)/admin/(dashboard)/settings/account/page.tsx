@@ -1,20 +1,14 @@
 import React from 'react';
-
 import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardHeader,
-    CardTitle,
-} from "@/components/ui/card"
-import {
-    Tabs,
-    TabsContent,
-    TabsList,
-    TabsTrigger,
-} from "@/components/ui/tabs"
-import {Separator} from "@/components/ui";
+    Tabs,TabsList,TabsTrigger,Separator
+} from "@/components/ui"
 import {KeyRound, LucideIcon, MonitorSmartphone, Shield, User, UserKey, Users} from "lucide-react";
+import {
+    SettingsAccountProfileSetup,
+    SettingsAccountTwoFactorSetup,
+    SettingsAccountPasswordSetup,
+    SettingsAccountSessionsSetup
+} from "@/components/modules/admin";
 
 type TabsTriggerTypes = {
     icon: LucideIcon
@@ -27,26 +21,26 @@ type TabsTypes = {
     tabs: TabsTriggerTypes[]
 }
 
-function AccountPage() {
-    const tabs:TabsTypes[] = [
-        {
-            type: "Personal",
-            tabs: [
-                { icon: User,title: "Profile", value: "profile" },
-                { icon: Shield,title: "Two Factor", value: "two-factor" },
-                { icon: KeyRound, title: "Password", value: "password" },
-                { icon: MonitorSmartphone, title: "Sessions", value: "sessions" },
-            ]
-        },
-        {
-            type: "Store Access",
-            tabs: [
-                { icon: Users, title: "Administrators", value: "administrators" },
-                { icon: UserKey, title: "Roles", value: "roles" },
-            ]
-        }
-    ]
+const tabs:TabsTypes[] = [
+    {
+        type: "Personal",
+        tabs: [
+            { icon: User,title: "Profile", value: "profile" },
+            { icon: Shield,title: "Two Factor", value: "two-factor" },
+            { icon: KeyRound, title: "Password", value: "password" },
+            { icon: MonitorSmartphone, title: "Sessions", value: "sessions" },
+        ]
+    },
+    {
+        type: "Store Access",
+        tabs: [
+            { icon: Users, title: "Administrators", value: "administrators" },
+            { icon: UserKey, title: "Roles", value: "roles" },
+        ]
+    }
+]
 
+function AccountPage() {
     return (
         <>
             <h1 className={'text-xl text-foreground font-medium'}>Account</h1>
@@ -83,66 +77,18 @@ function AccountPage() {
                     ))}
                 </TabsList>
 
-                <TabsContent value="profile">
-                    <Card>
-                        <CardHeader>
-                            <CardTitle className={'text-lg font-medium!'}>
-                                <p className={'text-lg flex items-center gap-2'}>
-                                    <User size={18} />
-                                    Profile
-                                </p>
-                            </CardTitle>
-                            <CardDescription>
-                                Edit your basic infos from here.
-                            </CardDescription>
-                        </CardHeader>
-                        <CardContent className="text-sm text-muted-foreground">
-                            You have 12 active projects and 3 pending tasks.
-                        </CardContent>
-                    </Card>
-                </TabsContent>
-                <TabsContent value="two-factor">
-                    <Card>
-                        <CardHeader>
-                            <CardTitle>Analytics</CardTitle>
-                            <CardDescription>
-                                Track performance and user engagement metrics. Monitor trends and
-                                identify growth opportunities.
-                            </CardDescription>
-                        </CardHeader>
-                        <CardContent className="text-sm text-muted-foreground">
-                            Page views are up 25% compared to last month.
-                        </CardContent>
-                    </Card>
-                </TabsContent>
-                <TabsContent value="password">
-                    <Card>
-                        <CardHeader>
-                            <CardTitle>Reports</CardTitle>
-                            <CardDescription>
-                                Generate and download your detailed reports. Export data in
-                                multiple formats for analysis.
-                            </CardDescription>
-                        </CardHeader>
-                        <CardContent className="text-sm text-muted-foreground">
-                            You have 5 reports ready and available to export.
-                        </CardContent>
-                    </Card>
-                </TabsContent>
-                <TabsContent value="sessions">
-                    <Card>
-                        <CardHeader>
-                            <CardTitle>Settings</CardTitle>
-                            <CardDescription>
-                                Manage your account preferences and options. Customize your
-                                experience to fit your needs.
-                            </CardDescription>
-                        </CardHeader>
-                        <CardContent className="text-sm text-muted-foreground">
-                            Configure notifications, security, and themes.
-                        </CardContent>
-                    </Card>
-                </TabsContent>
+                <SettingsAccountProfileSetup
+                    activeTab={'profile'}
+                />
+                <SettingsAccountTwoFactorSetup
+                    activeTab={'two-factor'}
+                />
+                <SettingsAccountPasswordSetup
+                    activeTab={'password'}
+                />
+                <SettingsAccountSessionsSetup
+                    activeTab={'sessions'}
+                />
             </Tabs>
         </>
     );

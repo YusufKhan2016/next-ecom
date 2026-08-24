@@ -4,7 +4,7 @@ import React from "react";
 import { LogOutIcon } from "lucide-react";
 import {AlertDialog,AlertDialogAction,AlertDialogCancel,AlertDialogContent,AlertDialogDescription,
     AlertDialogFooter,AlertDialogHeader,AlertDialogMedia,AlertDialogTitle,AlertDialogTrigger,
-} from "@/components/ui";
+} from "@/components/ui/index";
 import { useAuthStore } from "@/store";
 import { useRouter } from "next/navigation";
 import {logoutAction} from "@/actions";
@@ -73,4 +73,4 @@ function LogoutAlertDialog({ onOpen }: LogoutAlertDialogPropsType) {
     );
 }
 
-export default LogoutAlertDialog;
+export { LogoutAlertDialog };

@@ -12,7 +12,7 @@ import Link from "next/link";
 import Image from "next/image";
 import acGreatDeal from "@/assets/home/ac-mid-great-deal.gif";
 import { products } from "@/staticsDatas/products";
-import { Counter, CarouselSlider } from "@/components/features/website"
+import { Counter, CarouselSlider } from "@/components/modules/website"
 
 
 // ── Types ──────────────────────────────────────────────────────────────────────

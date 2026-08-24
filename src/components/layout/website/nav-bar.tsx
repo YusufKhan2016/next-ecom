@@ -18,7 +18,7 @@ import { Badge } from "@/components/ui/badge"
 
 import logoMain from "@/assets/logo-main.png"
 import { cn } from "@/lib/utils"
-import Cart from "@/components/features/website/cart"
+import Cart from "@/components/modules/website/cart"
 import { Button } from "@/components/ui/button"
 import { useCartStore } from "@/store/website/cart.store"
 import navItems from "@/staticsDatas/navCategories"

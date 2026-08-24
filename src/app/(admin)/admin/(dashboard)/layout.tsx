@@ -22,7 +22,7 @@ import { ThemeSwitcher } from "@/components/ui"
 import RouteGuard from "@/components/guards/route-guard"
 import AdminBreadcrumb from "@/components/layout/admin/admin-breadcrumb";
 import React from "react";
-import {NavbarDataType} from "@/types";
+import {NavbarDataType, UserDataType} from "@/types";
 import {usePathname} from "next/navigation";
 
 export default function AdminLayout({
@@ -32,7 +32,7 @@ export default function AdminLayout({
 }) {
 
   const [menus, setMenus] = React.useState<NavbarDataType>([]);
-  const [user, setUser] = React.useState<any>([]);
+  const [user, setUser] = React.useState<UserDataType>();
 
   React.useEffect(() => {
     const menusData = localStorage.getItem("menus");
@@ -81,7 +81,7 @@ export default function AdminLayout({
                   <Separator
                     orientation="vertical"
                   />
-                  <NavUser user={user} />
+                  {user && <NavUser user={user} />}
                 </div>
               </div>
             </header>

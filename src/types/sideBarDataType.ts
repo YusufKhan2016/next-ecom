@@ -14,3 +14,12 @@ export type NavbarDataType = {
     parent_id: number
   }[]
 }[]
+
+export type UserDataType = {
+  id: number,
+  code: string,
+  name: string,
+  phone: string,
+  email: string,
+  status: boolean,
+}

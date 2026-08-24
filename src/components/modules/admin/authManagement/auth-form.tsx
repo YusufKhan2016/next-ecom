@@ -1,6 +1,5 @@
 "use client";
 
-import {useActionState, useEffect} from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -29,7 +28,7 @@ const loginSchema = z.object({
 
 type LoginFormValues = z.infer<typeof loginSchema>;
 
-export default function LoginForm() {
+export function LoginForm() {
     const login = useAuthStore((store) => store.login)
     const router = useRouter()
 
