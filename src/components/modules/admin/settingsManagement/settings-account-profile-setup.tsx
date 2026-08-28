@@ -9,7 +9,7 @@ import {Check, SquarePen, User, X, XIcon} from "lucide-react";
 import React from "react";
 
 const image = {
-    name: "workspace.png",
+    name: "workspace.png",  
     meta: "PNG · 820 KB",
     src: "https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=900&auto=format&fit=crop&q=80",
     alt: "Workspace",

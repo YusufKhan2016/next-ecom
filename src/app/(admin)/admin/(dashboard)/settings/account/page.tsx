@@ -7,7 +7,9 @@ import {
     SettingsAccountProfileSetup,
     SettingsAccountTwoFactorSetup,
     SettingsAccountPasswordSetup,
-    SettingsAccountSessionsSetup
+    SettingsAccountSessionsSetup,
+    SettingsAccountAdministratorsSetup,
+    SettingsAccountRolesSetup
 } from "@/components/modules/admin";
 
 type TabsTriggerTypes = {
@@ -88,6 +90,12 @@ function AccountPage() {
                 />
                 <SettingsAccountSessionsSetup
                     activeTab={'sessions'}
+                />
+                <SettingsAccountAdministratorsSetup
+                    activeTab={'administrators'}
+                />
+                <SettingsAccountRolesSetup
+                    activeTab={'roles'}
                 />
             </Tabs>
         </>

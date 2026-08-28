@@ -6,8 +6,7 @@ import {
 import {KeyRound, Eye, EyeOff} from "lucide-react";
 import React from "react";
 
-export function SettingsAccountPasswordSetup({ activeTab } : { activeTab: string})
-{
+export function SettingsAccountAdministratorsSetup ({ activeTab } : { activeTab: string}) {
     const [currentPassword, setCurrentPassword] = React.useState("");
     const [newPassword, setNewPassword] = React.useState("");
     const [confirmPassword, setConfirmPassword] = React.useState("");
@@ -121,4 +120,4 @@ export function SettingsAccountPasswordSetup({ activeTab } : { activeTab: string
             </TabsContent>
         </>
     )
-}
+};
