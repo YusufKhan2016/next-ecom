@@ -1,124 +1,144 @@
-"use client"
-import {
-    Separator, TabsContent,
-    Card, CardContent, CardDescription, CardHeader, CardTitle, Button, Input, Label,
-} from "@/components/ui";
-import {KeyRound, Eye, EyeOff} from "lucide-react";
+"use client";
+
 import React from "react";
+import {
+    TabsContent,
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
+    Button,
+    Badge,
+    Separator, TooltipTrigger, CollapsibleTrigger, TooltipContent, Tooltip,
+} from "@/components/ui";
 
-export function SettingsAccountRolesSetup({ activeTab } : { activeTab: string})
-{
-    const [currentPassword, setCurrentPassword] = React.useState("");
-    const [newPassword, setNewPassword] = React.useState("");
-    const [confirmPassword, setConfirmPassword] = React.useState("");
+import {
+    Shield,
+    Plus,
+    Pencil,
+    Lock, ShieldCheck,
+} from "lucide-react";
+import {SettingsAccountRolesSetupForm} from "@/components/modules/admin";
 
-    const [showCurrent, setShowCurrent] = React.useState(false);
-    const [showNew, setShowNew] = React.useState(false);
-    const [showConfirm, setShowConfirm] = React.useState(false);
+const roles = [
+    {
+        name: "Content Editor",
+        description: "Access to pages, widgets, media, and content settings.",
+        permissions: 16,
+        system: true,
+    },
+    {
+        name: "Product Specialist",
+        description:
+            "Full access to products, categories, collections, and attributes.",
+        permissions: 24,
+        system: true,
+    },
+    {
+        name: "Sales Representative",
+        description:
+            "Access to orders, customers, and product viewing.",
+        permissions: 16,
+        system: true,
+    },
+];
 
-    const handleUpdatePassword = () => {
-        // handle password update
+export function SettingsAccountRolesSetup({ activeTab }:{ activeTab: string }) {
+    const [roleDialogOpen, setRoleDialogOpen] = React.useState(false);
+
+    const handleCreateRole = () => {
+        setRoleDialogOpen(true);
+    };
+    const handleEditRole = (role: string) => {
+        setRoleDialogOpen(true);
+        console.log("Edit role:", role);
     };
 
     return (
         <>
+            <SettingsAccountRolesSetupForm
+                open={roleDialogOpen}
+                onOpenChange={setRoleDialogOpen}
+            />
+
             <TabsContent value={activeTab}>
                 <Card>
-                    <CardHeader className={'space-y-1.5'}>
-                        <CardTitle className={'text-lg font-medium!'}>
-                            <p className={'flex items-center gap-2'}>
-                                <KeyRound size={18} />
-                                Change password
-                            </p>
-                        </CardTitle>
-                        <CardDescription>
-                            Use at least 12 characters. Two-factor authentication remains required.
-                        </CardDescription>
+                    <CardHeader>
+                        <div className="flex items-start justify-between gap-4">
+                            <div className="space-y-1">
+                                <CardTitle className="flex items-center gap-2 text-lg">
+                                    <Shield size={18} />
+                                    Roles Management
+                                </CardTitle>
+
+                                <CardDescription>
+                                    Create and manage roles with specific permissions
+                                </CardDescription>
+                            </div>
+                        </div>
                     </CardHeader>
+
                     <Separator />
-                    <CardContent className="mt-2 flex flex-col gap-5 text-sm text-muted-foreground">
-                        <div className="flex flex-col gap-2">
-                            <Label htmlFor="current-password" className={'font-medium text-foreground'}>
-                                Current password
-                            </Label>
-                            <div className="relative">
-                                <Input
-                                    id="current-password"
-                                    type={showCurrent ? "text" : "password"}
-                                    placeholder={'Enter current password'}
-                                    value={currentPassword}
-                                    onChange={(e) => setCurrentPassword(e.target.value)}
-                                    className={'pr-10'}
-                                />
-                                <Button
-                                    variant={'ghost'}
-                                    onClick={() => setShowCurrent((prev) => !prev)}
-                                    aria-label={showCurrent ? "Hide password" : "Show password"}
-                                    className="absolute inset-y-0 right-0 flex items-center pr-3"
-                                >
-                                    {showCurrent ? <EyeOff size={16} /> : <Eye size={16} />}
-                                </Button>
-                            </div>
-                        </div>
 
-                        <div className="flex flex-col gap-2">
-                            <Label htmlFor="new-password" className={'font-medium text-foreground'}>
-                                New password
-                            </Label>
-                            <div className="relative">
-                                <Input
-                                    id="new-password"
-                                    type={showNew ? "text" : "password"}
-                                    placeholder={'Enter new password'}
-                                    value={newPassword}
-                                    onChange={(e) => setNewPassword(e.target.value)}
-                                    className={'pr-10'}
-                                />
-
-                                <Button
-                                    variant={'ghost'}
-                                    onClick={() => setShowNew((prev) => !prev)}
-                                    aria-label={showNew ? "Hide password" : "Show password"}
-                                    className="absolute inset-y-0 right-0 flex items-center pr-3"
-                                >
-                                    {showNew ? <EyeOff size={16} /> : <Eye size={16} />}
-                                </Button>
-                            </div>
-                        </div>
-
-                        <div className="flex flex-col gap-2">
-                            <Label htmlFor="confirm-password" className={'font-medium text-foreground'}>
-                                Confirm new password
-                            </Label>
-                            <div className="relative">
-                                <Input
-                                    id="confirm-password"
-                                    type={showConfirm ? "text" : "password"}
-                                    placeholder={'Confirm new password'}
-                                    value={confirmPassword}
-                                    onChange={(e) => setConfirmPassword(e.target.value)}
-                                    className={'pr-10'}
-                                />
-
-                                <Button
-                                    variant={'ghost'}
-                                    onClick={() => setShowConfirm((prev) => !prev)}
-                                    aria-label={showConfirm ? "Hide password" : "Show password"}
-                                    className="absolute inset-y-0 right-0 flex items-center pr-3"
-                                >
-                                    {showConfirm ? <EyeOff size={16} /> : <Eye size={16} />}
-                                </Button>
-                            </div>
-                        </div>
-
-                        <div>
-                            <Button onClick={handleUpdatePassword} variant={'secondary'}>
-                                Update password
+                    <CardContent className="space-y-4 pt-6">
+                        <div className={'flex justify-end'}>
+                            <Button onClick={handleCreateRole}>
+                                <Plus />
+                                Create Role
                             </Button>
                         </div>
+                        {roles.map((role) => (
+                            <Card key={role.name}>
+                                <CardContent className="flex justify-between py-3! gap-4">
+                                    <div className="space-y-2">
+                                        <div className="flex items-center gap-2">
+                                            <h3 className="font-semibold">
+                                                {role.name}
+                                            </h3>
+
+                                            {role.system && (
+                                                <Badge variant="secondary">
+                                                    <Lock />
+                                                    System
+                                                </Badge>
+                                            )}
+                                        </div>
+
+                                        <p className="text-sm text-muted-foreground">
+                                            {role.description}
+                                        </p>
+
+                                        <p className="text-sm text-muted-foreground">
+                                            {role.permissions} permissions
+                                        </p>
+                                    </div>
+
+                                    <Tooltip>
+                                        <TooltipTrigger asChild>
+                                            <Button
+                                                variant="ghost"
+                                                size="icon"
+                                                onClick={() =>
+                                                    handleEditRole(role.name)
+                                                }
+                                                aria-label={`Edit ${role.name}`}
+                                            >
+                                                <Pencil />
+                                            </Button>
+                                        </TooltipTrigger>
+
+                                        <TooltipContent>
+                                            <p>Edit Role</p>
+                                        </TooltipContent>
+                                    </Tooltip>
+
+                                </CardContent>
+                            </Card>
+                        ))}
                     </CardContent>
                 </Card>
             </TabsContent>
         </>
-    )
+    );
 }

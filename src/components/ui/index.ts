@@ -27,3 +27,5 @@ export * from './theme-switcher';
 export * from './logout-alert-dialog';
 export * from './alert-dialog'
 export * from './attachment'
+export * from './dialog'
+export * from './textarea'

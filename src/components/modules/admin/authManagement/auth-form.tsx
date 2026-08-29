@@ -59,7 +59,7 @@ export function LoginForm() {
                 router.push('/admin/dashboard')
 
             }).catch((error) => {
-                toast.error(error, { id: toastId });
+                toast.error(error?.message, { id: toastId });
             })
     };
     return (
