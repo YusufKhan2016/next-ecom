@@ -1,16 +1,20 @@
 "use server";
 
 import { cookies } from "next/headers";
-import { LoginDataType } from "@/types";
-import {ReadonlyRequestCookies} from "next/dist/server/web/spec-extension/adapters/request-cookies";
+import {ChangePasswordDataType, LoginDataType} from "@/types";
+import { ReadonlyRequestCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";
 import axios from "axios";
-import {serverApi} from "@/lib/server-api";
+import { serverApi } from "@/lib/server-api";
+import {
+    changePassword,
+    getUser,
+    userLogin,
+    userLogout
+} from "@/actions/api";
 
 export async function loginAction(data: LoginDataType) {
     try {
-        const response = await axios.post(
-            `${process.env.NEXT_PUBLIC_API_BASE_URL}/login`,
-            data,
+        const response = await axios.post( userLogin, data,
             {
                 withCredentials: true,
                 headers: {
@@ -47,10 +51,21 @@ export async function loginAction(data: LoginDataType) {
     }
 }
 
+export async function changePasswordAction(data: ChangePasswordDataType) {
+    const api = await serverApi();
+    try {
+        const response = await api.post(changePassword, data);
+
+        return response?.data;
+    } catch (error:any) {
+        throw new Error(error?.response?.data?.message || "Something went wrong.");
+    }
+}
+
 export async function logoutAction() {
     const api = await serverApi();
     try {
-        const response = await api.post("/auth/logout");
+        const response = await api.post(userLogout);
         const cookieStore: ReadonlyRequestCookies = await cookies();
 
         cookieStore.delete("token");
@@ -64,7 +79,7 @@ export async function logoutAction() {
 export async function getUserAction() {
     const api = await serverApi();
     try {
-        const response = await api.post("/auth/get-user");;
+        const response = await api.get(getUser);
 
         return response?.data;
     } catch (error:any) {

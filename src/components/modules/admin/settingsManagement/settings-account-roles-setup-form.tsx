@@ -8,6 +8,7 @@ import {
 } from "@/components/ui";
 
 import { ChevronDown, Save } from "lucide-react";
+import {getPermissionsListAction} from "@/actions";
 
 type Permission = {
     id: number;
@@ -131,6 +132,7 @@ const permissionGroups: PermissionGroup[] = [
 export function SettingsAccountRolesSetupForm({ open, onOpenChange}: SettingsAccountRolesSetupFormProps) {
     const [selectedPermissions, setSelectedPermissions] = React.useState<number[]>([]);
 
+
     const handlePermissionChange = (permissionId: number, checked: boolean) => {
         setSelectedPermissions((current) => {
             if (checked) {
@@ -152,7 +154,7 @@ export function SettingsAccountRolesSetupForm({ open, onOpenChange}: SettingsAcc
             permissions: selectedPermissions,
         };
 
-        console.log("Role data:", roleData);
+        // console.log("Role data:", roleData);
 
         // API call will go here later.
     };
@@ -236,12 +238,7 @@ export function SettingsAccountRolesSetupForm({ open, onOpenChange}: SettingsAcc
                                                         </span>
 
                                                         <span className="text-xs text-muted-foreground">
-                                                            {selectedCount}/
-                                                            {
-                                                                group
-                                                                    .permissions
-                                                                    .length
-                                                            }
+                                                            {selectedCount}/{group.permissions.length}
                                                         </span>
                                                     </span>
 
@@ -253,26 +250,15 @@ export function SettingsAccountRolesSetupForm({ open, onOpenChange}: SettingsAcc
                                                 <div className="border-t px-4 py-3">
                                                     <div className="grid gap-3">
                                                         {group.permissions.map(
-                                                            (
-                                                                permission
-                                                            ) => (
-                                                                <div
-                                                                    key={
-                                                                        permission.id
-                                                                    }
-                                                                    className="flex items-center gap-3"
-                                                                >
+                                                            (permission:Permission) => (
+                                                                <div key={permission.id} className="flex items-center gap-3" >
                                                                     <Checkbox
                                                                         id={`permission-${permission.id}`}
                                                                         checked={selectedPermissions.includes(
                                                                             permission.id
                                                                         )}
                                                                         onCheckedChange={(checked) =>
-                                                                            handlePermissionChange(
-                                                                                permission.id,
-                                                                                checked ===
-                                                                                true
-                                                                            )
+                                                                            handlePermissionChange( permission.id, checked === true )
                                                                         }
                                                                     />
 
@@ -280,9 +266,7 @@ export function SettingsAccountRolesSetupForm({ open, onOpenChange}: SettingsAcc
                                                                         htmlFor={`permission-${permission.id}`}
                                                                         className="cursor-pointer font-normal"
                                                                     >
-                                                                        {
-                                                                            permission.action
-                                                                        }
+                                                                        {permission.action}
                                                                     </Label>
                                                                 </div>
                                                             )

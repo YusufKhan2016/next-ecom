@@ -76,18 +76,17 @@ export function SettingsAccountRolesSetup({ activeTab }:{ activeTab: string }) {
                                     Create and manage roles with specific permissions
                                 </CardDescription>
                             </div>
+
+                            <Button onClick={handleCreateRole}>
+                                <Plus />
+                                Create Role
+                            </Button>
                         </div>
                     </CardHeader>
 
                     <Separator />
 
                     <CardContent className="space-y-4 pt-6">
-                        <div className={'flex justify-end'}>
-                            <Button onClick={handleCreateRole}>
-                                <Plus />
-                                Create Role
-                            </Button>
-                        </div>
                         {roles.map((role) => (
                             <Card key={role.name}>
                                 <CardContent className="flex justify-between py-3! gap-4">

@@ -10,3 +10,4 @@ export * from './settingsManagement/settings-account-two-factor-setup';
 export * from './settingsManagement/settings-account-administrators-setup';
 export * from './settingsManagement/settings-account-roles-setup';
 export * from './settingsManagement/settings-account-roles-setup-form';
+export * from './settingsManagement/settings-account-setup';
