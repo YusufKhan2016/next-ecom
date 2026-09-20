@@ -53,14 +53,14 @@ export default function RouteGuard({
   const currentMenu = findMenuByRoute(menus, pathname);
 
   if (!currentMenu) {
-    return NotFound();
+    return <NotFound />;
   }
 
   if (
     currentMenu.permission &&
     !permissions.includes(currentMenu.permission)
   ) {
-    return NotFound()
+    return <NotFound />
   }
 
   return <>{children}</>;

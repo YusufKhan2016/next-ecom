@@ -1,9 +1,18 @@
 "use client"
-import React, {useCallback, useEffect, useState} from 'react';
+
+import React, {useEffect} from 'react';
 import {
     Tabs, TabsList, TabsTrigger, Separator
 } from "@/components/ui"
-import {KeyRound, LucideIcon, MonitorSmartphone, Shield, User, UserKey, Users} from "lucide-react";
+import {
+    KeyRound,
+    LucideIcon,
+    MonitorSmartphone,
+    Shield,
+    User,
+    UserKey,
+    Users
+} from "lucide-react";
 import {
     SettingsAccountProfileSetup,
     SettingsAccountTwoFactorSetup,
@@ -12,9 +21,7 @@ import {
     SettingsAccountAdministratorsSetup,
     SettingsAccountRolesSetup
 } from "@/components/modules/admin";
-import {usePathname, useRouter, useSearchParams} from "next/navigation";
-import {getPermissionsListAction} from "@/actions";
-import {useQueryClient} from "@tanstack/react-query";
+import {usePathname, useRouter} from "next/navigation";
 
 type TabsTriggerTypes = {
     icon: LucideIcon
@@ -25,6 +32,11 @@ type TabsTriggerTypes = {
 type TabsTypes = {
     type: string
     tabs: TabsTriggerTypes[]
+}
+
+type SettingsAccountSetupProps = {
+    section: string;
+    permissions: any[];
 }
 
 const tabs: TabsTypes[] = [
@@ -46,33 +58,26 @@ const tabs: TabsTypes[] = [
     }
 ]
 
-export function SettingsAccountSetup() {
-    const [permissions, setPermissions] = useState([]);
+export function SettingsAccountSetup({ section, permissions }: SettingsAccountSetupProps) {
+
     const router = useRouter();
     const pathname = usePathname();
-    const searchParams = useSearchParams();
-
-    const section = searchParams.get("section") || "profile";
-
-    const handleTabChange = (value: string) => {
-        const params = new URLSearchParams(searchParams.toString());
-
-        params.set("section", value);
-        router.replace(`${pathname}?${params.toString()}`);
-    };
 
     useEffect(() => {
-        if(section === "roles") {
-            getPermissionsListAction().then((response) => {
-                setPermissions(response?.data);
-            });
+        if(section === 'roles') {
+            console.log(permissions)
         }
-    }, [section]);
+    }, [permissions]);
 
+    const handleTabChange = (value: string) => {
+        router.replace(`${pathname}?section=${value}`);
+    };
 
     return (
         <>
-            <h1 className={'text-xl text-foreground font-medium'}>Account</h1>
+            <h1 className={'text-xl text-foreground font-medium'}>
+                Account
+            </h1>
 
             <Tabs
                 value={section}
@@ -83,15 +88,18 @@ export function SettingsAccountSetup() {
                 <TabsList className={'px-2 min-w-50 bg-sidebar space-y-1'}>
                     {tabs.map((tab: TabsTypes, index: number) => (
                         <React.Fragment key={index}>
+
                             {index !== 0 && (
-                                <Separator
-                                    className="mt-2"
-                                />
+                                <Separator className="mt-2"/>
                             )}
-                            <p className={'text-xs uppercase w-full py-2'}>{tab.type}</p>
+
+                            <p className={'text-xs uppercase w-full py-2'}>
+                                {tab.type}
+                            </p>
 
                             {tab.tabs.map((tabTrigger: TabsTriggerTypes, index: number) => {
                                 const Icon = tabTrigger.icon;
+
                                 return (
                                     <TabsTrigger
                                         key={index}
@@ -103,27 +111,28 @@ export function SettingsAccountSetup() {
                                     </TabsTrigger>
                                 )
                             })}
+
                         </React.Fragment>
                     ))}
                 </TabsList>
 
                 <SettingsAccountProfileSetup
-                    activeTab={'profile'}
+                    activeTab="profile"
                 />
                 <SettingsAccountTwoFactorSetup
-                    activeTab={'two-factor'}
+                    activeTab="two-factor"
                 />
                 <SettingsAccountPasswordSetup
-                    activeTab={'password'}
+                    activeTab="password"
                 />
                 <SettingsAccountSessionsSetup
-                    activeTab={'sessions'}
+                    activeTab="sessions"
                 />
                 <SettingsAccountAdministratorsSetup
-                    activeTab={'administrators'}
+                    activeTab="administrators"
                 />
                 <SettingsAccountRolesSetup
-                    activeTab={'roles'}
+                    activeTab="roles"
                 />
             </Tabs>
         </>
