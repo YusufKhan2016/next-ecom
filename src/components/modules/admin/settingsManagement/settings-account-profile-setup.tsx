@@ -107,12 +107,12 @@ export function SettingsAccountProfileSetup({ activeTab } : { activeTab: string}
                                                 asChild
 
                                             >
-                                                    <a
-                                                        href={image.src}
-                                                        target="_blank"
-                                                        rel="noreferrer"
-                                                        aria-label={`Open ${image.name}`}
-                                                    />
+                                                <a
+                                                    href={image.src}
+                                                    target="_blank"
+                                                    rel="noreferrer"
+                                                    aria-label={`Open ${image.name}`}
+                                                />
                                             </AttachmentTrigger>
                                         </Attachment>
 

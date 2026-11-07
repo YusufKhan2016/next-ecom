@@ -23,8 +23,8 @@ function LogoutAlertDialog({ onOpen }: LogoutAlertDialogPropsType) {
 
         await logoutAction().then((response) => {
             logout()
-            toast.success(response?.message, { id: toastId });
             router.push('/admin/login')
+            toast.success(response?.message, { id: toastId });
 
         }).catch((error) => {
             toast.success(error?.message, { id: toastId });

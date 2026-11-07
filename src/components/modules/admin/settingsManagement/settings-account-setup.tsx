@@ -36,7 +36,7 @@ type TabsTypes = {
 
 type SettingsAccountSetupProps = {
     section: string;
-    permissions: any[];
+    // permissions: any[];
 }
 
 const tabs: TabsTypes[] = [
@@ -58,16 +58,10 @@ const tabs: TabsTypes[] = [
     }
 ]
 
-export function SettingsAccountSetup({ section, permissions }: SettingsAccountSetupProps) {
+export function SettingsAccountSetup({ section }: SettingsAccountSetupProps) {
 
     const router = useRouter();
     const pathname = usePathname();
-
-    useEffect(() => {
-        if(section === 'roles') {
-            console.log(permissions)
-        }
-    }, [permissions]);
 
     const handleTabChange = (value: string) => {
         router.replace(`${pathname}?section=${value}`);

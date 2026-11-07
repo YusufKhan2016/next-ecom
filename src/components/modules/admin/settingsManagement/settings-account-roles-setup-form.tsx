@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, {useEffect} from "react";
 import {
     Dialog,DialogContent,DialogDescription,DialogFooter,DialogHeader,DialogTitle,
     Button,Input,Label,Textarea,Separator,
@@ -131,7 +131,19 @@ const permissionGroups: PermissionGroup[] = [
 
 export function SettingsAccountRolesSetupForm({ open, onOpenChange}: SettingsAccountRolesSetupFormProps) {
     const [selectedPermissions, setSelectedPermissions] = React.useState<number[]>([]);
+    const [permissions, setPermissions] = React.useState<any[]>([]);
 
+    useEffect(() => {
+        const fetchPermissions = async () => {
+            const response = await getPermissionsListAction();
+
+            setPermissions(response?.data ?? []);
+        };
+
+        fetchPermissions();
+    }, []);
+
+    console.log(permissions);
 
     const handlePermissionChange = (permissionId: number, checked: boolean) => {
         setSelectedPermissions((current) => {

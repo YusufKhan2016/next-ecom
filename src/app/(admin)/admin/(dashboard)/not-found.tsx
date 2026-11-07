@@ -1,4 +1,5 @@
 import Link from "next/link";
+import {Button} from "@/components/ui";
 
 export default function NotFound() {
   return (
@@ -8,9 +9,10 @@ export default function NotFound() {
 
       <Link
         href="/admin/dashboard"
-        className="mt-6 px-4 py-2 bg-orange-500 text-white rounded"
       >
-        Go Back Home
+          <Button size={'lg'} className="mt-2 cursor-pointer" >
+            Go Back Home
+          </Button>
       </Link>
     </div>
   );

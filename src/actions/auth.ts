@@ -47,7 +47,7 @@ export async function loginAction(data: LoginDataType) {
         return response?.data;
 
     } catch (error: any) {
-        throw new Error(error?.response?.data || "Something went wrong.");
+        throw new Error(error?.response?.data?.message || "Something went wrong.");
     }
 }
 

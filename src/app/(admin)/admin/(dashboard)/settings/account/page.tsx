@@ -12,18 +12,16 @@ async function AccountPage({searchParams}: AccountPageProps) {
 
     const section = params.section || "profile";
 
-    let permissions = [];
-
-    if (section === "roles") {
-        const response = await getPermissionsListAction();
-
-        permissions = response?.data ?? [];
-    }
+    // let permissions: any[] = [];
+    //
+    // if (section === "roles") {
+    //     const response = await getPermissionsListAction();
+    //     permissions = response?.data ?? [];
+    // }
 
     return (
         <SettingsAccountSetup
             section={section}
-            permissions={permissions}
         />
     );
 }
