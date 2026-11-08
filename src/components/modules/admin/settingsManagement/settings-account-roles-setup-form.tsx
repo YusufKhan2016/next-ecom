@@ -8,7 +8,12 @@ import {
 } from "@/components/ui";
 
 import { ChevronDown, Save } from "lucide-react";
-import {getPermissionsListAction} from "@/actions";
+
+import {getPermissionsListAction, saveUpdateRoleAction} from "@/actions";
+import {useForm} from "react-hook-form";
+import {zodResolver} from "@hookform/resolvers/zod";
+import { z } from "zod";
+import {toast} from "sonner";
 
 type Permission = {
     id: number;
@@ -21,180 +26,141 @@ type PermissionGroup = {
     permissions: Permission[];
 };
 
+type Role = {
+    id: number;
+    name: string;
+    description: string | null;
+    permissions: { id: number; name: string }[];
+};
+
 type SettingsAccountRolesSetupFormProps = {
     open: boolean;
     onOpenChange: (open: boolean) => void;
+    role: Role | null;
+    onSaved: () => Promise<void>;
 };
 
-const permissionGroups: PermissionGroup[] = [
-    {
-        name: "Dashboard",
-        permissions: [
-            {
-                id: 1,
-                name: "dashboard.view",
-                action: "View",
-            },
-        ],
-    },
-    {
-        name: "Users",
-        permissions: [
-            {
-                id: 2,
-                name: "user.view",
-                action: "View",
-            },
-            {
-                id: 3,
-                name: "user.create",
-                action: "Create",
-            },
-            {
-                id: 4,
-                name: "user.edit",
-                action: "Edit",
-            },
-        ],
-    },
-    {
-        name: "Products",
-        permissions: [
-            {
-                id: 5,
-                name: "product.view",
-                action: "View",
-            },
-            {
-                id: 6,
-                name: "product.create",
-                action: "Create",
-            },
-            {
-                id: 7,
-                name: "product.edit",
-                action: "Edit",
-            },
-            {
-                id: 8,
-                name: "product.delete",
-                action: "Delete",
-            },
-        ],
-    },
-    {
-        name: "Categories",
-        permissions: [
-            {
-                id: 9,
-                name: "category.view",
-                action: "View",
-            },
-            {
-                id: 10,
-                name: "category.create",
-                action: "Create",
-            },
-            {
-                id: 11,
-                name: "category.edit",
-                action: "Edit",
-            },
-            {
-                id: 12,
-                name: "category.delete",
-                action: "Delete",
-            },
-        ],
-    },
-    {
-        name: "Orders",
-        permissions: [
-            {
-                id: 13,
-                name: "order.view",
-                action: "View",
-            },
-            {
-                id: 14,
-                name: "order.create",
-                action: "Create",
-            },
-            {
-                id: 15,
-                name: "order.edit",
-                action: "Edit",
-            },
-        ],
-    },
-];
+const roleSchema = z.object({
+    name: z.string().trim().min(1, "Name is required"),
+    description: z.string().trim().max(500, "Description must be 500 characters or less"),
+    permission_ids: z.array(z.number()),
+});
 
-export function SettingsAccountRolesSetupForm({ open, onOpenChange}: SettingsAccountRolesSetupFormProps) {
+type RoleFormValues = z.infer<typeof roleSchema>;
+
+export function SettingsAccountRolesSetupForm({
+    open,
+    onOpenChange,
+    role,
+    onSaved,
+}: SettingsAccountRolesSetupFormProps) {
     const [selectedPermissions, setSelectedPermissions] = React.useState<number[]>([]);
-    const [permissions, setPermissions] = React.useState<any[]>([]);
+    const [permissionGroups, setPermissionGroups] = React.useState<PermissionGroup[]>([]);
 
     useEffect(() => {
         const fetchPermissions = async () => {
             const response = await getPermissionsListAction();
 
-            setPermissions(response?.data ?? []);
+            setPermissionGroups(response?.data ?? []);
         };
 
         fetchPermissions();
     }, []);
 
-    console.log(permissions);
+    const {
+        register,
+        handleSubmit,
+        setValue,
+        reset,
+        formState: { errors, isSubmitting },
+    } = useForm<RoleFormValues>({
+        resolver: zodResolver(roleSchema),
+        defaultValues: {
+            name: "",
+            description: "",
+            permission_ids: [],
+        },
+    });
+
+    useEffect(() => {
+        const permissionIds = role?.permissions.map((permission) => permission.id) ?? [];
+        reset({
+            name: role?.name ?? "",
+            description: role?.description ?? "",
+            permission_ids: permissionIds,
+        });
+        setSelectedPermissions(permissionIds);
+    }, [role, open, reset]);
 
     const handlePermissionChange = (permissionId: number, checked: boolean) => {
-        setSelectedPermissions((current) => {
-            if (checked) {
-                return [...current, permissionId];
-            }
+        const nextPermissions = checked
+            ? [...new Set([...selectedPermissions, permissionId])]
+            : selectedPermissions.filter((id) => id !== permissionId);
 
-            return current.filter((id) => id !== permissionId);
-        });
+        setSelectedPermissions(nextPermissions);
+        setValue("permission_ids", nextPermissions, { shouldValidate: true });
     };
 
-    const handleSaveRole = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
+    const onSubmit = async (data: RoleFormValues) => {
+        const toastId = toast.loading("Saving role...");
 
-        const formData = new FormData(event.currentTarget);
+        try {
+            const response = await saveUpdateRoleAction({
+                ...data,
+                ...(role ? { role_id: role.id } : {}),
+            });
 
-        const roleData = {
-            name: formData.get("role_name"),
-            description: formData.get("description"),
-            permissions: selectedPermissions,
-        };
+            if (!response?.success) {
+                throw new Error(response?.message || "Unable to save role.");
+            }
 
-        // console.log("Role data:", roleData);
-
-        // API call will go here later.
+            reset();
+            setSelectedPermissions([]);
+            toast.success(response?.message, { id: toastId });
+            onOpenChange(false);
+            await onSaved();
+        } catch (error) {
+            toast.error(error instanceof Error ? error.message : "Something went wrong.", {
+                id: toastId,
+            });
+        }
     };
 
     return (
+
         <Dialog open={open} onOpenChange={onOpenChange}>
-            <DialogContent className="sm:max-w-2xl max-h-[90vh] overflow-y-auto">
-                <form onSubmit={handleSaveRole}>
-                    <DialogHeader>
-                        <DialogTitle>Create Role</DialogTitle>
 
-                        <DialogDescription>
-                            Create a new role with custom permissions
-                        </DialogDescription>
-                    </DialogHeader>
+            <DialogContent className={'min-w-xl'}>
+                <DialogHeader >
+                    <DialogTitle>{role ? "Edit Role" : "Create Role"}</DialogTitle>
 
-                    <div className="space-y-6 py-6">
+                    <DialogDescription>
+                        {role
+                            ? "Update this role and its permissions"
+                            : "Create a new role with custom permissions"}
+                    </DialogDescription>
+                </DialogHeader>
+                <form
+                    id="role-setup-form"
+                    className={'-mx-4 max-h-[70vh] overflow-y-auto px-4'}
+                    onSubmit={handleSubmit(onSubmit)}
+                >
+                    <div className="space-y-6 py-4">
                         <div className="space-y-2">
-                            <Label htmlFor="role_name">
+                            <Label htmlFor="name">
                                 Role Name
                             </Label>
 
                             <Input
-                                id="role_name"
-                                name="role_name"
+                                id="name"
+                                {...register("name")}
                                 placeholder="e.g. Content Editor"
-                                required
                             />
+                            {errors.name && (
+                                <span className="text-sm text-destructive">
+                                    {errors.name.message}
+                                </span>
+                            )}
                         </div>
 
                         <div className="space-y-2">
@@ -204,10 +170,15 @@ export function SettingsAccountRolesSetupForm({ open, onOpenChange}: SettingsAcc
 
                             <Textarea
                                 id="description"
-                                name="description"
+                                {...register("description")}
                                 placeholder="Describe what this role is responsible for..."
                                 rows={3}
                             />
+                            {errors.description && (
+                                <span className="text-sm text-destructive">
+                                    {errors.description.message}
+                                </span>
+                            )}
                         </div>
 
                         <Separator />
@@ -262,7 +233,7 @@ export function SettingsAccountRolesSetupForm({ open, onOpenChange}: SettingsAcc
                                                 <div className="border-t px-4 py-3">
                                                     <div className="grid gap-3">
                                                         {group.permissions.map(
-                                                            (permission:Permission) => (
+                                                            (permission) => (
                                                                 <div key={permission.id} className="flex items-center gap-3" >
                                                                     <Checkbox
                                                                         id={`permission-${permission.id}`}
@@ -290,24 +261,29 @@ export function SettingsAccountRolesSetupForm({ open, onOpenChange}: SettingsAcc
                                     );
                                 })}
                             </div>
+                            {errors.permission_ids && (
+                                <span className="text-sm text-destructive">
+                                    {errors.permission_ids.message}
+                                </span>
+                            )}
                         </div>
                     </div>
 
-                    <DialogFooter>
-                        <Button
-                            type="button"
-                            variant="outline"
-                            onClick={() => onOpenChange(false)}
-                        >
-                            Cancel
-                        </Button>
-
-                        <Button type="submit">
-                            <Save />
-                            Create Role
-                        </Button>
-                    </DialogFooter>
                 </form>
+                <DialogFooter >
+                    <Button
+                        type="button"
+                        variant="outline"
+                        onClick={() => onOpenChange(false)}
+                    >
+                        Cancel
+                    </Button>
+
+                    <Button type="submit" form="role-setup-form" disabled={isSubmitting}>
+                        <Save />
+                        {isSubmitting ? "Saving..." : role ? "Save Changes" : "Create Role"}
+                    </Button>
+                </DialogFooter>
             </DialogContent>
         </Dialog>
     );

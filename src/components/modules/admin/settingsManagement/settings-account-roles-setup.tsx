@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
     TabsContent,
     Card,
@@ -10,49 +10,51 @@ import {
     CardTitle,
     Button,
     Badge,
-    Separator, TooltipTrigger, CollapsibleTrigger, TooltipContent, Tooltip,
+    Separator, TooltipTrigger, TooltipContent, Tooltip,
 } from "@/components/ui";
 
 import {
     Shield,
     Plus,
     Pencil,
-    Lock, ShieldCheck,
+    Lock,
 } from "lucide-react";
+import { getRolesListAction } from "@/actions";
 import {SettingsAccountRolesSetupForm} from "@/components/modules/admin";
 
-const roles = [
-    {
-        name: "Content Editor",
-        description: "Access to pages, widgets, media, and content settings.",
-        permissions: 16,
-        system: true,
-    },
-    {
-        name: "Product Specialist",
-        description:
-            "Full access to products, categories, collections, and attributes.",
-        permissions: 24,
-        system: true,
-    },
-    {
-        name: "Sales Representative",
-        description:
-            "Access to orders, customers, and product viewing.",
-        permissions: 16,
-        system: true,
-    },
-];
+type Role = {
+    id: number;
+    name: string;
+    description: string | null;
+    permissions: { id: number; name: string }[];
+};
 
 export function SettingsAccountRolesSetup({ activeTab }:{ activeTab: string }) {
     const [roleDialogOpen, setRoleDialogOpen] = React.useState(false);
+    const [roles, setRoles] = useState<Role[]>([]);
+    const [selectedRole, setSelectedRole] = useState<Role | null>(null);
+
+    const fetchRoles = useCallback(async () => {
+        const response = await getRolesListAction();
+        console.log(response);
+        setRoles(response?.data ?? []);
+    }, []);
+
+    useEffect(() => {
+        if(roles.length === 0 ) {
+            // eslint-disable-next-line react-hooks/set-state-in-effect
+            void fetchRoles();
+        }
+    }, [fetchRoles, roles]);
 
     const handleCreateRole = () => {
+        setSelectedRole(null);
         setRoleDialogOpen(true);
     };
-    const handleEditRole = (role: string) => {
+
+    const handleEditRole = (role: Role) => {
+        setSelectedRole(role);
         setRoleDialogOpen(true);
-        console.log("Edit role:", role);
     };
 
     return (
@@ -60,6 +62,8 @@ export function SettingsAccountRolesSetup({ activeTab }:{ activeTab: string }) {
             <SettingsAccountRolesSetupForm
                 open={roleDialogOpen}
                 onOpenChange={setRoleDialogOpen}
+                role={selectedRole}
+                onSaved={fetchRoles}
             />
 
             <TabsContent value={activeTab}>
@@ -96,7 +100,7 @@ export function SettingsAccountRolesSetup({ activeTab }:{ activeTab: string }) {
                                                 {role.name}
                                             </h3>
 
-                                            {role.system && (
+                                            {role.id === 1 && (
                                                 <Badge variant="secondary">
                                                     <Lock />
                                                     System
@@ -109,7 +113,7 @@ export function SettingsAccountRolesSetup({ activeTab }:{ activeTab: string }) {
                                         </p>
 
                                         <p className="text-sm text-muted-foreground">
-                                            {role.permissions} permissions
+                                            {role.permissions.length} permissions
                                         </p>
                                     </div>
 
@@ -118,9 +122,8 @@ export function SettingsAccountRolesSetup({ activeTab }:{ activeTab: string }) {
                                             <Button
                                                 variant="ghost"
                                                 size="icon"
-                                                onClick={() =>
-                                                    handleEditRole(role.name)
-                                                }
+                                                onClick={() => handleEditRole(role)}
+                                                disabled={role.id === 1}
                                                 aria-label={`Edit ${role.name}`}
                                             >
                                                 <Pencil />
