@@ -1,28 +1,10 @@
-import {SettingsAccountSetup} from "@/components/modules/admin";
-import {getPermissionsListAction} from "@/actions";
+import SettingsAccountSetup from "@/components/modules/admin/settingsManagement/settings-account-setup";
 
-type AccountPageProps = {
-    searchParams: Promise<{
-        section?: string;
-    }>;
-};
+async function AccountPage() {
 
-async function AccountPage({searchParams}: AccountPageProps) {
-    const params = await searchParams;
-
-    const section = params.section || "profile";
-
-    // let permissions: any[] = [];
-    //
-    // if (section === "roles") {
-    //     const response = await getPermissionsListAction();
-    //     permissions = response?.data ?? [];
-    // }
 
     return (
-        <SettingsAccountSetup
-            section={section}
-        />
+        <SettingsAccountSetup/>
     );
 }
 
